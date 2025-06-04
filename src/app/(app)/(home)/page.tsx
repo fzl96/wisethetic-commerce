@@ -1,3 +1,12 @@
-export default function Homepage() {
-  return <div></div>;
+import { getQueryClient, trpc } from "@/trpc/server";
+
+export default async function Homepage() {
+  const queryClient = getQueryClient()
+  const categories = await queryClient.fetchQuery(trpc.categories.getMany.queryOptions())
+
+  return (
+    <div>
+      {JSON.stringify(categories, null, 2)}
+    </div>
+  )
 }
