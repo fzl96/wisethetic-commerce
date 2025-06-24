@@ -9,9 +9,6 @@ import data from "./data.json";
 import { getUser } from "@/server/user";
 
 export default async function Page() {
-  const user = await getUser();
-  console.log(user);
-
   return (
     <SidebarProvider
       style={
