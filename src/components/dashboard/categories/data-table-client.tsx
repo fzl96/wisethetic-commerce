@@ -69,6 +69,13 @@ export const schema = z.object({
 
 const columns: ColumnDef<z.infer<typeof schema>>[] = [
   {
+    accessorKey: "id",
+    header: "",
+    cell: () => {
+      return <div></div>;
+    },
+  },
+  {
     accessorKey: "name",
     header: "Name",
     cell: ({ row }) => {
