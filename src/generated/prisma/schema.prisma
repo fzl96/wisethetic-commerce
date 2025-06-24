@@ -24,6 +24,7 @@ model User {
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
+  studio        Studio?
 
   @@unique([email])
   @@map("user")
@@ -72,4 +73,71 @@ model Verification {
   updatedAt  DateTime?
 
   @@map("verification")
+}
+
+model Studio {
+  id          String  @id
+  name        String  @unique
+  description String?
+  image       String?
+  banner      String?
+  email       String
+  phoneNumber String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  categories Category[]
+  locations  Location[]
+  packages   Package[]
+}
+
+model Location {
+  id      String  @id
+  name    String
+  address String
+  link    String?
+
+  studioId String
+  studio   Studio @relation(fields: [studioId], references: [id], onDelete: Cascade)
+
+  packages Package[]
+
+  @@unique([studioId, name])
+}
+
+model Category {
+  id          String  @id
+  name        String  @unique
+  description String?
+  image       String?
+
+  studioId String
+  studio   Studio @relation(fields: [studioId], references: [id], onDelete: Cascade)
+
+  packages Package[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([studioId, name])
+}
+
+model Package {
+  id          String  @id
+  name        String
+  description String?
+  price       Int
+  image       String?
+
+  studioId String
+  studio   Studio @relation(fields: [studioId], references: [id], onDelete: Cascade)
+
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  locations Location[]
 }
