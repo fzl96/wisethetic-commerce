@@ -76,7 +76,7 @@ model Verification {
 }
 
 model Studio {
-  id          String  @id
+  id          String  @id @default(cuid())
   name        String  @unique
   description String?
   image       String?
@@ -96,7 +96,7 @@ model Studio {
 }
 
 model Location {
-  id      String  @id
+  id      String  @id @default(cuid())
   name    String
   address String
   link    String?
@@ -110,7 +110,7 @@ model Location {
 }
 
 model Category {
-  id          String  @id
+  id          String  @id @default(cuid())
   name        String  @unique
   description String?
   image       String?
@@ -127,7 +127,7 @@ model Category {
 }
 
 model Package {
-  id          String  @id
+  id          String  @id @default(cuid())
   name        String
   description String?
   price       Int

@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { getCategoriesPage } from "@/lib/queries/category.queries";
 import { DataTable } from "./data-table-client";
 
 interface Props {
@@ -14,14 +15,25 @@ export async function CategoriesDataTable({ studioId, page }: Props) {
     where: {
       studioId: studioId,
     },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      createdAt: true,
+      updatedAt: true,
+      studioId: true,
+    },
   });
+  const totalPages = await getCategoriesPage(studioId);
 
   return (
     <div>
-      <DataTable data={categories} />
-      {/* <pre> */}
-      {/*   <code>{JSON.stringify(categories, null, 2)}</code> */}
-      {/* </pre> */}
+      <DataTable
+        data={categories}
+        studioId={studioId}
+        totalPages={totalPages}
+        page={page}
+      />
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { CategoriesDataTable } from "@/components/dashboard/categories/data-table";
 import { redirect } from "next/navigation";
 import { getStudioId } from "@/server/user";
@@ -16,7 +17,9 @@ export default async function CategoriesPage({
   return (
     <div className="px-4 lg:px-6">
       <h1>Categories Page</h1>
-      <CategoriesDataTable studioId={studio.id} page={page} />
+      <Suspense fallback={<p>Loading...</p>}>
+        <CategoriesDataTable studioId={studio.id} page={page} />
+      </Suspense>
     </div>
   );
 }

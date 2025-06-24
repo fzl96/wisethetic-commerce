@@ -11804,7 +11804,7 @@ export namespace Prisma {
   }
 
   export type StudioCreateInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     image?: string | null
@@ -11820,7 +11820,7 @@ export namespace Prisma {
   }
 
   export type StudioUncheckedCreateInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     image?: string | null
@@ -11868,7 +11868,7 @@ export namespace Prisma {
   }
 
   export type StudioCreateManyInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     image?: string | null
@@ -11906,7 +11906,7 @@ export namespace Prisma {
   }
 
   export type LocationCreateInput = {
-    id: string
+    id?: string
     name: string
     address: string
     link?: string | null
@@ -11915,7 +11915,7 @@ export namespace Prisma {
   }
 
   export type LocationUncheckedCreateInput = {
-    id: string
+    id?: string
     name: string
     address: string
     link?: string | null
@@ -11942,7 +11942,7 @@ export namespace Prisma {
   }
 
   export type LocationCreateManyInput = {
-    id: string
+    id?: string
     name: string
     address: string
     link?: string | null
@@ -11965,7 +11965,7 @@ export namespace Prisma {
   }
 
   export type CategoryCreateInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     image?: string | null
@@ -11976,7 +11976,7 @@ export namespace Prisma {
   }
 
   export type CategoryUncheckedCreateInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     image?: string | null
@@ -12009,7 +12009,7 @@ export namespace Prisma {
   }
 
   export type CategoryCreateManyInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     image?: string | null
@@ -12038,7 +12038,7 @@ export namespace Prisma {
   }
 
   export type PackageCreateInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     price: number
@@ -12049,7 +12049,7 @@ export namespace Prisma {
   }
 
   export type PackageUncheckedCreateInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     price: number
@@ -12082,7 +12082,7 @@ export namespace Prisma {
   }
 
   export type PackageCreateManyInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     price: number
@@ -13350,7 +13350,7 @@ export namespace Prisma {
   }
 
   export type StudioCreateWithoutUserInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     image?: string | null
@@ -13365,7 +13365,7 @@ export namespace Prisma {
   }
 
   export type StudioUncheckedCreateWithoutUserInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     image?: string | null
@@ -13648,7 +13648,7 @@ export namespace Prisma {
   }
 
   export type CategoryCreateWithoutStudioInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     image?: string | null
@@ -13658,7 +13658,7 @@ export namespace Prisma {
   }
 
   export type CategoryUncheckedCreateWithoutStudioInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     image?: string | null
@@ -13678,7 +13678,7 @@ export namespace Prisma {
   }
 
   export type LocationCreateWithoutStudioInput = {
-    id: string
+    id?: string
     name: string
     address: string
     link?: string | null
@@ -13686,7 +13686,7 @@ export namespace Prisma {
   }
 
   export type LocationUncheckedCreateWithoutStudioInput = {
-    id: string
+    id?: string
     name: string
     address: string
     link?: string | null
@@ -13704,7 +13704,7 @@ export namespace Prisma {
   }
 
   export type PackageCreateWithoutStudioInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     price: number
@@ -13714,7 +13714,7 @@ export namespace Prisma {
   }
 
   export type PackageUncheckedCreateWithoutStudioInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     price: number
@@ -13854,7 +13854,7 @@ export namespace Prisma {
   }
 
   export type StudioCreateWithoutLocationsInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     image?: string | null
@@ -13869,7 +13869,7 @@ export namespace Prisma {
   }
 
   export type StudioUncheckedCreateWithoutLocationsInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     image?: string | null
@@ -13889,7 +13889,7 @@ export namespace Prisma {
   }
 
   export type PackageCreateWithoutLocationsInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     price: number
@@ -13899,7 +13899,7 @@ export namespace Prisma {
   }
 
   export type PackageUncheckedCreateWithoutLocationsInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     price: number
@@ -13971,7 +13971,7 @@ export namespace Prisma {
   }
 
   export type StudioCreateWithoutCategoriesInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     image?: string | null
@@ -13986,7 +13986,7 @@ export namespace Prisma {
   }
 
   export type StudioUncheckedCreateWithoutCategoriesInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     image?: string | null
@@ -14006,7 +14006,7 @@ export namespace Prisma {
   }
 
   export type PackageCreateWithoutCategoryInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     price: number
@@ -14016,7 +14016,7 @@ export namespace Prisma {
   }
 
   export type PackageUncheckedCreateWithoutCategoryInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     price: number
@@ -14093,7 +14093,7 @@ export namespace Prisma {
   }
 
   export type StudioCreateWithoutPackagesInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     image?: string | null
@@ -14108,7 +14108,7 @@ export namespace Prisma {
   }
 
   export type StudioUncheckedCreateWithoutPackagesInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     image?: string | null
@@ -14128,7 +14128,7 @@ export namespace Prisma {
   }
 
   export type CategoryCreateWithoutPackagesInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     image?: string | null
@@ -14138,7 +14138,7 @@ export namespace Prisma {
   }
 
   export type CategoryUncheckedCreateWithoutPackagesInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     image?: string | null
@@ -14153,7 +14153,7 @@ export namespace Prisma {
   }
 
   export type LocationCreateWithoutPackagesInput = {
-    id: string
+    id?: string
     name: string
     address: string
     link?: string | null
@@ -14161,7 +14161,7 @@ export namespace Prisma {
   }
 
   export type LocationUncheckedCreateWithoutPackagesInput = {
-    id: string
+    id?: string
     name: string
     address: string
     link?: string | null
@@ -14362,7 +14362,7 @@ export namespace Prisma {
   }
 
   export type CategoryCreateManyStudioInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     image?: string | null
@@ -14371,14 +14371,14 @@ export namespace Prisma {
   }
 
   export type LocationCreateManyStudioInput = {
-    id: string
+    id?: string
     name: string
     address: string
     link?: string | null
   }
 
   export type PackageCreateManyStudioInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     price: number
@@ -14498,7 +14498,7 @@ export namespace Prisma {
   }
 
   export type PackageCreateManyCategoryInput = {
-    id: string
+    id?: string
     name: string
     description?: string | null
     price: number
