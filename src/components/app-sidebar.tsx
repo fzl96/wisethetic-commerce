@@ -1,4 +1,5 @@
-import { Suspense } from "react";
+import * as React from "react";
+import type { User } from "@/server/user";
 import {
   IconChartBar,
   IconDashboard,
@@ -49,7 +50,11 @@ const data = {
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+interface Props extends React.ComponentProps<typeof Sidebar> {
+  user: User;
+}
+
+export function AppSidebar({ user, ...props }: Props) {
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -71,9 +76,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <Suspense fallback={<div>Loading...</div>}>
-          <NavUser />
-        </Suspense>
+        <React.Suspense fallback={<div>Loading...</div>}>
+          <NavUser user={user} />
+        </React.Suspense>
       </SidebarFooter>
     </Sidebar>
   );
