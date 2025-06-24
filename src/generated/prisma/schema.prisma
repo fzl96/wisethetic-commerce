@@ -101,6 +101,9 @@ model Location {
   address String
   link    String?
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   studioId String
   studio   Studio @relation(fields: [studioId], references: [id], onDelete: Cascade)
 
@@ -132,6 +135,9 @@ model Package {
   description String?
   price       Int
   image       String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   studioId String
   studio   Studio @relation(fields: [studioId], references: [id], onDelete: Cascade)

@@ -7325,6 +7325,8 @@ export namespace Prisma {
     name: string | null
     address: string | null
     link: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
     studioId: string | null
   }
 
@@ -7333,6 +7335,8 @@ export namespace Prisma {
     name: string | null
     address: string | null
     link: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
     studioId: string | null
   }
 
@@ -7341,6 +7345,8 @@ export namespace Prisma {
     name: number
     address: number
     link: number
+    createdAt: number
+    updatedAt: number
     studioId: number
     _all: number
   }
@@ -7351,6 +7357,8 @@ export namespace Prisma {
     name?: true
     address?: true
     link?: true
+    createdAt?: true
+    updatedAt?: true
     studioId?: true
   }
 
@@ -7359,6 +7367,8 @@ export namespace Prisma {
     name?: true
     address?: true
     link?: true
+    createdAt?: true
+    updatedAt?: true
     studioId?: true
   }
 
@@ -7367,6 +7377,8 @@ export namespace Prisma {
     name?: true
     address?: true
     link?: true
+    createdAt?: true
+    updatedAt?: true
     studioId?: true
     _all?: true
   }
@@ -7448,6 +7460,8 @@ export namespace Prisma {
     name: string
     address: string
     link: string | null
+    createdAt: Date
+    updatedAt: Date
     studioId: string
     _count: LocationCountAggregateOutputType | null
     _min: LocationMinAggregateOutputType | null
@@ -7473,6 +7487,8 @@ export namespace Prisma {
     name?: boolean
     address?: boolean
     link?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     studioId?: boolean
     studio?: boolean | StudioDefaultArgs<ExtArgs>
     packages?: boolean | Location$packagesArgs<ExtArgs>
@@ -7484,6 +7500,8 @@ export namespace Prisma {
     name?: boolean
     address?: boolean
     link?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     studioId?: boolean
     studio?: boolean | StudioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["location"]>
@@ -7493,6 +7511,8 @@ export namespace Prisma {
     name?: boolean
     address?: boolean
     link?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     studioId?: boolean
     studio?: boolean | StudioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["location"]>
@@ -7502,10 +7522,12 @@ export namespace Prisma {
     name?: boolean
     address?: boolean
     link?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     studioId?: boolean
   }
 
-  export type LocationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "address" | "link" | "studioId", ExtArgs["result"]["location"]>
+  export type LocationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "address" | "link" | "createdAt" | "updatedAt" | "studioId", ExtArgs["result"]["location"]>
   export type LocationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     studio?: boolean | StudioDefaultArgs<ExtArgs>
     packages?: boolean | Location$packagesArgs<ExtArgs>
@@ -7529,6 +7551,8 @@ export namespace Prisma {
       name: string
       address: string
       link: string | null
+      createdAt: Date
+      updatedAt: Date
       studioId: string
     }, ExtArgs["result"]["location"]>
     composites: {}
@@ -7959,6 +7983,8 @@ export namespace Prisma {
     readonly name: FieldRef<"Location", 'String'>
     readonly address: FieldRef<"Location", 'String'>
     readonly link: FieldRef<"Location", 'String'>
+    readonly createdAt: FieldRef<"Location", 'DateTime'>
+    readonly updatedAt: FieldRef<"Location", 'DateTime'>
     readonly studioId: FieldRef<"Location", 'String'>
   }
     
@@ -9538,6 +9564,8 @@ export namespace Prisma {
     description: string | null
     price: number | null
     image: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
     studioId: string | null
     categoryId: string | null
   }
@@ -9548,6 +9576,8 @@ export namespace Prisma {
     description: string | null
     price: number | null
     image: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
     studioId: string | null
     categoryId: string | null
   }
@@ -9558,6 +9588,8 @@ export namespace Prisma {
     description: number
     price: number
     image: number
+    createdAt: number
+    updatedAt: number
     studioId: number
     categoryId: number
     _all: number
@@ -9578,6 +9610,8 @@ export namespace Prisma {
     description?: true
     price?: true
     image?: true
+    createdAt?: true
+    updatedAt?: true
     studioId?: true
     categoryId?: true
   }
@@ -9588,6 +9622,8 @@ export namespace Prisma {
     description?: true
     price?: true
     image?: true
+    createdAt?: true
+    updatedAt?: true
     studioId?: true
     categoryId?: true
   }
@@ -9598,6 +9634,8 @@ export namespace Prisma {
     description?: true
     price?: true
     image?: true
+    createdAt?: true
+    updatedAt?: true
     studioId?: true
     categoryId?: true
     _all?: true
@@ -9695,6 +9733,8 @@ export namespace Prisma {
     description: string | null
     price: number
     image: string | null
+    createdAt: Date
+    updatedAt: Date
     studioId: string
     categoryId: string
     _count: PackageCountAggregateOutputType | null
@@ -9724,6 +9764,8 @@ export namespace Prisma {
     description?: boolean
     price?: boolean
     image?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     studioId?: boolean
     categoryId?: boolean
     studio?: boolean | StudioDefaultArgs<ExtArgs>
@@ -9738,6 +9780,8 @@ export namespace Prisma {
     description?: boolean
     price?: boolean
     image?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     studioId?: boolean
     categoryId?: boolean
     studio?: boolean | StudioDefaultArgs<ExtArgs>
@@ -9750,6 +9794,8 @@ export namespace Prisma {
     description?: boolean
     price?: boolean
     image?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     studioId?: boolean
     categoryId?: boolean
     studio?: boolean | StudioDefaultArgs<ExtArgs>
@@ -9762,11 +9808,13 @@ export namespace Prisma {
     description?: boolean
     price?: boolean
     image?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     studioId?: boolean
     categoryId?: boolean
   }
 
-  export type PackageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "price" | "image" | "studioId" | "categoryId", ExtArgs["result"]["package"]>
+  export type PackageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "price" | "image" | "createdAt" | "updatedAt" | "studioId" | "categoryId", ExtArgs["result"]["package"]>
   export type PackageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     studio?: boolean | StudioDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
@@ -9795,6 +9843,8 @@ export namespace Prisma {
       description: string | null
       price: number
       image: string | null
+      createdAt: Date
+      updatedAt: Date
       studioId: string
       categoryId: string
     }, ExtArgs["result"]["package"]>
@@ -10228,6 +10278,8 @@ export namespace Prisma {
     readonly description: FieldRef<"Package", 'String'>
     readonly price: FieldRef<"Package", 'Int'>
     readonly image: FieldRef<"Package", 'String'>
+    readonly createdAt: FieldRef<"Package", 'DateTime'>
+    readonly updatedAt: FieldRef<"Package", 'DateTime'>
     readonly studioId: FieldRef<"Package", 'String'>
     readonly categoryId: FieldRef<"Package", 'String'>
   }
@@ -10761,6 +10813,8 @@ export namespace Prisma {
     name: 'name',
     address: 'address',
     link: 'link',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
     studioId: 'studioId'
   };
 
@@ -10786,6 +10840,8 @@ export namespace Prisma {
     description: 'description',
     price: 'price',
     image: 'image',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
     studioId: 'studioId',
     categoryId: 'categoryId'
   };
@@ -11278,6 +11334,8 @@ export namespace Prisma {
     name?: StringFilter<"Location"> | string
     address?: StringFilter<"Location"> | string
     link?: StringNullableFilter<"Location"> | string | null
+    createdAt?: DateTimeFilter<"Location"> | Date | string
+    updatedAt?: DateTimeFilter<"Location"> | Date | string
     studioId?: StringFilter<"Location"> | string
     studio?: XOR<StudioScalarRelationFilter, StudioWhereInput>
     packages?: PackageListRelationFilter
@@ -11288,6 +11346,8 @@ export namespace Prisma {
     name?: SortOrder
     address?: SortOrder
     link?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     studioId?: SortOrder
     studio?: StudioOrderByWithRelationInput
     packages?: PackageOrderByRelationAggregateInput
@@ -11302,6 +11362,8 @@ export namespace Prisma {
     name?: StringFilter<"Location"> | string
     address?: StringFilter<"Location"> | string
     link?: StringNullableFilter<"Location"> | string | null
+    createdAt?: DateTimeFilter<"Location"> | Date | string
+    updatedAt?: DateTimeFilter<"Location"> | Date | string
     studioId?: StringFilter<"Location"> | string
     studio?: XOR<StudioScalarRelationFilter, StudioWhereInput>
     packages?: PackageListRelationFilter
@@ -11312,6 +11374,8 @@ export namespace Prisma {
     name?: SortOrder
     address?: SortOrder
     link?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     studioId?: SortOrder
     _count?: LocationCountOrderByAggregateInput
     _max?: LocationMaxOrderByAggregateInput
@@ -11326,6 +11390,8 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Location"> | string
     address?: StringWithAggregatesFilter<"Location"> | string
     link?: StringNullableWithAggregatesFilter<"Location"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Location"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Location"> | Date | string
     studioId?: StringWithAggregatesFilter<"Location"> | string
   }
 
@@ -11407,6 +11473,8 @@ export namespace Prisma {
     description?: StringNullableFilter<"Package"> | string | null
     price?: IntFilter<"Package"> | number
     image?: StringNullableFilter<"Package"> | string | null
+    createdAt?: DateTimeFilter<"Package"> | Date | string
+    updatedAt?: DateTimeFilter<"Package"> | Date | string
     studioId?: StringFilter<"Package"> | string
     categoryId?: StringFilter<"Package"> | string
     studio?: XOR<StudioScalarRelationFilter, StudioWhereInput>
@@ -11420,6 +11488,8 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     price?: SortOrder
     image?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     studioId?: SortOrder
     categoryId?: SortOrder
     studio?: StudioOrderByWithRelationInput
@@ -11436,6 +11506,8 @@ export namespace Prisma {
     description?: StringNullableFilter<"Package"> | string | null
     price?: IntFilter<"Package"> | number
     image?: StringNullableFilter<"Package"> | string | null
+    createdAt?: DateTimeFilter<"Package"> | Date | string
+    updatedAt?: DateTimeFilter<"Package"> | Date | string
     studioId?: StringFilter<"Package"> | string
     categoryId?: StringFilter<"Package"> | string
     studio?: XOR<StudioScalarRelationFilter, StudioWhereInput>
@@ -11449,6 +11521,8 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     price?: SortOrder
     image?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     studioId?: SortOrder
     categoryId?: SortOrder
     _count?: PackageCountOrderByAggregateInput
@@ -11467,6 +11541,8 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"Package"> | string | null
     price?: IntWithAggregatesFilter<"Package"> | number
     image?: StringNullableWithAggregatesFilter<"Package"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Package"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Package"> | Date | string
     studioId?: StringWithAggregatesFilter<"Package"> | string
     categoryId?: StringWithAggregatesFilter<"Package"> | string
   }
@@ -11910,6 +11986,8 @@ export namespace Prisma {
     name: string
     address: string
     link?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     studio: StudioCreateNestedOneWithoutLocationsInput
     packages?: PackageCreateNestedManyWithoutLocationsInput
   }
@@ -11919,6 +11997,8 @@ export namespace Prisma {
     name: string
     address: string
     link?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     studioId: string
     packages?: PackageUncheckedCreateNestedManyWithoutLocationsInput
   }
@@ -11928,6 +12008,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     link?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studio?: StudioUpdateOneRequiredWithoutLocationsNestedInput
     packages?: PackageUpdateManyWithoutLocationsNestedInput
   }
@@ -11937,6 +12019,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     link?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studioId?: StringFieldUpdateOperationsInput | string
     packages?: PackageUncheckedUpdateManyWithoutLocationsNestedInput
   }
@@ -11946,6 +12030,8 @@ export namespace Prisma {
     name: string
     address: string
     link?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     studioId: string
   }
 
@@ -11954,6 +12040,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     link?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LocationUncheckedUpdateManyInput = {
@@ -11961,6 +12049,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     link?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studioId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -12043,6 +12133,8 @@ export namespace Prisma {
     description?: string | null
     price: number
     image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     studio: StudioCreateNestedOneWithoutPackagesInput
     category: CategoryCreateNestedOneWithoutPackagesInput
     locations?: LocationCreateNestedManyWithoutPackagesInput
@@ -12054,6 +12146,8 @@ export namespace Prisma {
     description?: string | null
     price: number
     image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     studioId: string
     categoryId: string
     locations?: LocationUncheckedCreateNestedManyWithoutPackagesInput
@@ -12065,6 +12159,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studio?: StudioUpdateOneRequiredWithoutPackagesNestedInput
     category?: CategoryUpdateOneRequiredWithoutPackagesNestedInput
     locations?: LocationUpdateManyWithoutPackagesNestedInput
@@ -12076,6 +12172,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studioId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     locations?: LocationUncheckedUpdateManyWithoutPackagesNestedInput
@@ -12087,6 +12185,8 @@ export namespace Prisma {
     description?: string | null
     price: number
     image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     studioId: string
     categoryId: string
   }
@@ -12097,6 +12197,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PackageUncheckedUpdateManyInput = {
@@ -12105,6 +12207,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studioId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
   }
@@ -12495,6 +12599,8 @@ export namespace Prisma {
     name?: SortOrder
     address?: SortOrder
     link?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     studioId?: SortOrder
   }
 
@@ -12503,6 +12609,8 @@ export namespace Prisma {
     name?: SortOrder
     address?: SortOrder
     link?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     studioId?: SortOrder
   }
 
@@ -12511,6 +12619,8 @@ export namespace Prisma {
     name?: SortOrder
     address?: SortOrder
     link?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     studioId?: SortOrder
   }
 
@@ -12571,6 +12681,8 @@ export namespace Prisma {
     description?: SortOrder
     price?: SortOrder
     image?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     studioId?: SortOrder
     categoryId?: SortOrder
   }
@@ -12585,6 +12697,8 @@ export namespace Prisma {
     description?: SortOrder
     price?: SortOrder
     image?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     studioId?: SortOrder
     categoryId?: SortOrder
   }
@@ -12595,6 +12709,8 @@ export namespace Prisma {
     description?: SortOrder
     price?: SortOrder
     image?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     studioId?: SortOrder
     categoryId?: SortOrder
   }
@@ -13682,6 +13798,8 @@ export namespace Prisma {
     name: string
     address: string
     link?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     packages?: PackageCreateNestedManyWithoutLocationsInput
   }
 
@@ -13690,6 +13808,8 @@ export namespace Prisma {
     name: string
     address: string
     link?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     packages?: PackageUncheckedCreateNestedManyWithoutLocationsInput
   }
 
@@ -13709,6 +13829,8 @@ export namespace Prisma {
     description?: string | null
     price: number
     image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     category: CategoryCreateNestedOneWithoutPackagesInput
     locations?: LocationCreateNestedManyWithoutPackagesInput
   }
@@ -13719,6 +13841,8 @@ export namespace Prisma {
     description?: string | null
     price: number
     image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     categoryId: string
     locations?: LocationUncheckedCreateNestedManyWithoutPackagesInput
   }
@@ -13821,6 +13945,8 @@ export namespace Prisma {
     name?: StringFilter<"Location"> | string
     address?: StringFilter<"Location"> | string
     link?: StringNullableFilter<"Location"> | string | null
+    createdAt?: DateTimeFilter<"Location"> | Date | string
+    updatedAt?: DateTimeFilter<"Location"> | Date | string
     studioId?: StringFilter<"Location"> | string
   }
 
@@ -13849,6 +13975,8 @@ export namespace Prisma {
     description?: StringNullableFilter<"Package"> | string | null
     price?: IntFilter<"Package"> | number
     image?: StringNullableFilter<"Package"> | string | null
+    createdAt?: DateTimeFilter<"Package"> | Date | string
+    updatedAt?: DateTimeFilter<"Package"> | Date | string
     studioId?: StringFilter<"Package"> | string
     categoryId?: StringFilter<"Package"> | string
   }
@@ -13894,6 +14022,8 @@ export namespace Prisma {
     description?: string | null
     price: number
     image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     studio: StudioCreateNestedOneWithoutPackagesInput
     category: CategoryCreateNestedOneWithoutPackagesInput
   }
@@ -13904,6 +14034,8 @@ export namespace Prisma {
     description?: string | null
     price: number
     image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     studioId: string
     categoryId: string
   }
@@ -14011,6 +14143,8 @@ export namespace Prisma {
     description?: string | null
     price: number
     image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     studio: StudioCreateNestedOneWithoutPackagesInput
     locations?: LocationCreateNestedManyWithoutPackagesInput
   }
@@ -14021,6 +14155,8 @@ export namespace Prisma {
     description?: string | null
     price: number
     image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     studioId: string
     locations?: LocationUncheckedCreateNestedManyWithoutPackagesInput
   }
@@ -14157,6 +14293,8 @@ export namespace Prisma {
     name: string
     address: string
     link?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     studio: StudioCreateNestedOneWithoutLocationsInput
   }
 
@@ -14165,6 +14303,8 @@ export namespace Prisma {
     name: string
     address: string
     link?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     studioId: string
   }
 
@@ -14375,6 +14515,8 @@ export namespace Prisma {
     name: string
     address: string
     link?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type PackageCreateManyStudioInput = {
@@ -14383,6 +14525,8 @@ export namespace Prisma {
     description?: string | null
     price: number
     image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     categoryId: string
   }
 
@@ -14420,6 +14564,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     link?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     packages?: PackageUpdateManyWithoutLocationsNestedInput
   }
 
@@ -14428,6 +14574,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     link?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     packages?: PackageUncheckedUpdateManyWithoutLocationsNestedInput
   }
 
@@ -14436,6 +14584,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     link?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PackageUpdateWithoutStudioInput = {
@@ -14444,6 +14594,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: CategoryUpdateOneRequiredWithoutPackagesNestedInput
     locations?: LocationUpdateManyWithoutPackagesNestedInput
   }
@@ -14454,6 +14606,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categoryId?: StringFieldUpdateOperationsInput | string
     locations?: LocationUncheckedUpdateManyWithoutPackagesNestedInput
   }
@@ -14464,6 +14618,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categoryId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -14473,6 +14629,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studio?: StudioUpdateOneRequiredWithoutPackagesNestedInput
     category?: CategoryUpdateOneRequiredWithoutPackagesNestedInput
   }
@@ -14483,6 +14641,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studioId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
   }
@@ -14493,6 +14653,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studioId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
   }
@@ -14503,6 +14665,8 @@ export namespace Prisma {
     description?: string | null
     price: number
     image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     studioId: string
   }
 
@@ -14512,6 +14676,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studio?: StudioUpdateOneRequiredWithoutPackagesNestedInput
     locations?: LocationUpdateManyWithoutPackagesNestedInput
   }
@@ -14522,6 +14688,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studioId?: StringFieldUpdateOperationsInput | string
     locations?: LocationUncheckedUpdateManyWithoutPackagesNestedInput
   }
@@ -14532,6 +14700,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: IntFieldUpdateOperationsInput | number
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studioId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -14540,6 +14710,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     link?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studio?: StudioUpdateOneRequiredWithoutLocationsNestedInput
   }
 
@@ -14548,6 +14720,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     link?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studioId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -14556,6 +14730,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     link?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studioId?: StringFieldUpdateOperationsInput | string
   }
 

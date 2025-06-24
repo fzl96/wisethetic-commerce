@@ -38,6 +38,11 @@ const data = {
       icon: IconListDetails,
     },
     {
+      title: "Locations",
+      url: "/dashboard/locations",
+      icon: IconListDetails,
+    },
+    {
       title: "Packages",
       url: "/dashboard/packages",
       icon: IconChartBar,

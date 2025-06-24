@@ -184,6 +184,8 @@ exports.Prisma.LocationScalarFieldEnum = {
   name: 'name',
   address: 'address',
   link: 'link',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
   studioId: 'studioId'
 };
 
@@ -203,6 +205,8 @@ exports.Prisma.PackageScalarFieldEnum = {
   description: 'description',
   price: 'price',
   image: 'image',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
   studioId: 'studioId',
   categoryId: 'categoryId'
 };
