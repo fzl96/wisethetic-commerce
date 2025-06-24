@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import * as React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 // import { format } from "date-fns";
@@ -10,6 +11,7 @@ import {
   IconChevronsRight,
   IconDotsVertical,
   IconPlus,
+  IconLocation,
 } from "@tabler/icons-react";
 import {
   ColumnDef,
@@ -39,6 +41,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -77,15 +80,21 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     accessorKey: "link",
     header: "Link",
     cell: ({ row }) => (
-      <div className="lg:w-32">
+      <>
         {row.original.link ? (
-          <a href={row.original.link} target="_blank">
-            Open maps
-          </a>
+          <Link href={row.original.link} target="_blank">
+            <Badge
+              variant="outline"
+              className="text-muted-foreground px-1.5 flex items-center"
+            >
+              <IconLocation className="" />
+              Open maps
+            </Badge>
+          </Link>
         ) : (
-          "#"
+          "No link provided"
         )}
-      </div>
+      </>
     ),
   },
   // {

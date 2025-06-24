@@ -29,6 +29,11 @@ export function CreateLocationForm({
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      address: "",
+      link: "",
+    },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {

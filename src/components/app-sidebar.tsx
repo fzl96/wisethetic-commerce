@@ -6,6 +6,7 @@ import {
   IconInnerShadowTop,
   IconListDetails,
   IconSettings,
+  IconMapPin,
 } from "@tabler/icons-react";
 
 import { NavMain } from "@/components/nav-main";
@@ -40,7 +41,7 @@ const data = {
     {
       title: "Locations",
       url: "/dashboard/locations",
-      icon: IconListDetails,
+      icon: IconMapPin,
     },
     {
       title: "Packages",
