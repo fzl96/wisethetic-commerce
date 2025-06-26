@@ -13,3 +13,11 @@ export async function getCategoriesPage(studioId: string) {
 
   return totalPages;
 }
+
+export async function getAllCategories(studioId: string) {
+  return await prisma.category.findMany({
+    where: {
+      studioId,
+    },
+  });
+}
