@@ -23,8 +23,8 @@ export const packageSchema = z.object({
 
 export const createPackageSchema = z.object({
   name: z.string().min(3, { message: "Name must be atleast 3 characters" }),
-  description: z.string(),
-  price: z.number(),
+  description: z.string().nullish(),
+  price: z.coerce.number(),
   image: z.string().nullish(),
   studioId: z.string(),
   categoryId: z.string(),
@@ -33,7 +33,7 @@ export const createPackageSchema = z.object({
 
 export const updatePackageSchema = z.object({
   name: z.string().min(3, { message: "Name must be atleast 3 characters" }),
-  description: z.string(),
+  description: z.string().nullish(),
   price: z.number(),
   image: z.string().nullish(),
   studioId: z.string(),

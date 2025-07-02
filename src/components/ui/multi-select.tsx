@@ -35,7 +35,7 @@ interface MultiSelectContextProps {
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
   activeIndex: number;
   setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
-  ref: React.RefObject<HTMLInputElement>;
+  ref: React.RefObject<HTMLInputElement | null>;
   handleSelect: (e: React.SyntheticEvent<HTMLInputElement>) => void;
 }
 
@@ -217,14 +217,20 @@ const MultiSelector = ({
 
 const MultiSelectorTrigger = forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, children, ...props }, ref) => {
+  React.HTMLAttributes<HTMLDivElement> & {
+    options: { id: string; name: string }[];
+  }
+>(({ className, options, ...props }, ref) => {
   const { value, onValueChange, activeIndex } = useMultiSelect();
 
   const mousePreventDefault = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
   }, []);
+
+  const getNameFromId = (id: string) => {
+    return options.find((opt) => opt.id === id)?.name ?? id;
+  };
 
   return (
     <div
@@ -247,7 +253,7 @@ const MultiSelectorTrigger = forwardRef<
           )}
           variant={"secondary"}
         >
-          <span className="text-xs">{item}</span>
+          <span className="text-xs">{getNameFromId(item)}</span>
           <button
             aria-label={`Remove ${item} option`}
             aria-roledescription="button to remove option"
@@ -260,7 +266,7 @@ const MultiSelectorTrigger = forwardRef<
           </button>
         </Badge>
       ))}
-      {children}
+      {props.children}
     </div>
   );
 });
@@ -268,7 +274,7 @@ const MultiSelectorTrigger = forwardRef<
 MultiSelectorTrigger.displayName = "MultiSelectorTrigger";
 
 const MultiSelectorInput = forwardRef<
-  React.ElementRef<typeof CommandPrimitive.Input>,
+  React.ComponentRef<typeof CommandPrimitive.Input>,
   React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>
 >(({ className, ...props }, ref) => {
   const {
@@ -318,7 +324,7 @@ const MultiSelectorContent = forwardRef<
 MultiSelectorContent.displayName = "MultiSelectorContent";
 
 const MultiSelectorList = forwardRef<
-  React.ElementRef<typeof CommandPrimitive.List>,
+  React.ComponentRef<typeof CommandPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof CommandPrimitive.List>
 >(({ className, children }, ref) => {
   return (
@@ -340,7 +346,7 @@ const MultiSelectorList = forwardRef<
 MultiSelectorList.displayName = "MultiSelectorList";
 
 const MultiSelectorItem = forwardRef<
-  React.ElementRef<typeof CommandPrimitive.Item>,
+  React.ComponentRef<typeof CommandPrimitive.Item>,
   { value: string } & React.ComponentPropsWithoutRef<
     typeof CommandPrimitive.Item
   >

@@ -36,7 +36,10 @@ import {
 //   FileUploaderContent,
 //   FileUploaderItem,
 // } from "@/components/ui/file-upload";
+import { FileUploader } from "./file-uploader";
+import { useUploadThing } from "@/lib/utils/uploadthing";
 import { Input } from "@/components/ui/input";
+import { Progress } from "@/components/ui/progress";
 import { createPackageSchema as formSchema } from "@/lib/schema/package";
 import { createPackage as createFunc } from "@/lib/actions/package.actions";
 import { SubmitButton } from "./data-table-client";
@@ -55,34 +58,58 @@ export function CreatePackageForm({
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const router = useRouter();
-  // const [files, setFiles] = React.useState<File[] | null>(null);
+  const [isPending, startTransition] = React.useTransition();
+  const [files, setFiles] = React.useState<File[]>([]);
+  const [progress, setProgress] = React.useState<number>(0);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      description: "",
+      price: 0,
+      locationsId: [],
+      categoryId: "",
+      image: "",
+      studioId: studioId,
+    },
+  });
+  const { startUpload, isUploading } = useUploadThing("imageUploader", {
+    onUploadProgress: (progress) => {
+      setProgress(progress);
+    },
   });
 
-  // const dropZoneConfig = {
-  //   maxFiles: 1,
-  //   multiple: false,
-  // };
-
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const res = await createFunc(studioId, values);
-    if (res.success) {
-      toast(res.message);
-      router.refresh();
-      setOpen(false);
-      return;
-    }
+    startTransition(async () => {
+      let imageUrl;
+      if (files.length > 0) {
+        const uploadedImage = await startUpload(files);
 
-    toast(res.message);
-    router.refresh();
-    setOpen(false);
+        if (uploadedImage) {
+          imageUrl = uploadedImage[0]?.ufsUrl;
+          console.log(imageUrl);
+        }
+      }
+    });
+
+    // const res = await createFunc(studioId, values);
+    //
+    // if (res.success) {
+    //   toast(res.message);
+    //   router.refresh();
+    //   setOpen(false);
+    //   return;
+    // }
+    //
+    // toast(res.message);
+    // router.refresh();
+    // setOpen(false);
     return;
   }
 
   return (
     <>
-      <div className="flex flex-col gap-4 overflow-y-auto px-4 text-sm">
+      <div className="flex flex-col gap-4 overflow-y-auto px-4 text-sm mb-2">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -136,6 +163,7 @@ export function CreatePackageForm({
                       placeholder="Enter the price"
                       type="number"
                       {...field}
+                      onChange={(event) => field.onChange(+event.target.value)}
                     />
                   </FormControl>
                   <FormMessage />
@@ -150,12 +178,14 @@ export function CreatePackageForm({
                   <FormLabel>Available Locations</FormLabel>
                   <FormControl>
                     <MultiSelector
-                      values={field.value}
+                      values={field.value ?? []}
                       onValuesChange={field.onChange}
-                      loop
-                      className="max-w-xs"
+                      loop={false}
                     >
-                      <MultiSelectorTrigger>
+                      <MultiSelectorTrigger
+                        options={locations}
+                        className="w-full"
+                      >
                         <MultiSelectorInput placeholder="Select locations" />
                       </MultiSelectorTrigger>
                       <MultiSelectorContent>
@@ -184,7 +214,7 @@ export function CreatePackageForm({
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger className="w-full">
                         <SelectValue placeholder="Select a category to display" />
                       </SelectTrigger>
                     </FormControl>
@@ -200,12 +230,34 @@ export function CreatePackageForm({
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name="image"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor={field.name}>Image</FormLabel>
+                  <FormControl>
+                    <FileUploader
+                      disabled={isPending}
+                      onFieldChange={field.onChange}
+                      files={files}
+                      imgUrl={field.value ?? ""}
+                      setFiles={setFiles}
+                    />
+                  </FormControl>
+                  <FormMessage {...field} />
+                </FormItem>
+              )}
+            />
+            {isUploading && <Progress value={progress} className="w-full" />}
           </form>
         </Form>
       </div>
       <SubmitButton
+        isPending={isPending}
         isDirty={form.formState.isDirty}
         isSubmitting={form.formState.isSubmitting}
+        isValid={form.formState.isValid}
         formId="create-location"
       />
     </>

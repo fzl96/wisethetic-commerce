@@ -11,6 +11,7 @@ import {
   IconChevronsRight,
   IconDotsVertical,
   IconPlus,
+  IconLoader,
   // IconLocation,
 } from "@tabler/icons-react";
 import {
@@ -361,10 +362,14 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
 export function SubmitButton({
   isDirty,
   isSubmitting,
+  isValid,
+  isPending,
   formId,
 }: {
   isDirty: boolean;
   isSubmitting: boolean;
+  isValid?: boolean;
+  isPending: boolean;
   formId: string;
 }) {
   return (
@@ -373,8 +378,9 @@ export function SubmitButton({
         className="cursor-pointer"
         type="submit"
         form={formId}
-        disabled={!isDirty || isSubmitting}
+        disabled={isPending || !isDirty || isSubmitting || !isValid}
       >
+        {isPending && <IconLoader className="animate-spin" />}
         Submit
       </Button>
       <DrawerClose asChild>
