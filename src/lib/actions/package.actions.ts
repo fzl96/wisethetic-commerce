@@ -21,10 +21,21 @@ export async function createPackage(
   try {
     await prisma.package.create({
       data: {
-        ...validateFields.data,
+        name: validateFields.data.name,
+        description: validateFields.data.description,
+        price: validateFields.data.price,
+        studioId: validateFields.data.studioId,
+        image: validateFields.data.image,
+        categoryId: validateFields.data.categoryId,
+        locations: {
+          connect: validateFields.data.locationsId.map((id: string) => ({
+            id,
+          })),
+        },
       },
     });
   } catch (error) {
+    console.log(error);
     if (
       error instanceof Error &&
       error.message.includes("Unique constrant failed")
@@ -46,7 +57,7 @@ export async function createPackage(
   // 4. Return a success state
   return {
     success: true,
-    message: `Added package: ${name}`,
+    message: `Added package: ${validateFields.data.name}`,
   };
 }
 

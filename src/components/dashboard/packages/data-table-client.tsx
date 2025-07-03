@@ -91,24 +91,24 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
   {
     accessorKey: "description",
     header: "Description",
-    cell: ({ row }) => {
-      <div>{row.original.description ?? "-"}</div>;
-    },
+    // cell: ({ row }) => {
+    //   <div>{row.original.description ?? "-"}</div>;
+    // },
     enableHiding: false,
   },
-  {
-    accessorKey: "price",
-    header: "Price",
-    cell: ({ row }) => {
-      <div>{rupiah(row.original.price)}</div>;
-    },
-    enableHiding: false,
-  },
+  // {
+  //   accessorKey: "price",
+  //   header: "Price",
+  //   cell: ({ row }) => {
+  //     <div>{rupiah(row.original.price)}</div>;
+  //   },
+  //   enableHiding: false,
+  // },
   {
     accessorKey: "category.name",
     header: "Category",
     cell: ({ row }) => {
-      <div>{row.original.category.name}</div>;
+      return <div>{row.original.category.name}</div>;
     },
     enableHiding: false,
   },
@@ -369,7 +369,7 @@ export function SubmitButton({
   isDirty: boolean;
   isSubmitting: boolean;
   isValid?: boolean;
-  isPending: boolean;
+  isUploading: boolean;
   formId: string;
 }) {
   return (
@@ -378,7 +378,7 @@ export function SubmitButton({
         className="cursor-pointer"
         type="submit"
         form={formId}
-        disabled={isPending || !isDirty || isSubmitting || !isValid}
+        disabled={!isDirty || isSubmitting || !isValid}
       >
         {isPending && <IconLoader className="animate-spin" />}
         Submit

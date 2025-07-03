@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -45,6 +46,8 @@ import { createPackage as createFunc } from "@/lib/actions/package.actions";
 import { SubmitButton } from "./data-table-client";
 import { CategorySchema } from "@/lib/schema/category";
 import { locationSchema } from "@/lib/schema/location";
+import { convertFileToUrl } from "@/lib/utils";
+import { PackagePreviewCard } from "./package-preview-card";
 
 export function CreatePackageForm({
   setOpen,
@@ -60,6 +63,7 @@ export function CreatePackageForm({
   const router = useRouter();
   const [isPending, startTransition] = React.useTransition();
   const [files, setFiles] = React.useState<File[]>([]);
+  const previewUrl = files[0] ? URL.createObjectURL(files[0]) : null;
   const [progress, setProgress] = React.useState<number>(0);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -73,6 +77,7 @@ export function CreatePackageForm({
       studioId: studioId,
     },
   });
+
   const { startUpload, isUploading } = useUploadThing("imageUploader", {
     onUploadProgress: (progress) => {
       setProgress(progress);
@@ -90,32 +95,35 @@ export function CreatePackageForm({
           console.log(imageUrl);
         }
       }
-    });
+      const res = await createFunc(studioId, {
+        ...values,
+        image: imageUrl ?? "",
+      });
 
-    // const res = await createFunc(studioId, values);
-    //
-    // if (res.success) {
-    //   toast(res.message);
-    //   router.refresh();
-    //   setOpen(false);
-    //   return;
-    // }
-    //
-    // toast(res.message);
-    // router.refresh();
-    // setOpen(false);
-    return;
+      if (res.success) {
+        toast(res.message);
+        router.refresh();
+        setOpen(false);
+        return;
+      }
+
+      toast(res.message);
+      router.refresh();
+      setOpen(false);
+      return;
+    });
   }
 
   return (
     <>
-      <div className="flex flex-col gap-4 overflow-y-auto px-4 text-sm mb-2">
+      <div className="flex flex-col gap-4 overflow-y-auto px-4 text-sm pb-5">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-4"
             id="create-location"
           >
+            {<PackagePreviewCard imgUrl={previewUrl} />}
             <FormField
               control={form.control}
               name="name"
@@ -125,7 +133,7 @@ export function CreatePackageForm({
                   <FormControl>
                     <Input
                       placeholder="Enter the name of the package"
-                      type=""
+                      type="text"
                       {...field}
                     />
                   </FormControl>
@@ -141,11 +149,7 @@ export function CreatePackageForm({
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Enter the description"
-                      type=""
-                      {...field}
-                    />
+                    <Input placeholder="Enter the description" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -163,7 +167,7 @@ export function CreatePackageForm({
                       placeholder="Enter the price"
                       type="number"
                       {...field}
-                      onChange={(event) => field.onChange(+event.target.value)}
+                      // onChange={(event) => field.onChange(+event.target.value)}
                     />
                   </FormControl>
                   <FormMessage />
