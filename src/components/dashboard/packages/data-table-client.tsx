@@ -57,9 +57,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-// import { UpdateLocationForm as UpdateForm } from "./update-form";
+import { UpdatePackageForm as UpdateForm } from "./update-form";
 import { CreatePackageForm as CreateForm } from "./create-form";
-import { deleteLocation as deleteAction } from "@/lib/actions/location.actions";
+import { deletePackage as deleteAction } from "@/lib/actions/package.actions";
 import { packageSchema as schema } from "@/lib/schema/package";
 import { locationSchema } from "@/lib/schema/location";
 import { CategorySchema } from "@/lib/schema/category";
@@ -68,55 +68,77 @@ const rupiah = (num: number) => {
   return new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "idr",
-    minimumIntegerDigits: 0,
+    minimumFractionDigits: 0,
   }).format(num);
 };
 
-const columns: ColumnDef<z.infer<typeof schema>>[] = [
-  {
-    accessorKey: "id",
-    header: "",
-    cell: () => {
-      return <div></div>;
+const createColumns = ({
+  categories,
+  locations,
+}: {
+  categories: z.infer<typeof CategorySchema>[];
+  locations: z.infer<typeof locationSchema>[];
+}) => {
+  const columns: ColumnDef<z.infer<typeof schema>>[] = [
+    {
+      accessorKey: "id",
+      header: "",
+      cell: () => {
+        return <div></div>;
+      },
     },
-  },
-  {
-    accessorKey: "name",
-    header: "Name",
-    cell: ({ row }) => {
-      return <TableCellViewer item={row.original} />;
+    {
+      accessorKey: "name",
+      header: "Name",
+      cell: ({ row }) => {
+        return (
+          <TableCellViewer
+            item={row.original}
+            categories={categories}
+            locations={locations}
+          />
+        );
+      },
+      enableHiding: false,
     },
-    enableHiding: false,
-  },
-  {
-    accessorKey: "description",
-    header: "Description",
-    // cell: ({ row }) => {
-    //   <div>{row.original.description ?? "-"}</div>;
-    // },
-    enableHiding: false,
-  },
-  // {
-  //   accessorKey: "price",
-  //   header: "Price",
-  //   cell: ({ row }) => {
-  //     <div>{rupiah(row.original.price)}</div>;
-  //   },
-  //   enableHiding: false,
-  // },
-  {
-    accessorKey: "category.name",
-    header: "Category",
-    cell: ({ row }) => {
-      return <div>{row.original.category.name}</div>;
+    {
+      accessorKey: "description",
+      header: "Description",
+      // cell: ({ row }) => {
+      //   <div>{row.original.description ?? "-"}</div>;
+      // },
+      enableHiding: false,
     },
-    enableHiding: false,
-  },
-  {
-    id: "actions",
-    cell: ({ row }) => <ActionMenu item={row.original} />,
-  },
-];
+    {
+      accessorKey: "price",
+      header: "Price",
+      cell: ({ row }) => {
+        return <div>{rupiah(row.original.price)}</div>;
+      },
+      enableHiding: false,
+    },
+    {
+      accessorKey: "category.name",
+      header: "Category",
+      cell: ({ row }) => {
+        return <div>{row.original.category.name}</div>;
+      },
+      enableHiding: false,
+    },
+    {
+      id: "actions",
+      cell: ({ row }) => (
+        <ActionMenu
+          item={row.original}
+          categories={categories}
+          locations={locations}
+        />
+      ),
+    },
+  ];
+
+  return columns;
+};
 
 export function DataTable({
   studioId,
@@ -136,6 +158,7 @@ export function DataTable({
   const router = useRouter();
   const searchParams = useSearchParams();
   const data = initialData;
+  const columns = createColumns({ categories, locations });
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
@@ -334,7 +357,13 @@ function CreateDrawer({
   );
 }
 
-function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
+interface TableCellVierProps {
+  item: z.infer<typeof schema>;
+  categories: z.infer<typeof CategorySchema>[];
+  locations: z.infer<typeof locationSchema>[];
+}
+
+function TableCellViewer({ item, categories, locations }: TableCellVierProps) {
   const [updateDrawerOpen, setUpdateDrawerOpen] = React.useState(false);
   const isMobile = useIsMobile();
 
@@ -353,7 +382,13 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
         <DrawerHeader className="gap-1">
           <DrawerTitle>{item.name}</DrawerTitle>
         </DrawerHeader>
-        {/* <UpdateForm item={item} setOpen={setUpdateDrawerOpen} /> */}
+        <UpdateForm
+          item={item}
+          studioId={item.studioId}
+          setOpen={setUpdateDrawerOpen}
+          categories={categories}
+          locations={locations}
+        />
       </DrawerContent>
     </Drawer>
   );
@@ -369,7 +404,7 @@ export function SubmitButton({
   isDirty: boolean;
   isSubmitting: boolean;
   isValid?: boolean;
-  isUploading: boolean;
+  isPending: boolean;
   formId: string;
 }) {
   return (
@@ -378,7 +413,7 @@ export function SubmitButton({
         className="cursor-pointer"
         type="submit"
         form={formId}
-        disabled={!isDirty || isSubmitting || !isValid}
+        disabled={!!isPending || !isDirty || isSubmitting || !isValid}
       >
         {isPending && <IconLoader className="animate-spin" />}
         Submit
@@ -390,7 +425,15 @@ export function SubmitButton({
   );
 }
 
-export function ActionMenu({ item }: { item: z.infer<typeof schema> }) {
+export function ActionMenu({
+  item,
+  categories,
+  locations,
+}: {
+  item: z.infer<typeof schema>;
+  categories: z.infer<typeof CategorySchema>[];
+  locations: z.infer<typeof locationSchema>[];
+}) {
   const [showUpdateForm, setShowUpdateForm] = React.useState(false);
   const [showDeleteForm, setShowDeleteForm] = React.useState(false);
   const [deleting, setDeleting] = React.useState(false);
@@ -443,7 +486,13 @@ export function ActionMenu({ item }: { item: z.infer<typeof schema> }) {
           <DrawerHeader className="gap-1">
             <DrawerTitle>{item.name}</DrawerTitle>
           </DrawerHeader>
-          {/* <UpdateForm item={item} setOpen={setShowUpdateForm} /> */}
+          <UpdateForm
+            item={item}
+            studioId={item.studioId}
+            setOpen={setShowUpdateForm}
+            categories={categories}
+            locations={locations}
+          />
         </DrawerContent>
       </Drawer>
       <Drawer

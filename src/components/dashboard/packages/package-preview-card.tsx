@@ -1,10 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 interface Props {
-  imgUrl?: string;
+  imgUrl?: string | null;
 }
 
 export function PackagePreviewCard({ imgUrl }: Props) {

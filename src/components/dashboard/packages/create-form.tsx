@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -46,7 +45,6 @@ import { createPackage as createFunc } from "@/lib/actions/package.actions";
 import { SubmitButton } from "./data-table-client";
 import { CategorySchema } from "@/lib/schema/category";
 import { locationSchema } from "@/lib/schema/location";
-import { convertFileToUrl } from "@/lib/utils";
 import { PackagePreviewCard } from "./package-preview-card";
 
 export function CreatePackageForm({
@@ -121,7 +119,7 @@ export function CreatePackageForm({
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-4"
-            id="create-location"
+            id="create-package"
           >
             {<PackagePreviewCard imgUrl={previewUrl} />}
             <FormField
@@ -262,7 +260,7 @@ export function CreatePackageForm({
         isDirty={form.formState.isDirty}
         isSubmitting={form.formState.isSubmitting}
         isValid={form.formState.isValid}
-        formId="create-location"
+        formId="create-package"
       />
     </>
   );

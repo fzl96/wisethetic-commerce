@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
@@ -8,61 +9,115 @@ import { z } from "zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import {
-  locationSchema as schema,
-  updateLocationSchema as formSchema,
-} from "@/lib/schema/location";
-import { updateLocation as updateAction } from "@/lib/actions/location.actions";
+  MultiSelector,
+  MultiSelectorContent,
+  MultiSelectorInput,
+  MultiSelectorItem,
+  MultiSelectorList,
+  MultiSelectorTrigger,
+} from "@/components/ui/multi-select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { FileUploader } from "./file-uploader";
+import { useUploadThing } from "@/lib/utils/uploadthing";
+import { Input } from "@/components/ui/input";
+import { Progress } from "@/components/ui/progress";
+import { updatePackageSchema as formSchema } from "@/lib/schema/package";
+import { updatePackage as updateFunc } from "@/lib/actions/package.actions";
 import { SubmitButton } from "./data-table-client";
+import { CategorySchema } from "@/lib/schema/category";
+import { locationSchema } from "@/lib/schema/location";
+import { packageSchema } from "@/lib/schema/package";
+import { PackagePreviewCard } from "./package-preview-card";
 
-export function UpdateLocationForm({
+export function UpdatePackageForm({
   setOpen,
+  studioId,
+  categories = [],
+  locations = [],
   item,
 }: {
+  studioId: string;
+  categories: z.infer<typeof CategorySchema>[];
+  locations: z.infer<typeof locationSchema>[];
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  item: z.infer<typeof schema>;
+  item: z.infer<typeof packageSchema>;
 }) {
   const router = useRouter();
+  const [isPending, startTransition] = React.useTransition();
+  const [files, setFiles] = React.useState<File[]>([]);
+  const currentImage = item.image;
+  const previewUrl = files[0] ? URL.createObjectURL(files[0]) : null;
+  const [progress, setProgress] = React.useState<number>(0);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: item.name,
-      address: item.address,
-      link: item.link ?? "",
+      description: item.description ?? "",
+      price: item.price,
+      locationsId: item.locations.map((item) => item.id),
+      categoryId: item.category.id,
+      image: item.image ?? "",
+      studioId: item.studioId,
+    },
+  });
+
+  const { startUpload, isUploading } = useUploadThing("imageUploader", {
+    onUploadProgress: (progress) => {
+      setProgress(progress);
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const res = await updateAction(item.id, values);
-    if (res.success) {
+    startTransition(async () => {
+      let imageUrl = item.image;
+      if (files.length > 0) {
+        const uploadedImage = await startUpload(files);
+
+        if (uploadedImage) {
+          imageUrl = uploadedImage[0]?.ufsUrl;
+        }
+      }
+      const res = await updateFunc(studioId, item.id, {
+        ...values,
+        image: imageUrl ?? "",
+      });
+
+      if (res.success) {
+        toast(res.message);
+        router.refresh();
+        setOpen(false);
+        return;
+      }
+
       toast(res.message);
       router.refresh();
       setOpen(false);
       return;
-    }
-
-    toast(res.message);
-    router.refresh();
-    setOpen(false);
-    return;
+    });
   }
 
   return (
     <>
-      <div className="flex flex-col gap-4 overflow-y-auto px-4 text-sm">
+      <div className="flex flex-col gap-4 overflow-y-auto px-4 text-sm pb-5">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-6"
-            id="update-location"
+            className="space-y-4"
+            id="update-package"
           >
+            {<PackagePreviewCard imgUrl={previewUrl || currentImage} />}
             <FormField
               control={form.control}
               name="name"
@@ -71,14 +126,11 @@ export function UpdateLocationForm({
                   <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Enter the name of the location"
+                      placeholder="Enter the name of the package"
                       type="text"
                       {...field}
                     />
                   </FormControl>
-                  <FormDescription>
-                    This is the name of the location
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -86,52 +138,125 @@ export function UpdateLocationForm({
 
             <FormField
               control={form.control}
-              name="address"
+              name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Address</FormLabel>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter the description" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="price"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Price</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Enter the address"
-                      type="text"
+                      placeholder="Enter the price"
+                      type="number"
                       {...field}
+                      // onChange={(event) => field.onChange(+event.target.value)}
                     />
                   </FormControl>
-                  <FormDescription>
-                    This is the address of the location.
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
-              name="link"
+              name="locationsId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Address Link</FormLabel>
+                  <FormLabel>Available Locations</FormLabel>
                   <FormControl>
-                    {/* @ts-expect-error cannot read nullish */}
-                    <Input
-                      placeholder="Enter the map address link."
-                      type="text"
-                      {...field}
-                    />
+                    <MultiSelector
+                      values={field.value ?? []}
+                      onValuesChange={field.onChange}
+                      loop={false}
+                    >
+                      <MultiSelectorTrigger
+                        options={locations}
+                        className="w-full"
+                      >
+                        <MultiSelectorInput placeholder="Select locations" />
+                      </MultiSelectorTrigger>
+                      <MultiSelectorContent>
+                        <MultiSelectorList>
+                          {locations.map((item) => (
+                            <MultiSelectorItem value={item.id} key={item.id}>
+                              {item.name}
+                            </MultiSelectorItem>
+                          ))}
+                        </MultiSelectorList>
+                      </MultiSelectorContent>
+                    </MultiSelector>
                   </FormControl>
-                  <FormDescription>
-                    This is the link to location (e.g. Google Maps).
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name="categoryId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Category</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select a category to display" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {categories.map((item) => (
+                        <SelectItem key={item.id} value={item.id}>
+                          {item.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="image"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor={field.name}>Image</FormLabel>
+                  <FormControl>
+                    <FileUploader
+                      disabled={isPending}
+                      onFieldChange={field.onChange}
+                      files={files}
+                      imgUrl={field.value ?? ""}
+                      setFiles={setFiles}
+                    />
+                  </FormControl>
+                  <FormMessage {...field} />
+                </FormItem>
+              )}
+            />
+            {isUploading && <Progress value={progress} className="w-full" />}
           </form>
         </Form>
       </div>
       <SubmitButton
+        isPending={isPending}
         isDirty={form.formState.isDirty}
         isSubmitting={form.formState.isSubmitting}
-        formId="update-location"
+        isValid={form.formState.isValid}
+        formId="update-package"
       />
     </>
   );
