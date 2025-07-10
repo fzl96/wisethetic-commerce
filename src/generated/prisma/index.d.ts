@@ -6119,6 +6119,7 @@ export namespace Prisma {
     banner: string | null
     email: string | null
     phoneNumber: string | null
+    username: string | null
     createdAt: Date | null
     updatedAt: Date | null
     userId: string | null
@@ -6132,6 +6133,7 @@ export namespace Prisma {
     banner: string | null
     email: string | null
     phoneNumber: string | null
+    username: string | null
     createdAt: Date | null
     updatedAt: Date | null
     userId: string | null
@@ -6145,6 +6147,7 @@ export namespace Prisma {
     banner: number
     email: number
     phoneNumber: number
+    username: number
     createdAt: number
     updatedAt: number
     userId: number
@@ -6160,6 +6163,7 @@ export namespace Prisma {
     banner?: true
     email?: true
     phoneNumber?: true
+    username?: true
     createdAt?: true
     updatedAt?: true
     userId?: true
@@ -6173,6 +6177,7 @@ export namespace Prisma {
     banner?: true
     email?: true
     phoneNumber?: true
+    username?: true
     createdAt?: true
     updatedAt?: true
     userId?: true
@@ -6186,6 +6191,7 @@ export namespace Prisma {
     banner?: true
     email?: true
     phoneNumber?: true
+    username?: true
     createdAt?: true
     updatedAt?: true
     userId?: true
@@ -6272,6 +6278,7 @@ export namespace Prisma {
     banner: string | null
     email: string
     phoneNumber: string
+    username: string
     createdAt: Date
     updatedAt: Date
     userId: string
@@ -6302,6 +6309,7 @@ export namespace Prisma {
     banner?: boolean
     email?: boolean
     phoneNumber?: boolean
+    username?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
@@ -6320,6 +6328,7 @@ export namespace Prisma {
     banner?: boolean
     email?: boolean
     phoneNumber?: boolean
+    username?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
@@ -6334,6 +6343,7 @@ export namespace Prisma {
     banner?: boolean
     email?: boolean
     phoneNumber?: boolean
+    username?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
@@ -6348,12 +6358,13 @@ export namespace Prisma {
     banner?: boolean
     email?: boolean
     phoneNumber?: boolean
+    username?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
   }
 
-  export type StudioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "image" | "banner" | "email" | "phoneNumber" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["studio"]>
+  export type StudioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "image" | "banner" | "email" | "phoneNumber" | "username" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["studio"]>
   export type StudioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     categories?: boolean | Studio$categoriesArgs<ExtArgs>
@@ -6384,6 +6395,7 @@ export namespace Prisma {
       banner: string | null
       email: string
       phoneNumber: string
+      username: string
       createdAt: Date
       updatedAt: Date
       userId: string
@@ -6821,6 +6833,7 @@ export namespace Prisma {
     readonly banner: FieldRef<"Studio", 'String'>
     readonly email: FieldRef<"Studio", 'String'>
     readonly phoneNumber: FieldRef<"Studio", 'String'>
+    readonly username: FieldRef<"Studio", 'String'>
     readonly createdAt: FieldRef<"Studio", 'DateTime'>
     readonly updatedAt: FieldRef<"Studio", 'DateTime'>
     readonly userId: FieldRef<"Studio", 'String'>
@@ -10800,6 +10813,7 @@ export namespace Prisma {
     banner: 'banner',
     email: 'email',
     phoneNumber: 'phoneNumber',
+    username: 'username',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     userId: 'userId'
@@ -11248,6 +11262,7 @@ export namespace Prisma {
     banner?: StringNullableFilter<"Studio"> | string | null
     email?: StringFilter<"Studio"> | string
     phoneNumber?: StringFilter<"Studio"> | string
+    username?: StringFilter<"Studio"> | string
     createdAt?: DateTimeFilter<"Studio"> | Date | string
     updatedAt?: DateTimeFilter<"Studio"> | Date | string
     userId?: StringFilter<"Studio"> | string
@@ -11265,6 +11280,7 @@ export namespace Prisma {
     banner?: SortOrderInput | SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    username?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
@@ -11277,6 +11293,7 @@ export namespace Prisma {
   export type StudioWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     name?: string
+    username?: string
     userId?: string
     AND?: StudioWhereInput | StudioWhereInput[]
     OR?: StudioWhereInput[]
@@ -11292,7 +11309,7 @@ export namespace Prisma {
     categories?: CategoryListRelationFilter
     locations?: LocationListRelationFilter
     packages?: PackageListRelationFilter
-  }, "id" | "name" | "userId">
+  }, "id" | "name" | "username" | "userId">
 
   export type StudioOrderByWithAggregationInput = {
     id?: SortOrder
@@ -11302,6 +11319,7 @@ export namespace Prisma {
     banner?: SortOrderInput | SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    username?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
@@ -11321,6 +11339,7 @@ export namespace Prisma {
     banner?: StringNullableWithAggregatesFilter<"Studio"> | string | null
     email?: StringWithAggregatesFilter<"Studio"> | string
     phoneNumber?: StringWithAggregatesFilter<"Studio"> | string
+    username?: StringWithAggregatesFilter<"Studio"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Studio"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Studio"> | Date | string
     userId?: StringWithAggregatesFilter<"Studio"> | string
@@ -11887,6 +11906,7 @@ export namespace Prisma {
     banner?: string | null
     email: string
     phoneNumber: string
+    username: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutStudioInput
@@ -11903,6 +11923,7 @@ export namespace Prisma {
     banner?: string | null
     email: string
     phoneNumber: string
+    username: string
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
@@ -11919,6 +11940,7 @@ export namespace Prisma {
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutStudioNestedInput
@@ -11935,6 +11957,7 @@ export namespace Prisma {
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
@@ -11951,6 +11974,7 @@ export namespace Prisma {
     banner?: string | null
     email: string
     phoneNumber: string
+    username: string
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
@@ -11964,6 +11988,7 @@ export namespace Prisma {
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11976,6 +12001,7 @@ export namespace Prisma {
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
@@ -12553,6 +12579,7 @@ export namespace Prisma {
     banner?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    username?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
@@ -12566,6 +12593,7 @@ export namespace Prisma {
     banner?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    username?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
@@ -12579,6 +12607,7 @@ export namespace Prisma {
     banner?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    username?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
@@ -13473,6 +13502,7 @@ export namespace Prisma {
     banner?: string | null
     email: string
     phoneNumber: string
+    username: string
     createdAt?: Date | string
     updatedAt?: Date | string
     categories?: CategoryCreateNestedManyWithoutStudioInput
@@ -13488,6 +13518,7 @@ export namespace Prisma {
     banner?: string | null
     email: string
     phoneNumber: string
+    username: string
     createdAt?: Date | string
     updatedAt?: Date | string
     categories?: CategoryUncheckedCreateNestedManyWithoutStudioInput
@@ -13584,6 +13615,7 @@ export namespace Prisma {
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categories?: CategoryUpdateManyWithoutStudioNestedInput
@@ -13599,6 +13631,7 @@ export namespace Prisma {
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categories?: CategoryUncheckedUpdateManyWithoutStudioNestedInput
@@ -13989,6 +14022,7 @@ export namespace Prisma {
     banner?: string | null
     email: string
     phoneNumber: string
+    username: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutStudioInput
@@ -14004,6 +14038,7 @@ export namespace Prisma {
     banner?: string | null
     email: string
     phoneNumber: string
+    username: string
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
@@ -14064,6 +14099,7 @@ export namespace Prisma {
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutStudioNestedInput
@@ -14079,6 +14115,7 @@ export namespace Prisma {
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
@@ -14110,6 +14147,7 @@ export namespace Prisma {
     banner?: string | null
     email: string
     phoneNumber: string
+    username: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutStudioInput
@@ -14125,6 +14163,7 @@ export namespace Prisma {
     banner?: string | null
     email: string
     phoneNumber: string
+    username: string
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
@@ -14190,6 +14229,7 @@ export namespace Prisma {
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutStudioNestedInput
@@ -14205,6 +14245,7 @@ export namespace Prisma {
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
@@ -14236,6 +14277,7 @@ export namespace Prisma {
     banner?: string | null
     email: string
     phoneNumber: string
+    username: string
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutStudioInput
@@ -14251,6 +14293,7 @@ export namespace Prisma {
     banner?: string | null
     email: string
     phoneNumber: string
+    username: string
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
@@ -14332,6 +14375,7 @@ export namespace Prisma {
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutStudioNestedInput
@@ -14347,6 +14391,7 @@ export namespace Prisma {
     banner?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string

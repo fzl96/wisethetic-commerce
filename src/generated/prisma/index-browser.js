@@ -174,6 +174,7 @@ exports.Prisma.StudioScalarFieldEnum = {
   banner: 'banner',
   email: 'email',
   phoneNumber: 'phoneNumber',
+  username: 'username',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   userId: 'userId'

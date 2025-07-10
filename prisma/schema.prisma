@@ -83,6 +83,7 @@ model Studio {
   banner      String?
   email       String
   phoneNumber String
+  username    String  @unique
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
