@@ -39,6 +39,7 @@ import {
 import { FileUploader } from "./file-uploader";
 import { useUploadThing } from "@/lib/utils/uploadthing";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
 import { createPackageSchema as formSchema } from "@/lib/schema/package";
 import { createPackage as createFunc } from "@/lib/actions/package.actions";
@@ -147,7 +148,11 @@ export function CreatePackageForm({
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter the description" {...field} />
+                    <Textarea
+                      placeholder="Enter the description"
+                      {...field}
+                      value={field.value ?? ""}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -91,24 +91,6 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     ),
   },
   {
-    accessorKey: "createdAt",
-    header: "Created At",
-    cell: ({ row }) => (
-      <div className="w-32">
-        {format(new Date(row.original.createdAt), "MMM dd, yyyy")}
-      </div>
-    ),
-  },
-  {
-    accessorKey: "updatedAt",
-    header: "Updated At",
-    cell: ({ row }) => (
-      <div className="w-32">
-        {format(new Date(row.original.updatedAt), "MMM dd, yyyy")}
-      </div>
-    ),
-  },
-  {
     id: "actions",
     cell: ({ row }) => <CategoryMenu item={row.original} />,
   },
