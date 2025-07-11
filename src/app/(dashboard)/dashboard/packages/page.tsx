@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { PackagesDataTable } from "@/components/dashboard/packages/data-table";
 import { redirect } from "next/navigation";
 import { getStudioId } from "@/server/user";
+import { DashboardLoader } from "@/components/dashboard/loader";
 
 export default async function LocationsPage({
   searchParams,
@@ -18,7 +19,7 @@ export default async function LocationsPage({
   return (
     <div className="px-4 lg:px-6">
       <h1>Locations Page</h1>
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense fallback={<DashboardLoader />}>
         <PackagesDataTable studioId={studio.id} page={page} />
       </Suspense>
     </div>

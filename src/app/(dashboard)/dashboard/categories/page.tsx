@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { CategoriesDataTable } from "@/components/dashboard/categories/data-table";
 import { redirect } from "next/navigation";
 import { getStudioId } from "@/server/user";
+import { DashboardLoader } from "@/components/dashboard/loader";
 
 export default async function CategoriesPage({
   searchParams,
@@ -17,7 +18,7 @@ export default async function CategoriesPage({
   return (
     <div className="px-4 lg:px-6">
       <h1>Categories Page</h1>
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense fallback={<DashboardLoader />}>
         <CategoriesDataTable studioId={studio.id} page={page} />
       </Suspense>
     </div>
