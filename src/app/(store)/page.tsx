@@ -1,7 +1,4 @@
-import Link from "next/link";
-
 import { MaxWidthWrapper } from "@/components/max-width-wrapper";
-import { cn } from "@/lib/utils";
 
 export default function StorePage() {
   return (
