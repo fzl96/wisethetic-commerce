@@ -18,7 +18,6 @@ export default async function LocationsPage({
 
   return (
     <div className="px-4 lg:px-6">
-      <h1>Locations Page</h1>
       <Suspense fallback={<DashboardLoader />}>
         <PackagesDataTable studioId={studio.id} page={page} />
       </Suspense>

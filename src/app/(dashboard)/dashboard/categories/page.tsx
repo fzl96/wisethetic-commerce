@@ -17,7 +17,6 @@ export default async function CategoriesPage({
 
   return (
     <div className="px-4 lg:px-6">
-      <h1>Categories Page</h1>
       <Suspense fallback={<DashboardLoader />}>
         <CategoriesDataTable studioId={studio.id} page={page} />
       </Suspense>
