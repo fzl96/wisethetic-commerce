@@ -79,7 +79,6 @@ export function UpdateStudioForm({
 
       if (bannerImg.length > 0) {
         const uploadedImage = await startUpload(bannerImg);
-        console.log(uploadedImage);
 
         if (uploadedImage) {
           bannerUrl = uploadedImage[0]?.ufsUrl;

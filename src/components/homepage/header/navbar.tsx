@@ -49,7 +49,6 @@ interface NavbarProps {
 }
 
 export function Navbar({ user, studio }: NavbarProps) {
-  console.log(studio);
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
 

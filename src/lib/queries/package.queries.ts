@@ -46,7 +46,8 @@ export async function getPackagesStore({
   studioId: string;
   categoryId: string;
 }) {
-  return await prisma.package.findMany({
+  console.log(`category: ${categoryId}`);
+  const packages = await prisma.package.findMany({
     skip: (page - 1) * 6,
     take: 6,
     include: {
@@ -59,12 +60,14 @@ export async function getPackagesStore({
       locations: true,
     },
     where: {
-      categoryId,
+      ...(categoryId && { categoryId }),
       studioId,
       name: {
-        equals: `%${query}%`,
+        contains: query,
         mode: "insensitive",
       },
     },
   });
+
+  return packages;
 }

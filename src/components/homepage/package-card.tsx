@@ -13,12 +13,16 @@ const rupiah = (num: number) => {
 export function PackageCard({ pkg }: { pkg: z.infer<typeof packageSchema> }) {
   return (
     <div className="rounded-xl border border-home-border bg-home-card-background p-3 shadow-sm transition-all duration-200 hover:bg-home-card-background-hover">
-      <div className="h-96 overflow-hidden rounded-lg lg:h-[35rem]">
+      <div className="overflow-hidden rounded-lg aspect-[4/5] w-full border">
         <Image
-          src={pkg.image ?? "/placeholder.jpg"}
+          src={
+            pkg.image && pkg.image.trim() !== ""
+              ? pkg.image
+              : "/placeholder.webp"
+          }
           alt={pkg.name}
           width={1000}
-          height={800}
+          height={1250}
           className="h-full w-full object-cover transition-all duration-500 hover:scale-105"
         />
       </div>
@@ -27,7 +31,6 @@ export function PackageCard({ pkg }: { pkg: z.infer<typeof packageSchema> }) {
           {pkg.name}
         </h3>
         <p className="font-light">{rupiah(pkg.price)}</p>
-        {/* <p className="font-light">{pkg.description}</p> */}
       </div>
     </div>
   );

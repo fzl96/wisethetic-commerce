@@ -64,10 +64,7 @@ export async function updateCategory(
 ) {
   const validatedFields = UpdateCategorySchema.safeParse(values);
 
-  console.log(validatedFields.data);
-
   if (!validatedFields.success) {
-    console.log("test");
     return {
       success: false,
       message: "Invalid data. Could not update category.",

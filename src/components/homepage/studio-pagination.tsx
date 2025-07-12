@@ -29,7 +29,7 @@ export function StudioPagination({
     <div className="flex items-center justify-between px-4">
       <div className="text-muted-foreground hidden flex-1 text-sm lg:flex"></div>
       <div className="flex w-full items-center gap-8 lg:w-fit">
-        <div className="flex w-fit items-center justify-center text-sm font-medium">
+        <div className="hidden md:flex w-fit items-center justify-center text-sm font-medium">
           Page {page} of {totalPages}
         </div>
         <div className="ml-auto flex items-center gap-2 lg:ml-0">

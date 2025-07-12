@@ -21,11 +21,11 @@ export async function PackageNavigation({
   if (!studioId) return <Skeleton className="w-full h-6" />;
 
   return (
-    <div className="flex w-full items-center gap-8 justify-between">
-      <div className="md:w-96">
+    <div className="flex flex-col md:flex-row w-full items-center gap-4 justify-between">
+      <div className="md:w-96 w-full">
         <SearchFilter placeholder="Search package..." />
       </div>
-      <div className="flex items-center">
+      <div className="flex md:items-center justify-between w-full">
         <PackageNavigationCategories studioId={studioId} />
         <PackageNavigationPagination
           studioId={studioId}

@@ -29,7 +29,7 @@ export async function getStudios({
     take: 6,
     where: {
       name: {
-        equals: `%${query}%`,
+        contains: query,
         mode: "insensitive",
       },
     },

@@ -1,4 +1,6 @@
+import { PackageCards } from "@/components/homepage/package-cards";
 import { PackageNavigation } from "@/components/homepage/package-navigation";
+import { PackagesCardsLoader } from "@/components/homepage/packages-loader";
 import { StudioBanner } from "@/components/homepage/studio-banner";
 import { StudioBannerLoader } from "@/components/homepage/studio-banner-loader";
 import { MaxWidthWrapper } from "@/components/max-width-wrapper";
@@ -36,11 +38,16 @@ export default async function StudioPage({
           username={cleanUsername}
         />
       </Suspense>
-      {/* <div className="w-full"> */}
-      {/*   <Suspense fallback={<StudioCardsLoader className="mt-40" />}> */}
-      {/*     <StudioCards page={page} query={query} /> */}
-      {/*   </Suspense> */}
-      {/* </div> */}
+      <div className="w-full">
+        <Suspense fallback={<PackagesCardsLoader className="" />}>
+          <PackageCards
+            page={page}
+            query={query}
+            username={cleanUsername}
+            categoryId={categoryId}
+          />
+        </Suspense>
+      </div>
     </MaxWidthWrapper>
   );
 }

@@ -11,7 +11,11 @@ export function StudioCard({
     <div className="rounded-xl border border-home-border bg-home-card-background p-3 shadow-sm transition-all duration-200 hover:bg-home-card-background-hover">
       <div className="h-96 overflow-hidden rounded-lg lg:h-[35rem]">
         <Image
-          src={studio.image ?? "/placeholder.jpg"}
+          src={
+            studio.image && studio.image.trim() !== ""
+              ? studio.image
+              : "/placeholder.webp"
+          }
           alt={studio.name}
           width={1000}
           height={800}

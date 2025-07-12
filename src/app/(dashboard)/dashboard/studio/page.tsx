@@ -20,8 +20,6 @@ export default async function StudioPage() {
     redirect("/");
   }
 
-  console.log(studio);
-
   return (
     <div className="px-4 lg:px-6 flex flex-col gap-5">
       <Banner imgUrl={studio.banner} />
