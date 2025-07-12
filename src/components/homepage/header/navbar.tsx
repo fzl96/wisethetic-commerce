@@ -74,7 +74,7 @@ export function Navbar({ user, studio }: NavbarProps) {
         }}
         animate={hidden ? "hidden" : "visible"}
         transition={{ duration: 0.2 }}
-        className="sticky top-0 z-30 w-full bg-home-background"
+        className="sticky top-0 z-30 w-full bg-background"
       >
         <div className="flex items-center justify-between lg:px-46 px-8 py-6">
           <div className="">
