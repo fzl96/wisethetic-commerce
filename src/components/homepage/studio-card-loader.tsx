@@ -1,8 +1,9 @@
 import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
 
-export function StudioCardsLoader() {
+export function StudioCardsLoader({ className }: { className?: string }) {
   return (
-    <div className="grid gap-4 lg:grid-cols-3 lg:gap-8">
+    <div className={cn("grid gap-4 lg:grid-cols-3 lg:gap-8", className)}>
       {Array.from({ length: 3 }).map((_, i) => {
         return <Card key={i} />;
       })}

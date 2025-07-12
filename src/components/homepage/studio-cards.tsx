@@ -12,7 +12,7 @@ export async function StudioCards({
   query: string;
 }) {
   const studios = await getStudios({ page, query });
-  const studiosPage = await getStudiosPage();
+  const studiosPage = await getStudiosPage(query);
   return (
     <div className="mt-20 space-y-8">
       <div className="flex items-center justify-between">

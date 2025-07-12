@@ -3,7 +3,6 @@
 import * as React from "react";
 import { deleteCategory } from "@/lib/actions/category.actions";
 import { useRouter, useSearchParams } from "next/navigation";
-import { format } from "date-fns";
 import {
   IconChevronLeft,
   IconChevronRight,

@@ -3,7 +3,7 @@ import { prisma } from "../prisma";
 const ITEMS_PER_PAGE = 10;
 
 export async function getPackagesPage(studioId: string) {
-  const totalItems = await prisma.location.count({
+  const totalItems = await prisma.package.count({
     where: {
       studioId,
     },
@@ -12,4 +12,59 @@ export async function getPackagesPage(studioId: string) {
   const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
 
   return totalPages;
+}
+
+export async function getPackagesPageStore(
+  studioId: string,
+  categoryId: string,
+  query: string,
+) {
+  const totalItems = await prisma.package.count({
+    where: {
+      studioId,
+      categoryId,
+      name: {
+        equals: `%${query}%`,
+        mode: "insensitive",
+      },
+    },
+  });
+
+  const totalPages = Math.ceil(totalItems / 6);
+
+  return totalPages;
+}
+
+export async function getPackagesStore({
+  page,
+  query,
+  studioId,
+  categoryId,
+}: {
+  page: number;
+  query: string;
+  studioId: string;
+  categoryId: string;
+}) {
+  return await prisma.package.findMany({
+    skip: (page - 1) * 6,
+    take: 6,
+    include: {
+      category: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+      locations: true,
+    },
+    where: {
+      categoryId,
+      studioId,
+      name: {
+        equals: `%${query}%`,
+        mode: "insensitive",
+      },
+    },
+  });
 }

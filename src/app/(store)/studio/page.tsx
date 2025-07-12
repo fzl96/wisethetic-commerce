@@ -12,10 +12,10 @@ export default async function ProductCategoryPage({
   const query = (await searchParams).query || "";
 
   return (
-    <MaxWidthWrapper className="mt-28 flex flex-col items-center justify-center px-5 md:px-40">
+    <MaxWidthWrapper className="mt-28 flex flex-col items-center justify-center px-5 md:px-48">
       <h1 className="font-accent text-2xl">Studios</h1>
       <div className="w-full">
-        <Suspense fallback={<StudioCardsLoader />}>
+        <Suspense fallback={<StudioCardsLoader className="mt-40" />}>
           <StudioCards page={page} query={query} />
         </Suspense>
       </div>

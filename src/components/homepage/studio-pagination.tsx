@@ -57,7 +57,7 @@ export function StudioPagination({
             className="size-8"
             size="icon"
             onClick={() => goToPage(page + 1)}
-            disabled={page === totalPages}
+            disabled={totalPages <= page}
           >
             <span className="sr-only">Go to next page</span>
             <IconChevronRight />
@@ -67,7 +67,7 @@ export function StudioPagination({
             className="hidden size-8 lg:flex"
             size="icon"
             onClick={() => goToPage(totalPages)}
-            disabled={page === totalPages}
+            disabled={totalPages <= page}
           >
             <span className="sr-only">Go to last page</span>
             <IconChevronsRight />

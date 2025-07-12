@@ -14,6 +14,27 @@ export const StudioSchema = z.object({
   userId: z.string(),
 });
 
+export const StudioExtendedSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  description: z.string().nullish(),
+  image: z.string().nullish(),
+  banner: z.string().nullish(),
+  email: z.string(),
+  phoneNumber: z.string(),
+  username: z.string(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+  categories: z
+    .object({
+      id: z.string(),
+      name: z.string(),
+      description: z.string(),
+    })
+    .array(),
+  userId: z.string(),
+});
+
 export const CreateStudioSchema = z.object({
   name: z.string().min(2, { message: "Name must have atleast 2 characters" }),
   description: z.string().nullish(),
