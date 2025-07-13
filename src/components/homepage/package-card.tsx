@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { packageSchema } from "@/lib/schema/package";
 import Image from "next/image";
+import { Badge } from "../ui/badge";
 
 const rupiah = (num: number) => {
   return new Intl.NumberFormat("id-ID", {
@@ -27,6 +28,7 @@ export function PackageCard({ pkg }: { pkg: z.infer<typeof packageSchema> }) {
         />
       </div>
       <div className="space-y-2 px-2 py-5 text-left ">
+        <Badge className="rounded-sm">{pkg.category.name}</Badge>
         <h3 className="text-left font-accent text-2xl font-medium">
           {pkg.name}
         </h3>
