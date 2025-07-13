@@ -16,6 +16,7 @@ import {
 import { config as siteConfig } from "@/config/site";
 import { MobileNav } from "./mobile-nav";
 import { MobileNavToggle } from "./mobile-nav-toggle";
+import { ModeToggle } from "@/components/mode-toggle";
 // import { ModeToggle } from "@/components/mode-toggle";
 
 type user =
@@ -91,13 +92,13 @@ export function Navbar({ user, studio }: NavbarProps) {
                 <Link href="/">Home</Link>
               </li>
               <li>
-                <Link href="/services">Services</Link>
+                <Link href="/studio">Studio</Link>
               </li>
               <li>
                 <Link href="/portfolio">Portfolio</Link>
               </li>
             </ul>
-            {/* <ModeToggle variant="ghost" /> */}
+            <ModeToggle />
             <span>|</span>
             <div className="flex items-center gap-2">
               {!user && (
