@@ -46,7 +46,6 @@ export async function getPackagesStore({
   studioId: string;
   categoryId: string;
 }) {
-  console.log(`category: ${categoryId}`);
   const packages = await prisma.package.findMany({
     skip: (page - 1) * 6,
     take: 6,
@@ -70,4 +69,18 @@ export async function getPackagesStore({
   });
 
   return packages;
+}
+
+export async function getPackageStore(id: string) {
+  const pkg = await prisma.package.findUnique({
+    include: {
+      locations: true,
+      category: true,
+    },
+    where: {
+      id,
+    },
+  });
+
+  return pkg;
 }

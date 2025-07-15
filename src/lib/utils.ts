@@ -11,3 +11,11 @@ export const convertFileToUrl = (file: File) => URL.createObjectURL(file);
 export const truncateString = (str: string) => {
   return str.slice(0, 7) + "..." + str.slice(-7);
 };
+
+export function rupiah(num: number) {
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "idr",
+    minimumFractionDigits: 0,
+  }).format(num);
+}

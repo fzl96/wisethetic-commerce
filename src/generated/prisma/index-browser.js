@@ -212,6 +212,26 @@ exports.Prisma.PackageScalarFieldEnum = {
   categoryId: 'categoryId'
 };
 
+exports.Prisma.OrderScalarFieldEnum = {
+  id: 'id',
+  customerName: 'customerName',
+  email: 'email',
+  phoneNumber: 'phoneNumber',
+  date: 'date',
+  result: 'result',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId',
+  packageId: 'packageId',
+  locationId: 'locationId',
+  packageName: 'packageName',
+  packageDescription: 'packageDescription',
+  packagePrice: 'packagePrice',
+  packageImage: 'packageImage',
+  locationName: 'locationName',
+  locationAddress: 'locationAddress'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -236,7 +256,8 @@ exports.Prisma.ModelName = {
   Studio: 'Studio',
   Location: 'Location',
   Category: 'Category',
-  Package: 'Package'
+  Package: 'Package',
+  Order: 'Order'
 };
 
 /**

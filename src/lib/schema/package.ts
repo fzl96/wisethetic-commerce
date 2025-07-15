@@ -21,6 +21,28 @@ export const packageSchema = z.object({
   updatedAt: z.date(),
 });
 
+export const packageStoreSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  description: z.string().nullish(),
+  price: z.number(),
+  studioId: z.string(),
+  image: z.string().nullish(),
+  category: z.object({
+    id: z.string(),
+    name: z.string(),
+  }),
+  locations: z
+    .object({
+      id: z.string(),
+      name: z.string(),
+      address: z.string(),
+      link: z.string().nullish(),
+    })
+    .array(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+});
 export const createPackageSchema = z.object({
   name: z.string().min(3, { message: "Name must be atleast 3 characters" }),
   description: z.string().nullish(),

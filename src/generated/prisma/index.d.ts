@@ -53,6 +53,11 @@ export type Category = $Result.DefaultSelection<Prisma.$CategoryPayload>
  * 
  */
 export type Package = $Result.DefaultSelection<Prisma.$PackagePayload>
+/**
+ * Model Order
+ * 
+ */
+export type Order = $Result.DefaultSelection<Prisma.$OrderPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -258,6 +263,16 @@ export class PrismaClient<
     * ```
     */
   get package(): Prisma.PackageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.order`: Exposes CRUD operations for the **Order** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Orders
+    * const orders = await prisma.order.findMany()
+    * ```
+    */
+  get order(): Prisma.OrderDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -705,7 +720,8 @@ export namespace Prisma {
     Studio: 'Studio',
     Location: 'Location',
     Category: 'Category',
-    Package: 'Package'
+    Package: 'Package',
+    Order: 'Order'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -724,7 +740,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "session" | "account" | "verification" | "studio" | "location" | "category" | "package"
+      modelProps: "user" | "session" | "account" | "verification" | "studio" | "location" | "category" | "package" | "order"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1320,6 +1336,80 @@ export namespace Prisma {
           }
         }
       }
+      Order: {
+        payload: Prisma.$OrderPayload<ExtArgs>
+        fields: Prisma.OrderFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OrderFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrderPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OrderFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrderPayload>
+          }
+          findFirst: {
+            args: Prisma.OrderFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrderPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OrderFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrderPayload>
+          }
+          findMany: {
+            args: Prisma.OrderFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrderPayload>[]
+          }
+          create: {
+            args: Prisma.OrderCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrderPayload>
+          }
+          createMany: {
+            args: Prisma.OrderCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OrderCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrderPayload>[]
+          }
+          delete: {
+            args: Prisma.OrderDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrderPayload>
+          }
+          update: {
+            args: Prisma.OrderUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrderPayload>
+          }
+          deleteMany: {
+            args: Prisma.OrderDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OrderUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.OrderUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrderPayload>[]
+          }
+          upsert: {
+            args: Prisma.OrderUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrderPayload>
+          }
+          aggregate: {
+            args: Prisma.OrderAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOrder>
+          }
+          groupBy: {
+            args: Prisma.OrderGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OrderGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OrderCountArgs<ExtArgs>
+            result: $Utils.Optional<OrderCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1412,6 +1502,7 @@ export namespace Prisma {
     location?: LocationOmit
     category?: CategoryOmit
     package?: PackageOmit
+    order?: OrderOmit
   }
 
   /* Types for Logging */
@@ -1508,11 +1599,13 @@ export namespace Prisma {
   export type UserCountOutputType = {
     sessions: number
     accounts: number
+    orders: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs
+    orders?: boolean | UserCountOutputTypeCountOrdersArgs
   }
 
   // Custom InputTypes
@@ -1538,6 +1631,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AccountWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrderWhereInput
   }
 
 
@@ -1596,10 +1696,12 @@ export namespace Prisma {
 
   export type LocationCountOutputType = {
     packages: number
+    orders: number
   }
 
   export type LocationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     packages?: boolean | LocationCountOutputTypeCountPackagesArgs
+    orders?: boolean | LocationCountOutputTypeCountOrdersArgs
   }
 
   // Custom InputTypes
@@ -1618,6 +1720,13 @@ export namespace Prisma {
    */
   export type LocationCountOutputTypeCountPackagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PackageWhereInput
+  }
+
+  /**
+   * LocationCountOutputType without action
+   */
+  export type LocationCountOutputTypeCountOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrderWhereInput
   }
 
 
@@ -1658,10 +1767,12 @@ export namespace Prisma {
 
   export type PackageCountOutputType = {
     locations: number
+    orders: number
   }
 
   export type PackageCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     locations?: boolean | PackageCountOutputTypeCountLocationsArgs
+    orders?: boolean | PackageCountOutputTypeCountOrdersArgs
   }
 
   // Custom InputTypes
@@ -1680,6 +1791,13 @@ export namespace Prisma {
    */
   export type PackageCountOutputTypeCountLocationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LocationWhereInput
+  }
+
+  /**
+   * PackageCountOutputType without action
+   */
+  export type PackageCountOutputTypeCountOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrderWhereInput
   }
 
 
@@ -1870,6 +1988,7 @@ export namespace Prisma {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
     studio?: boolean | User$studioArgs<ExtArgs>
+    orders?: boolean | User$ordersArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1908,6 +2027,7 @@ export namespace Prisma {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
     studio?: boolean | User$studioArgs<ExtArgs>
+    orders?: boolean | User$ordersArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1919,6 +2039,7 @@ export namespace Prisma {
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       accounts: Prisma.$AccountPayload<ExtArgs>[]
       studio: Prisma.$StudioPayload<ExtArgs> | null
+      orders: Prisma.$OrderPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2325,6 +2446,7 @@ export namespace Prisma {
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     accounts<T extends User$accountsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     studio<T extends User$studioArgs<ExtArgs> = {}>(args?: Subset<T, User$studioArgs<ExtArgs>>): Prisma__StudioClient<$Result.GetResult<Prisma.$StudioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    orders<T extends User$ordersArgs<ExtArgs> = {}>(args?: Subset<T, User$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2813,6 +2935,30 @@ export namespace Prisma {
      */
     include?: StudioInclude<ExtArgs> | null
     where?: StudioWhereInput
+  }
+
+  /**
+   * User.orders
+   */
+  export type User$ordersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Order
+     */
+    select?: OrderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Order
+     */
+    omit?: OrderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderInclude<ExtArgs> | null
+    where?: OrderWhereInput
+    orderBy?: OrderOrderByWithRelationInput | OrderOrderByWithRelationInput[]
+    cursor?: OrderWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OrderScalarFieldEnum | OrderScalarFieldEnum[]
   }
 
   /**
@@ -7505,6 +7651,7 @@ export namespace Prisma {
     studioId?: boolean
     studio?: boolean | StudioDefaultArgs<ExtArgs>
     packages?: boolean | Location$packagesArgs<ExtArgs>
+    orders?: boolean | Location$ordersArgs<ExtArgs>
     _count?: boolean | LocationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["location"]>
 
@@ -7544,6 +7691,7 @@ export namespace Prisma {
   export type LocationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     studio?: boolean | StudioDefaultArgs<ExtArgs>
     packages?: boolean | Location$packagesArgs<ExtArgs>
+    orders?: boolean | Location$ordersArgs<ExtArgs>
     _count?: boolean | LocationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type LocationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7558,6 +7706,7 @@ export namespace Prisma {
     objects: {
       studio: Prisma.$StudioPayload<ExtArgs>
       packages: Prisma.$PackagePayload<ExtArgs>[]
+      orders: Prisma.$OrderPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7963,6 +8112,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     studio<T extends StudioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StudioDefaultArgs<ExtArgs>>): Prisma__StudioClient<$Result.GetResult<Prisma.$StudioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     packages<T extends Location$packagesArgs<ExtArgs> = {}>(args?: Subset<T, Location$packagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PackagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    orders<T extends Location$ordersArgs<ExtArgs> = {}>(args?: Subset<T, Location$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8416,6 +8566,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PackageScalarFieldEnum | PackageScalarFieldEnum[]
+  }
+
+  /**
+   * Location.orders
+   */
+  export type Location$ordersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Order
+     */
+    select?: OrderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Order
+     */
+    omit?: OrderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderInclude<ExtArgs> | null
+    where?: OrderWhereInput
+    orderBy?: OrderOrderByWithRelationInput | OrderOrderByWithRelationInput[]
+    cursor?: OrderWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OrderScalarFieldEnum | OrderScalarFieldEnum[]
   }
 
   /**
@@ -9784,6 +9958,7 @@ export namespace Prisma {
     studio?: boolean | StudioDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     locations?: boolean | Package$locationsArgs<ExtArgs>
+    orders?: boolean | Package$ordersArgs<ExtArgs>
     _count?: boolean | PackageCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["package"]>
 
@@ -9832,6 +10007,7 @@ export namespace Prisma {
     studio?: boolean | StudioDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     locations?: boolean | Package$locationsArgs<ExtArgs>
+    orders?: boolean | Package$ordersArgs<ExtArgs>
     _count?: boolean | PackageCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PackageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9849,6 +10025,7 @@ export namespace Prisma {
       studio: Prisma.$StudioPayload<ExtArgs>
       category: Prisma.$CategoryPayload<ExtArgs>
       locations: Prisma.$LocationPayload<ExtArgs>[]
+      orders: Prisma.$OrderPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -10257,6 +10434,7 @@ export namespace Prisma {
     studio<T extends StudioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StudioDefaultArgs<ExtArgs>>): Prisma__StudioClient<$Result.GetResult<Prisma.$StudioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     category<T extends CategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CategoryDefaultArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     locations<T extends Package$locationsArgs<ExtArgs> = {}>(args?: Subset<T, Package$locationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    orders<T extends Package$ordersArgs<ExtArgs> = {}>(args?: Subset<T, Package$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10715,6 +10893,30 @@ export namespace Prisma {
   }
 
   /**
+   * Package.orders
+   */
+  export type Package$ordersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Order
+     */
+    select?: OrderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Order
+     */
+    omit?: OrderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderInclude<ExtArgs> | null
+    where?: OrderWhereInput
+    orderBy?: OrderOrderByWithRelationInput | OrderOrderByWithRelationInput[]
+    cursor?: OrderWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OrderScalarFieldEnum | OrderScalarFieldEnum[]
+  }
+
+  /**
    * Package without action
    */
   export type PackageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10730,6 +10932,1327 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: PackageInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Order
+   */
+
+  export type AggregateOrder = {
+    _count: OrderCountAggregateOutputType | null
+    _avg: OrderAvgAggregateOutputType | null
+    _sum: OrderSumAggregateOutputType | null
+    _min: OrderMinAggregateOutputType | null
+    _max: OrderMaxAggregateOutputType | null
+  }
+
+  export type OrderAvgAggregateOutputType = {
+    packagePrice: number | null
+  }
+
+  export type OrderSumAggregateOutputType = {
+    packagePrice: number | null
+  }
+
+  export type OrderMinAggregateOutputType = {
+    id: string | null
+    customerName: string | null
+    email: string | null
+    phoneNumber: string | null
+    date: Date | null
+    result: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    userId: string | null
+    packageId: string | null
+    locationId: string | null
+    packageName: string | null
+    packageDescription: string | null
+    packagePrice: number | null
+    packageImage: string | null
+    locationName: string | null
+    locationAddress: string | null
+  }
+
+  export type OrderMaxAggregateOutputType = {
+    id: string | null
+    customerName: string | null
+    email: string | null
+    phoneNumber: string | null
+    date: Date | null
+    result: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    userId: string | null
+    packageId: string | null
+    locationId: string | null
+    packageName: string | null
+    packageDescription: string | null
+    packagePrice: number | null
+    packageImage: string | null
+    locationName: string | null
+    locationAddress: string | null
+  }
+
+  export type OrderCountAggregateOutputType = {
+    id: number
+    customerName: number
+    email: number
+    phoneNumber: number
+    date: number
+    result: number
+    createdAt: number
+    updatedAt: number
+    userId: number
+    packageId: number
+    locationId: number
+    packageName: number
+    packageDescription: number
+    packagePrice: number
+    packageImage: number
+    locationName: number
+    locationAddress: number
+    _all: number
+  }
+
+
+  export type OrderAvgAggregateInputType = {
+    packagePrice?: true
+  }
+
+  export type OrderSumAggregateInputType = {
+    packagePrice?: true
+  }
+
+  export type OrderMinAggregateInputType = {
+    id?: true
+    customerName?: true
+    email?: true
+    phoneNumber?: true
+    date?: true
+    result?: true
+    createdAt?: true
+    updatedAt?: true
+    userId?: true
+    packageId?: true
+    locationId?: true
+    packageName?: true
+    packageDescription?: true
+    packagePrice?: true
+    packageImage?: true
+    locationName?: true
+    locationAddress?: true
+  }
+
+  export type OrderMaxAggregateInputType = {
+    id?: true
+    customerName?: true
+    email?: true
+    phoneNumber?: true
+    date?: true
+    result?: true
+    createdAt?: true
+    updatedAt?: true
+    userId?: true
+    packageId?: true
+    locationId?: true
+    packageName?: true
+    packageDescription?: true
+    packagePrice?: true
+    packageImage?: true
+    locationName?: true
+    locationAddress?: true
+  }
+
+  export type OrderCountAggregateInputType = {
+    id?: true
+    customerName?: true
+    email?: true
+    phoneNumber?: true
+    date?: true
+    result?: true
+    createdAt?: true
+    updatedAt?: true
+    userId?: true
+    packageId?: true
+    locationId?: true
+    packageName?: true
+    packageDescription?: true
+    packagePrice?: true
+    packageImage?: true
+    locationName?: true
+    locationAddress?: true
+    _all?: true
+  }
+
+  export type OrderAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Order to aggregate.
+     */
+    where?: OrderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Orders to fetch.
+     */
+    orderBy?: OrderOrderByWithRelationInput | OrderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OrderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Orders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Orders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Orders
+    **/
+    _count?: true | OrderCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: OrderAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: OrderSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OrderMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OrderMaxAggregateInputType
+  }
+
+  export type GetOrderAggregateType<T extends OrderAggregateArgs> = {
+        [P in keyof T & keyof AggregateOrder]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOrder[P]>
+      : GetScalarType<T[P], AggregateOrder[P]>
+  }
+
+
+
+
+  export type OrderGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrderWhereInput
+    orderBy?: OrderOrderByWithAggregationInput | OrderOrderByWithAggregationInput[]
+    by: OrderScalarFieldEnum[] | OrderScalarFieldEnum
+    having?: OrderScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OrderCountAggregateInputType | true
+    _avg?: OrderAvgAggregateInputType
+    _sum?: OrderSumAggregateInputType
+    _min?: OrderMinAggregateInputType
+    _max?: OrderMaxAggregateInputType
+  }
+
+  export type OrderGroupByOutputType = {
+    id: string
+    customerName: string
+    email: string
+    phoneNumber: string
+    date: Date
+    result: string | null
+    createdAt: Date
+    updatedAt: Date
+    userId: string | null
+    packageId: string | null
+    locationId: string | null
+    packageName: string
+    packageDescription: string | null
+    packagePrice: number
+    packageImage: string | null
+    locationName: string
+    locationAddress: string
+    _count: OrderCountAggregateOutputType | null
+    _avg: OrderAvgAggregateOutputType | null
+    _sum: OrderSumAggregateOutputType | null
+    _min: OrderMinAggregateOutputType | null
+    _max: OrderMaxAggregateOutputType | null
+  }
+
+  type GetOrderGroupByPayload<T extends OrderGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OrderGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OrderGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OrderGroupByOutputType[P]>
+            : GetScalarType<T[P], OrderGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OrderSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    customerName?: boolean
+    email?: boolean
+    phoneNumber?: boolean
+    date?: boolean
+    result?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    packageId?: boolean
+    locationId?: boolean
+    packageName?: boolean
+    packageDescription?: boolean
+    packagePrice?: boolean
+    packageImage?: boolean
+    locationName?: boolean
+    locationAddress?: boolean
+    user?: boolean | Order$userArgs<ExtArgs>
+    package?: boolean | Order$packageArgs<ExtArgs>
+    location?: boolean | Order$locationArgs<ExtArgs>
+  }, ExtArgs["result"]["order"]>
+
+  export type OrderSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    customerName?: boolean
+    email?: boolean
+    phoneNumber?: boolean
+    date?: boolean
+    result?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    packageId?: boolean
+    locationId?: boolean
+    packageName?: boolean
+    packageDescription?: boolean
+    packagePrice?: boolean
+    packageImage?: boolean
+    locationName?: boolean
+    locationAddress?: boolean
+    user?: boolean | Order$userArgs<ExtArgs>
+    package?: boolean | Order$packageArgs<ExtArgs>
+    location?: boolean | Order$locationArgs<ExtArgs>
+  }, ExtArgs["result"]["order"]>
+
+  export type OrderSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    customerName?: boolean
+    email?: boolean
+    phoneNumber?: boolean
+    date?: boolean
+    result?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    packageId?: boolean
+    locationId?: boolean
+    packageName?: boolean
+    packageDescription?: boolean
+    packagePrice?: boolean
+    packageImage?: boolean
+    locationName?: boolean
+    locationAddress?: boolean
+    user?: boolean | Order$userArgs<ExtArgs>
+    package?: boolean | Order$packageArgs<ExtArgs>
+    location?: boolean | Order$locationArgs<ExtArgs>
+  }, ExtArgs["result"]["order"]>
+
+  export type OrderSelectScalar = {
+    id?: boolean
+    customerName?: boolean
+    email?: boolean
+    phoneNumber?: boolean
+    date?: boolean
+    result?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    packageId?: boolean
+    locationId?: boolean
+    packageName?: boolean
+    packageDescription?: boolean
+    packagePrice?: boolean
+    packageImage?: boolean
+    locationName?: boolean
+    locationAddress?: boolean
+  }
+
+  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "customerName" | "email" | "phoneNumber" | "date" | "result" | "createdAt" | "updatedAt" | "userId" | "packageId" | "locationId" | "packageName" | "packageDescription" | "packagePrice" | "packageImage" | "locationName" | "locationAddress", ExtArgs["result"]["order"]>
+  export type OrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | Order$userArgs<ExtArgs>
+    package?: boolean | Order$packageArgs<ExtArgs>
+    location?: boolean | Order$locationArgs<ExtArgs>
+  }
+  export type OrderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | Order$userArgs<ExtArgs>
+    package?: boolean | Order$packageArgs<ExtArgs>
+    location?: boolean | Order$locationArgs<ExtArgs>
+  }
+  export type OrderIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | Order$userArgs<ExtArgs>
+    package?: boolean | Order$packageArgs<ExtArgs>
+    location?: boolean | Order$locationArgs<ExtArgs>
+  }
+
+  export type $OrderPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Order"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs> | null
+      package: Prisma.$PackagePayload<ExtArgs> | null
+      location: Prisma.$LocationPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      customerName: string
+      email: string
+      phoneNumber: string
+      date: Date
+      result: string | null
+      createdAt: Date
+      updatedAt: Date
+      userId: string | null
+      packageId: string | null
+      locationId: string | null
+      packageName: string
+      packageDescription: string | null
+      packagePrice: number
+      packageImage: string | null
+      locationName: string
+      locationAddress: string
+    }, ExtArgs["result"]["order"]>
+    composites: {}
+  }
+
+  type OrderGetPayload<S extends boolean | null | undefined | OrderDefaultArgs> = $Result.GetResult<Prisma.$OrderPayload, S>
+
+  type OrderCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<OrderFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: OrderCountAggregateInputType | true
+    }
+
+  export interface OrderDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Order'], meta: { name: 'Order' } }
+    /**
+     * Find zero or one Order that matches the filter.
+     * @param {OrderFindUniqueArgs} args - Arguments to find a Order
+     * @example
+     * // Get one Order
+     * const order = await prisma.order.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OrderFindUniqueArgs>(args: SelectSubset<T, OrderFindUniqueArgs<ExtArgs>>): Prisma__OrderClient<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Order that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {OrderFindUniqueOrThrowArgs} args - Arguments to find a Order
+     * @example
+     * // Get one Order
+     * const order = await prisma.order.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OrderFindUniqueOrThrowArgs>(args: SelectSubset<T, OrderFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OrderClient<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Order that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrderFindFirstArgs} args - Arguments to find a Order
+     * @example
+     * // Get one Order
+     * const order = await prisma.order.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OrderFindFirstArgs>(args?: SelectSubset<T, OrderFindFirstArgs<ExtArgs>>): Prisma__OrderClient<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Order that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrderFindFirstOrThrowArgs} args - Arguments to find a Order
+     * @example
+     * // Get one Order
+     * const order = await prisma.order.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OrderFindFirstOrThrowArgs>(args?: SelectSubset<T, OrderFindFirstOrThrowArgs<ExtArgs>>): Prisma__OrderClient<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Orders that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrderFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Orders
+     * const orders = await prisma.order.findMany()
+     * 
+     * // Get first 10 Orders
+     * const orders = await prisma.order.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const orderWithIdOnly = await prisma.order.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OrderFindManyArgs>(args?: SelectSubset<T, OrderFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Order.
+     * @param {OrderCreateArgs} args - Arguments to create a Order.
+     * @example
+     * // Create one Order
+     * const Order = await prisma.order.create({
+     *   data: {
+     *     // ... data to create a Order
+     *   }
+     * })
+     * 
+     */
+    create<T extends OrderCreateArgs>(args: SelectSubset<T, OrderCreateArgs<ExtArgs>>): Prisma__OrderClient<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Orders.
+     * @param {OrderCreateManyArgs} args - Arguments to create many Orders.
+     * @example
+     * // Create many Orders
+     * const order = await prisma.order.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OrderCreateManyArgs>(args?: SelectSubset<T, OrderCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Orders and returns the data saved in the database.
+     * @param {OrderCreateManyAndReturnArgs} args - Arguments to create many Orders.
+     * @example
+     * // Create many Orders
+     * const order = await prisma.order.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Orders and only return the `id`
+     * const orderWithIdOnly = await prisma.order.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OrderCreateManyAndReturnArgs>(args?: SelectSubset<T, OrderCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Order.
+     * @param {OrderDeleteArgs} args - Arguments to delete one Order.
+     * @example
+     * // Delete one Order
+     * const Order = await prisma.order.delete({
+     *   where: {
+     *     // ... filter to delete one Order
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OrderDeleteArgs>(args: SelectSubset<T, OrderDeleteArgs<ExtArgs>>): Prisma__OrderClient<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Order.
+     * @param {OrderUpdateArgs} args - Arguments to update one Order.
+     * @example
+     * // Update one Order
+     * const order = await prisma.order.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OrderUpdateArgs>(args: SelectSubset<T, OrderUpdateArgs<ExtArgs>>): Prisma__OrderClient<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Orders.
+     * @param {OrderDeleteManyArgs} args - Arguments to filter Orders to delete.
+     * @example
+     * // Delete a few Orders
+     * const { count } = await prisma.order.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OrderDeleteManyArgs>(args?: SelectSubset<T, OrderDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Orders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrderUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Orders
+     * const order = await prisma.order.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OrderUpdateManyArgs>(args: SelectSubset<T, OrderUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Orders and returns the data updated in the database.
+     * @param {OrderUpdateManyAndReturnArgs} args - Arguments to update many Orders.
+     * @example
+     * // Update many Orders
+     * const order = await prisma.order.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Orders and only return the `id`
+     * const orderWithIdOnly = await prisma.order.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends OrderUpdateManyAndReturnArgs>(args: SelectSubset<T, OrderUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Order.
+     * @param {OrderUpsertArgs} args - Arguments to update or create a Order.
+     * @example
+     * // Update or create a Order
+     * const order = await prisma.order.upsert({
+     *   create: {
+     *     // ... data to create a Order
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Order we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OrderUpsertArgs>(args: SelectSubset<T, OrderUpsertArgs<ExtArgs>>): Prisma__OrderClient<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Orders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrderCountArgs} args - Arguments to filter Orders to count.
+     * @example
+     * // Count the number of Orders
+     * const count = await prisma.order.count({
+     *   where: {
+     *     // ... the filter for the Orders we want to count
+     *   }
+     * })
+    **/
+    count<T extends OrderCountArgs>(
+      args?: Subset<T, OrderCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OrderCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Order.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrderAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OrderAggregateArgs>(args: Subset<T, OrderAggregateArgs>): Prisma.PrismaPromise<GetOrderAggregateType<T>>
+
+    /**
+     * Group by Order.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrderGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OrderGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OrderGroupByArgs['orderBy'] }
+        : { orderBy?: OrderGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OrderGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOrderGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Order model
+   */
+  readonly fields: OrderFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Order.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OrderClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends Order$userArgs<ExtArgs> = {}>(args?: Subset<T, Order$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    package<T extends Order$packageArgs<ExtArgs> = {}>(args?: Subset<T, Order$packageArgs<ExtArgs>>): Prisma__PackageClient<$Result.GetResult<Prisma.$PackagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    location<T extends Order$locationArgs<ExtArgs> = {}>(args?: Subset<T, Order$locationArgs<ExtArgs>>): Prisma__LocationClient<$Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Order model
+   */
+  interface OrderFieldRefs {
+    readonly id: FieldRef<"Order", 'String'>
+    readonly customerName: FieldRef<"Order", 'String'>
+    readonly email: FieldRef<"Order", 'String'>
+    readonly phoneNumber: FieldRef<"Order", 'String'>
+    readonly date: FieldRef<"Order", 'DateTime'>
+    readonly result: FieldRef<"Order", 'String'>
+    readonly createdAt: FieldRef<"Order", 'DateTime'>
+    readonly updatedAt: FieldRef<"Order", 'DateTime'>
+    readonly userId: FieldRef<"Order", 'String'>
+    readonly packageId: FieldRef<"Order", 'String'>
+    readonly locationId: FieldRef<"Order", 'String'>
+    readonly packageName: FieldRef<"Order", 'String'>
+    readonly packageDescription: FieldRef<"Order", 'String'>
+    readonly packagePrice: FieldRef<"Order", 'Int'>
+    readonly packageImage: FieldRef<"Order", 'String'>
+    readonly locationName: FieldRef<"Order", 'String'>
+    readonly locationAddress: FieldRef<"Order", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Order findUnique
+   */
+  export type OrderFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Order
+     */
+    select?: OrderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Order
+     */
+    omit?: OrderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderInclude<ExtArgs> | null
+    /**
+     * Filter, which Order to fetch.
+     */
+    where: OrderWhereUniqueInput
+  }
+
+  /**
+   * Order findUniqueOrThrow
+   */
+  export type OrderFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Order
+     */
+    select?: OrderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Order
+     */
+    omit?: OrderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderInclude<ExtArgs> | null
+    /**
+     * Filter, which Order to fetch.
+     */
+    where: OrderWhereUniqueInput
+  }
+
+  /**
+   * Order findFirst
+   */
+  export type OrderFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Order
+     */
+    select?: OrderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Order
+     */
+    omit?: OrderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderInclude<ExtArgs> | null
+    /**
+     * Filter, which Order to fetch.
+     */
+    where?: OrderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Orders to fetch.
+     */
+    orderBy?: OrderOrderByWithRelationInput | OrderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Orders.
+     */
+    cursor?: OrderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Orders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Orders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Orders.
+     */
+    distinct?: OrderScalarFieldEnum | OrderScalarFieldEnum[]
+  }
+
+  /**
+   * Order findFirstOrThrow
+   */
+  export type OrderFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Order
+     */
+    select?: OrderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Order
+     */
+    omit?: OrderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderInclude<ExtArgs> | null
+    /**
+     * Filter, which Order to fetch.
+     */
+    where?: OrderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Orders to fetch.
+     */
+    orderBy?: OrderOrderByWithRelationInput | OrderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Orders.
+     */
+    cursor?: OrderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Orders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Orders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Orders.
+     */
+    distinct?: OrderScalarFieldEnum | OrderScalarFieldEnum[]
+  }
+
+  /**
+   * Order findMany
+   */
+  export type OrderFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Order
+     */
+    select?: OrderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Order
+     */
+    omit?: OrderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderInclude<ExtArgs> | null
+    /**
+     * Filter, which Orders to fetch.
+     */
+    where?: OrderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Orders to fetch.
+     */
+    orderBy?: OrderOrderByWithRelationInput | OrderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Orders.
+     */
+    cursor?: OrderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Orders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Orders.
+     */
+    skip?: number
+    distinct?: OrderScalarFieldEnum | OrderScalarFieldEnum[]
+  }
+
+  /**
+   * Order create
+   */
+  export type OrderCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Order
+     */
+    select?: OrderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Order
+     */
+    omit?: OrderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Order.
+     */
+    data: XOR<OrderCreateInput, OrderUncheckedCreateInput>
+  }
+
+  /**
+   * Order createMany
+   */
+  export type OrderCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Orders.
+     */
+    data: OrderCreateManyInput | OrderCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Order createManyAndReturn
+   */
+  export type OrderCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Order
+     */
+    select?: OrderSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Order
+     */
+    omit?: OrderOmit<ExtArgs> | null
+    /**
+     * The data used to create many Orders.
+     */
+    data: OrderCreateManyInput | OrderCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Order update
+   */
+  export type OrderUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Order
+     */
+    select?: OrderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Order
+     */
+    omit?: OrderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Order.
+     */
+    data: XOR<OrderUpdateInput, OrderUncheckedUpdateInput>
+    /**
+     * Choose, which Order to update.
+     */
+    where: OrderWhereUniqueInput
+  }
+
+  /**
+   * Order updateMany
+   */
+  export type OrderUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Orders.
+     */
+    data: XOR<OrderUpdateManyMutationInput, OrderUncheckedUpdateManyInput>
+    /**
+     * Filter which Orders to update
+     */
+    where?: OrderWhereInput
+    /**
+     * Limit how many Orders to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Order updateManyAndReturn
+   */
+  export type OrderUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Order
+     */
+    select?: OrderSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Order
+     */
+    omit?: OrderOmit<ExtArgs> | null
+    /**
+     * The data used to update Orders.
+     */
+    data: XOR<OrderUpdateManyMutationInput, OrderUncheckedUpdateManyInput>
+    /**
+     * Filter which Orders to update
+     */
+    where?: OrderWhereInput
+    /**
+     * Limit how many Orders to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Order upsert
+   */
+  export type OrderUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Order
+     */
+    select?: OrderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Order
+     */
+    omit?: OrderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Order to update in case it exists.
+     */
+    where: OrderWhereUniqueInput
+    /**
+     * In case the Order found by the `where` argument doesn't exist, create a new Order with this data.
+     */
+    create: XOR<OrderCreateInput, OrderUncheckedCreateInput>
+    /**
+     * In case the Order was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OrderUpdateInput, OrderUncheckedUpdateInput>
+  }
+
+  /**
+   * Order delete
+   */
+  export type OrderDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Order
+     */
+    select?: OrderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Order
+     */
+    omit?: OrderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderInclude<ExtArgs> | null
+    /**
+     * Filter which Order to delete.
+     */
+    where: OrderWhereUniqueInput
+  }
+
+  /**
+   * Order deleteMany
+   */
+  export type OrderDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Orders to delete
+     */
+    where?: OrderWhereInput
+    /**
+     * Limit how many Orders to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Order.user
+   */
+  export type Order$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Order.package
+   */
+  export type Order$packageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Package
+     */
+    select?: PackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Package
+     */
+    omit?: PackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PackageInclude<ExtArgs> | null
+    where?: PackageWhereInput
+  }
+
+  /**
+   * Order.location
+   */
+  export type Order$locationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Location
+     */
+    select?: LocationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Location
+     */
+    omit?: LocationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationInclude<ExtArgs> | null
+    where?: LocationWhereInput
+  }
+
+  /**
+   * Order without action
+   */
+  export type OrderDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Order
+     */
+    select?: OrderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Order
+     */
+    omit?: OrderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderInclude<ExtArgs> | null
   }
 
 
@@ -10863,6 +12386,29 @@ export namespace Prisma {
   export type PackageScalarFieldEnum = (typeof PackageScalarFieldEnum)[keyof typeof PackageScalarFieldEnum]
 
 
+  export const OrderScalarFieldEnum: {
+    id: 'id',
+    customerName: 'customerName',
+    email: 'email',
+    phoneNumber: 'phoneNumber',
+    date: 'date',
+    result: 'result',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    userId: 'userId',
+    packageId: 'packageId',
+    locationId: 'locationId',
+    packageName: 'packageName',
+    packageDescription: 'packageDescription',
+    packagePrice: 'packagePrice',
+    packageImage: 'packageImage',
+    locationName: 'locationName',
+    locationAddress: 'locationAddress'
+  };
+
+  export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -10972,6 +12518,7 @@ export namespace Prisma {
     sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
     studio?: XOR<StudioNullableScalarRelationFilter, StudioWhereInput> | null
+    orders?: OrderListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -10985,6 +12532,7 @@ export namespace Prisma {
     sessions?: SessionOrderByRelationAggregateInput
     accounts?: AccountOrderByRelationAggregateInput
     studio?: StudioOrderByWithRelationInput
+    orders?: OrderOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -11001,6 +12549,7 @@ export namespace Prisma {
     sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
     studio?: XOR<StudioNullableScalarRelationFilter, StudioWhereInput> | null
+    orders?: OrderListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -11358,6 +12907,7 @@ export namespace Prisma {
     studioId?: StringFilter<"Location"> | string
     studio?: XOR<StudioScalarRelationFilter, StudioWhereInput>
     packages?: PackageListRelationFilter
+    orders?: OrderListRelationFilter
   }
 
   export type LocationOrderByWithRelationInput = {
@@ -11370,6 +12920,7 @@ export namespace Prisma {
     studioId?: SortOrder
     studio?: StudioOrderByWithRelationInput
     packages?: PackageOrderByRelationAggregateInput
+    orders?: OrderOrderByRelationAggregateInput
   }
 
   export type LocationWhereUniqueInput = Prisma.AtLeast<{
@@ -11386,6 +12937,7 @@ export namespace Prisma {
     studioId?: StringFilter<"Location"> | string
     studio?: XOR<StudioScalarRelationFilter, StudioWhereInput>
     packages?: PackageListRelationFilter
+    orders?: OrderListRelationFilter
   }, "id" | "studioId_name">
 
   export type LocationOrderByWithAggregationInput = {
@@ -11499,6 +13051,7 @@ export namespace Prisma {
     studio?: XOR<StudioScalarRelationFilter, StudioWhereInput>
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     locations?: LocationListRelationFilter
+    orders?: OrderListRelationFilter
   }
 
   export type PackageOrderByWithRelationInput = {
@@ -11514,6 +13067,7 @@ export namespace Prisma {
     studio?: StudioOrderByWithRelationInput
     category?: CategoryOrderByWithRelationInput
     locations?: LocationOrderByRelationAggregateInput
+    orders?: OrderOrderByRelationAggregateInput
   }
 
   export type PackageWhereUniqueInput = Prisma.AtLeast<{
@@ -11532,6 +13086,7 @@ export namespace Prisma {
     studio?: XOR<StudioScalarRelationFilter, StudioWhereInput>
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     locations?: LocationListRelationFilter
+    orders?: OrderListRelationFilter
   }, "id">
 
   export type PackageOrderByWithAggregationInput = {
@@ -11566,6 +13121,129 @@ export namespace Prisma {
     categoryId?: StringWithAggregatesFilter<"Package"> | string
   }
 
+  export type OrderWhereInput = {
+    AND?: OrderWhereInput | OrderWhereInput[]
+    OR?: OrderWhereInput[]
+    NOT?: OrderWhereInput | OrderWhereInput[]
+    id?: StringFilter<"Order"> | string
+    customerName?: StringFilter<"Order"> | string
+    email?: StringFilter<"Order"> | string
+    phoneNumber?: StringFilter<"Order"> | string
+    date?: DateTimeFilter<"Order"> | Date | string
+    result?: StringNullableFilter<"Order"> | string | null
+    createdAt?: DateTimeFilter<"Order"> | Date | string
+    updatedAt?: DateTimeFilter<"Order"> | Date | string
+    userId?: StringNullableFilter<"Order"> | string | null
+    packageId?: StringNullableFilter<"Order"> | string | null
+    locationId?: StringNullableFilter<"Order"> | string | null
+    packageName?: StringFilter<"Order"> | string
+    packageDescription?: StringNullableFilter<"Order"> | string | null
+    packagePrice?: IntFilter<"Order"> | number
+    packageImage?: StringNullableFilter<"Order"> | string | null
+    locationName?: StringFilter<"Order"> | string
+    locationAddress?: StringFilter<"Order"> | string
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    package?: XOR<PackageNullableScalarRelationFilter, PackageWhereInput> | null
+    location?: XOR<LocationNullableScalarRelationFilter, LocationWhereInput> | null
+  }
+
+  export type OrderOrderByWithRelationInput = {
+    id?: SortOrder
+    customerName?: SortOrder
+    email?: SortOrder
+    phoneNumber?: SortOrder
+    date?: SortOrder
+    result?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    packageId?: SortOrderInput | SortOrder
+    locationId?: SortOrderInput | SortOrder
+    packageName?: SortOrder
+    packageDescription?: SortOrderInput | SortOrder
+    packagePrice?: SortOrder
+    packageImage?: SortOrderInput | SortOrder
+    locationName?: SortOrder
+    locationAddress?: SortOrder
+    user?: UserOrderByWithRelationInput
+    package?: PackageOrderByWithRelationInput
+    location?: LocationOrderByWithRelationInput
+  }
+
+  export type OrderWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: OrderWhereInput | OrderWhereInput[]
+    OR?: OrderWhereInput[]
+    NOT?: OrderWhereInput | OrderWhereInput[]
+    customerName?: StringFilter<"Order"> | string
+    email?: StringFilter<"Order"> | string
+    phoneNumber?: StringFilter<"Order"> | string
+    date?: DateTimeFilter<"Order"> | Date | string
+    result?: StringNullableFilter<"Order"> | string | null
+    createdAt?: DateTimeFilter<"Order"> | Date | string
+    updatedAt?: DateTimeFilter<"Order"> | Date | string
+    userId?: StringNullableFilter<"Order"> | string | null
+    packageId?: StringNullableFilter<"Order"> | string | null
+    locationId?: StringNullableFilter<"Order"> | string | null
+    packageName?: StringFilter<"Order"> | string
+    packageDescription?: StringNullableFilter<"Order"> | string | null
+    packagePrice?: IntFilter<"Order"> | number
+    packageImage?: StringNullableFilter<"Order"> | string | null
+    locationName?: StringFilter<"Order"> | string
+    locationAddress?: StringFilter<"Order"> | string
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    package?: XOR<PackageNullableScalarRelationFilter, PackageWhereInput> | null
+    location?: XOR<LocationNullableScalarRelationFilter, LocationWhereInput> | null
+  }, "id">
+
+  export type OrderOrderByWithAggregationInput = {
+    id?: SortOrder
+    customerName?: SortOrder
+    email?: SortOrder
+    phoneNumber?: SortOrder
+    date?: SortOrder
+    result?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    packageId?: SortOrderInput | SortOrder
+    locationId?: SortOrderInput | SortOrder
+    packageName?: SortOrder
+    packageDescription?: SortOrderInput | SortOrder
+    packagePrice?: SortOrder
+    packageImage?: SortOrderInput | SortOrder
+    locationName?: SortOrder
+    locationAddress?: SortOrder
+    _count?: OrderCountOrderByAggregateInput
+    _avg?: OrderAvgOrderByAggregateInput
+    _max?: OrderMaxOrderByAggregateInput
+    _min?: OrderMinOrderByAggregateInput
+    _sum?: OrderSumOrderByAggregateInput
+  }
+
+  export type OrderScalarWhereWithAggregatesInput = {
+    AND?: OrderScalarWhereWithAggregatesInput | OrderScalarWhereWithAggregatesInput[]
+    OR?: OrderScalarWhereWithAggregatesInput[]
+    NOT?: OrderScalarWhereWithAggregatesInput | OrderScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Order"> | string
+    customerName?: StringWithAggregatesFilter<"Order"> | string
+    email?: StringWithAggregatesFilter<"Order"> | string
+    phoneNumber?: StringWithAggregatesFilter<"Order"> | string
+    date?: DateTimeWithAggregatesFilter<"Order"> | Date | string
+    result?: StringNullableWithAggregatesFilter<"Order"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string
+    userId?: StringNullableWithAggregatesFilter<"Order"> | string | null
+    packageId?: StringNullableWithAggregatesFilter<"Order"> | string | null
+    locationId?: StringNullableWithAggregatesFilter<"Order"> | string | null
+    packageName?: StringWithAggregatesFilter<"Order"> | string
+    packageDescription?: StringNullableWithAggregatesFilter<"Order"> | string | null
+    packagePrice?: IntWithAggregatesFilter<"Order"> | number
+    packageImage?: StringNullableWithAggregatesFilter<"Order"> | string | null
+    locationName?: StringWithAggregatesFilter<"Order"> | string
+    locationAddress?: StringWithAggregatesFilter<"Order"> | string
+  }
+
   export type UserCreateInput = {
     id: string
     name: string
@@ -11577,6 +13255,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     studio?: StudioCreateNestedOneWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -11590,6 +13269,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     studio?: StudioUncheckedCreateNestedOneWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -11603,6 +13283,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     studio?: StudioUpdateOneWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -11616,6 +13297,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     studio?: StudioUncheckedUpdateOneWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -12016,6 +13698,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     studio: StudioCreateNestedOneWithoutLocationsInput
     packages?: PackageCreateNestedManyWithoutLocationsInput
+    orders?: OrderCreateNestedManyWithoutLocationInput
   }
 
   export type LocationUncheckedCreateInput = {
@@ -12027,6 +13710,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     studioId: string
     packages?: PackageUncheckedCreateNestedManyWithoutLocationsInput
+    orders?: OrderUncheckedCreateNestedManyWithoutLocationInput
   }
 
   export type LocationUpdateInput = {
@@ -12038,6 +13722,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studio?: StudioUpdateOneRequiredWithoutLocationsNestedInput
     packages?: PackageUpdateManyWithoutLocationsNestedInput
+    orders?: OrderUpdateManyWithoutLocationNestedInput
   }
 
   export type LocationUncheckedUpdateInput = {
@@ -12049,6 +13734,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studioId?: StringFieldUpdateOperationsInput | string
     packages?: PackageUncheckedUpdateManyWithoutLocationsNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutLocationNestedInput
   }
 
   export type LocationCreateManyInput = {
@@ -12164,6 +13850,7 @@ export namespace Prisma {
     studio: StudioCreateNestedOneWithoutPackagesInput
     category: CategoryCreateNestedOneWithoutPackagesInput
     locations?: LocationCreateNestedManyWithoutPackagesInput
+    orders?: OrderCreateNestedManyWithoutPackageInput
   }
 
   export type PackageUncheckedCreateInput = {
@@ -12177,6 +13864,7 @@ export namespace Prisma {
     studioId: string
     categoryId: string
     locations?: LocationUncheckedCreateNestedManyWithoutPackagesInput
+    orders?: OrderUncheckedCreateNestedManyWithoutPackageInput
   }
 
   export type PackageUpdateInput = {
@@ -12190,6 +13878,7 @@ export namespace Prisma {
     studio?: StudioUpdateOneRequiredWithoutPackagesNestedInput
     category?: CategoryUpdateOneRequiredWithoutPackagesNestedInput
     locations?: LocationUpdateManyWithoutPackagesNestedInput
+    orders?: OrderUpdateManyWithoutPackageNestedInput
   }
 
   export type PackageUncheckedUpdateInput = {
@@ -12203,6 +13892,7 @@ export namespace Prisma {
     studioId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     locations?: LocationUncheckedUpdateManyWithoutPackagesNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutPackageNestedInput
   }
 
   export type PackageCreateManyInput = {
@@ -12237,6 +13927,143 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studioId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OrderCreateInput = {
+    id?: string
+    customerName: string
+    email: string
+    phoneNumber: string
+    date: Date | string
+    result?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    packageName: string
+    packageDescription?: string | null
+    packagePrice: number
+    packageImage?: string | null
+    locationName: string
+    locationAddress: string
+    user?: UserCreateNestedOneWithoutOrdersInput
+    package?: PackageCreateNestedOneWithoutOrdersInput
+    location?: LocationCreateNestedOneWithoutOrdersInput
+  }
+
+  export type OrderUncheckedCreateInput = {
+    id?: string
+    customerName: string
+    email: string
+    phoneNumber: string
+    date: Date | string
+    result?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId?: string | null
+    packageId?: string | null
+    locationId?: string | null
+    packageName: string
+    packageDescription?: string | null
+    packagePrice: number
+    packageImage?: string | null
+    locationName: string
+    locationAddress: string
+  }
+
+  export type OrderUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    result?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    packageName?: StringFieldUpdateOperationsInput | string
+    packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    packagePrice?: IntFieldUpdateOperationsInput | number
+    packageImage?: NullableStringFieldUpdateOperationsInput | string | null
+    locationName?: StringFieldUpdateOperationsInput | string
+    locationAddress?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneWithoutOrdersNestedInput
+    package?: PackageUpdateOneWithoutOrdersNestedInput
+    location?: LocationUpdateOneWithoutOrdersNestedInput
+  }
+
+  export type OrderUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    result?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    packageId?: NullableStringFieldUpdateOperationsInput | string | null
+    locationId?: NullableStringFieldUpdateOperationsInput | string | null
+    packageName?: StringFieldUpdateOperationsInput | string
+    packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    packagePrice?: IntFieldUpdateOperationsInput | number
+    packageImage?: NullableStringFieldUpdateOperationsInput | string | null
+    locationName?: StringFieldUpdateOperationsInput | string
+    locationAddress?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OrderCreateManyInput = {
+    id?: string
+    customerName: string
+    email: string
+    phoneNumber: string
+    date: Date | string
+    result?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId?: string | null
+    packageId?: string | null
+    locationId?: string | null
+    packageName: string
+    packageDescription?: string | null
+    packagePrice: number
+    packageImage?: string | null
+    locationName: string
+    locationAddress: string
+  }
+
+  export type OrderUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    result?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    packageName?: StringFieldUpdateOperationsInput | string
+    packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    packagePrice?: IntFieldUpdateOperationsInput | number
+    packageImage?: NullableStringFieldUpdateOperationsInput | string | null
+    locationName?: StringFieldUpdateOperationsInput | string
+    locationAddress?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OrderUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    result?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    packageId?: NullableStringFieldUpdateOperationsInput | string | null
+    locationId?: NullableStringFieldUpdateOperationsInput | string | null
+    packageName?: StringFieldUpdateOperationsInput | string
+    packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    packagePrice?: IntFieldUpdateOperationsInput | number
+    packageImage?: NullableStringFieldUpdateOperationsInput | string | null
+    locationName?: StringFieldUpdateOperationsInput | string
+    locationAddress?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -12302,6 +14129,12 @@ export namespace Prisma {
     isNot?: StudioWhereInput | null
   }
 
+  export type OrderListRelationFilter = {
+    every?: OrderWhereInput
+    some?: OrderWhereInput
+    none?: OrderWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -12312,6 +14145,10 @@ export namespace Prisma {
   }
 
   export type AccountOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type OrderOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -12764,6 +14601,89 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
+  export type PackageNullableScalarRelationFilter = {
+    is?: PackageWhereInput | null
+    isNot?: PackageWhereInput | null
+  }
+
+  export type LocationNullableScalarRelationFilter = {
+    is?: LocationWhereInput | null
+    isNot?: LocationWhereInput | null
+  }
+
+  export type OrderCountOrderByAggregateInput = {
+    id?: SortOrder
+    customerName?: SortOrder
+    email?: SortOrder
+    phoneNumber?: SortOrder
+    date?: SortOrder
+    result?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    packageId?: SortOrder
+    locationId?: SortOrder
+    packageName?: SortOrder
+    packageDescription?: SortOrder
+    packagePrice?: SortOrder
+    packageImage?: SortOrder
+    locationName?: SortOrder
+    locationAddress?: SortOrder
+  }
+
+  export type OrderAvgOrderByAggregateInput = {
+    packagePrice?: SortOrder
+  }
+
+  export type OrderMaxOrderByAggregateInput = {
+    id?: SortOrder
+    customerName?: SortOrder
+    email?: SortOrder
+    phoneNumber?: SortOrder
+    date?: SortOrder
+    result?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    packageId?: SortOrder
+    locationId?: SortOrder
+    packageName?: SortOrder
+    packageDescription?: SortOrder
+    packagePrice?: SortOrder
+    packageImage?: SortOrder
+    locationName?: SortOrder
+    locationAddress?: SortOrder
+  }
+
+  export type OrderMinOrderByAggregateInput = {
+    id?: SortOrder
+    customerName?: SortOrder
+    email?: SortOrder
+    phoneNumber?: SortOrder
+    date?: SortOrder
+    result?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    packageId?: SortOrder
+    locationId?: SortOrder
+    packageName?: SortOrder
+    packageDescription?: SortOrder
+    packagePrice?: SortOrder
+    packageImage?: SortOrder
+    locationName?: SortOrder
+    locationAddress?: SortOrder
+  }
+
+  export type OrderSumOrderByAggregateInput = {
+    packagePrice?: SortOrder
+  }
+
   export type SessionCreateNestedManyWithoutUserInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
@@ -12784,6 +14704,13 @@ export namespace Prisma {
     connect?: StudioWhereUniqueInput
   }
 
+  export type OrderCreateNestedManyWithoutUserInput = {
+    create?: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput> | OrderCreateWithoutUserInput[] | OrderUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutUserInput | OrderCreateOrConnectWithoutUserInput[]
+    createMany?: OrderCreateManyUserInputEnvelope
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+  }
+
   export type SessionUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
@@ -12802,6 +14729,13 @@ export namespace Prisma {
     create?: XOR<StudioCreateWithoutUserInput, StudioUncheckedCreateWithoutUserInput>
     connectOrCreate?: StudioCreateOrConnectWithoutUserInput
     connect?: StudioWhereUniqueInput
+  }
+
+  export type OrderUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput> | OrderCreateWithoutUserInput[] | OrderUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutUserInput | OrderCreateOrConnectWithoutUserInput[]
+    createMany?: OrderCreateManyUserInputEnvelope
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -12858,6 +14792,20 @@ export namespace Prisma {
     update?: XOR<XOR<StudioUpdateToOneWithWhereWithoutUserInput, StudioUpdateWithoutUserInput>, StudioUncheckedUpdateWithoutUserInput>
   }
 
+  export type OrderUpdateManyWithoutUserNestedInput = {
+    create?: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput> | OrderCreateWithoutUserInput[] | OrderUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutUserInput | OrderCreateOrConnectWithoutUserInput[]
+    upsert?: OrderUpsertWithWhereUniqueWithoutUserInput | OrderUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: OrderCreateManyUserInputEnvelope
+    set?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    update?: OrderUpdateWithWhereUniqueWithoutUserInput | OrderUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: OrderUpdateManyWithWhereWithoutUserInput | OrderUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
+  }
+
   export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
@@ -12894,6 +14842,20 @@ export namespace Prisma {
     delete?: StudioWhereInput | boolean
     connect?: StudioWhereUniqueInput
     update?: XOR<XOR<StudioUpdateToOneWithWhereWithoutUserInput, StudioUpdateWithoutUserInput>, StudioUncheckedUpdateWithoutUserInput>
+  }
+
+  export type OrderUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput> | OrderCreateWithoutUserInput[] | OrderUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutUserInput | OrderCreateOrConnectWithoutUserInput[]
+    upsert?: OrderUpsertWithWhereUniqueWithoutUserInput | OrderUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: OrderCreateManyUserInputEnvelope
+    set?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    update?: OrderUpdateWithWhereUniqueWithoutUserInput | OrderUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: OrderUpdateManyWithWhereWithoutUserInput | OrderUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutSessionsInput = {
@@ -13080,10 +15042,24 @@ export namespace Prisma {
     connect?: PackageWhereUniqueInput | PackageWhereUniqueInput[]
   }
 
+  export type OrderCreateNestedManyWithoutLocationInput = {
+    create?: XOR<OrderCreateWithoutLocationInput, OrderUncheckedCreateWithoutLocationInput> | OrderCreateWithoutLocationInput[] | OrderUncheckedCreateWithoutLocationInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutLocationInput | OrderCreateOrConnectWithoutLocationInput[]
+    createMany?: OrderCreateManyLocationInputEnvelope
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+  }
+
   export type PackageUncheckedCreateNestedManyWithoutLocationsInput = {
     create?: XOR<PackageCreateWithoutLocationsInput, PackageUncheckedCreateWithoutLocationsInput> | PackageCreateWithoutLocationsInput[] | PackageUncheckedCreateWithoutLocationsInput[]
     connectOrCreate?: PackageCreateOrConnectWithoutLocationsInput | PackageCreateOrConnectWithoutLocationsInput[]
     connect?: PackageWhereUniqueInput | PackageWhereUniqueInput[]
+  }
+
+  export type OrderUncheckedCreateNestedManyWithoutLocationInput = {
+    create?: XOR<OrderCreateWithoutLocationInput, OrderUncheckedCreateWithoutLocationInput> | OrderCreateWithoutLocationInput[] | OrderUncheckedCreateWithoutLocationInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutLocationInput | OrderCreateOrConnectWithoutLocationInput[]
+    createMany?: OrderCreateManyLocationInputEnvelope
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
   }
 
   export type StudioUpdateOneRequiredWithoutLocationsNestedInput = {
@@ -13107,6 +15083,20 @@ export namespace Prisma {
     deleteMany?: PackageScalarWhereInput | PackageScalarWhereInput[]
   }
 
+  export type OrderUpdateManyWithoutLocationNestedInput = {
+    create?: XOR<OrderCreateWithoutLocationInput, OrderUncheckedCreateWithoutLocationInput> | OrderCreateWithoutLocationInput[] | OrderUncheckedCreateWithoutLocationInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutLocationInput | OrderCreateOrConnectWithoutLocationInput[]
+    upsert?: OrderUpsertWithWhereUniqueWithoutLocationInput | OrderUpsertWithWhereUniqueWithoutLocationInput[]
+    createMany?: OrderCreateManyLocationInputEnvelope
+    set?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    update?: OrderUpdateWithWhereUniqueWithoutLocationInput | OrderUpdateWithWhereUniqueWithoutLocationInput[]
+    updateMany?: OrderUpdateManyWithWhereWithoutLocationInput | OrderUpdateManyWithWhereWithoutLocationInput[]
+    deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
+  }
+
   export type PackageUncheckedUpdateManyWithoutLocationsNestedInput = {
     create?: XOR<PackageCreateWithoutLocationsInput, PackageUncheckedCreateWithoutLocationsInput> | PackageCreateWithoutLocationsInput[] | PackageUncheckedCreateWithoutLocationsInput[]
     connectOrCreate?: PackageCreateOrConnectWithoutLocationsInput | PackageCreateOrConnectWithoutLocationsInput[]
@@ -13118,6 +15108,20 @@ export namespace Prisma {
     update?: PackageUpdateWithWhereUniqueWithoutLocationsInput | PackageUpdateWithWhereUniqueWithoutLocationsInput[]
     updateMany?: PackageUpdateManyWithWhereWithoutLocationsInput | PackageUpdateManyWithWhereWithoutLocationsInput[]
     deleteMany?: PackageScalarWhereInput | PackageScalarWhereInput[]
+  }
+
+  export type OrderUncheckedUpdateManyWithoutLocationNestedInput = {
+    create?: XOR<OrderCreateWithoutLocationInput, OrderUncheckedCreateWithoutLocationInput> | OrderCreateWithoutLocationInput[] | OrderUncheckedCreateWithoutLocationInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutLocationInput | OrderCreateOrConnectWithoutLocationInput[]
+    upsert?: OrderUpsertWithWhereUniqueWithoutLocationInput | OrderUpsertWithWhereUniqueWithoutLocationInput[]
+    createMany?: OrderCreateManyLocationInputEnvelope
+    set?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    update?: OrderUpdateWithWhereUniqueWithoutLocationInput | OrderUpdateWithWhereUniqueWithoutLocationInput[]
+    updateMany?: OrderUpdateManyWithWhereWithoutLocationInput | OrderUpdateManyWithWhereWithoutLocationInput[]
+    deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
   }
 
   export type StudioCreateNestedOneWithoutCategoriesInput = {
@@ -13194,10 +15198,24 @@ export namespace Prisma {
     connect?: LocationWhereUniqueInput | LocationWhereUniqueInput[]
   }
 
+  export type OrderCreateNestedManyWithoutPackageInput = {
+    create?: XOR<OrderCreateWithoutPackageInput, OrderUncheckedCreateWithoutPackageInput> | OrderCreateWithoutPackageInput[] | OrderUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutPackageInput | OrderCreateOrConnectWithoutPackageInput[]
+    createMany?: OrderCreateManyPackageInputEnvelope
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+  }
+
   export type LocationUncheckedCreateNestedManyWithoutPackagesInput = {
     create?: XOR<LocationCreateWithoutPackagesInput, LocationUncheckedCreateWithoutPackagesInput> | LocationCreateWithoutPackagesInput[] | LocationUncheckedCreateWithoutPackagesInput[]
     connectOrCreate?: LocationCreateOrConnectWithoutPackagesInput | LocationCreateOrConnectWithoutPackagesInput[]
     connect?: LocationWhereUniqueInput | LocationWhereUniqueInput[]
+  }
+
+  export type OrderUncheckedCreateNestedManyWithoutPackageInput = {
+    create?: XOR<OrderCreateWithoutPackageInput, OrderUncheckedCreateWithoutPackageInput> | OrderCreateWithoutPackageInput[] | OrderUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutPackageInput | OrderCreateOrConnectWithoutPackageInput[]
+    createMany?: OrderCreateManyPackageInputEnvelope
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -13237,6 +15255,20 @@ export namespace Prisma {
     deleteMany?: LocationScalarWhereInput | LocationScalarWhereInput[]
   }
 
+  export type OrderUpdateManyWithoutPackageNestedInput = {
+    create?: XOR<OrderCreateWithoutPackageInput, OrderUncheckedCreateWithoutPackageInput> | OrderCreateWithoutPackageInput[] | OrderUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutPackageInput | OrderCreateOrConnectWithoutPackageInput[]
+    upsert?: OrderUpsertWithWhereUniqueWithoutPackageInput | OrderUpsertWithWhereUniqueWithoutPackageInput[]
+    createMany?: OrderCreateManyPackageInputEnvelope
+    set?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    update?: OrderUpdateWithWhereUniqueWithoutPackageInput | OrderUpdateWithWhereUniqueWithoutPackageInput[]
+    updateMany?: OrderUpdateManyWithWhereWithoutPackageInput | OrderUpdateManyWithWhereWithoutPackageInput[]
+    deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
+  }
+
   export type LocationUncheckedUpdateManyWithoutPackagesNestedInput = {
     create?: XOR<LocationCreateWithoutPackagesInput, LocationUncheckedCreateWithoutPackagesInput> | LocationCreateWithoutPackagesInput[] | LocationUncheckedCreateWithoutPackagesInput[]
     connectOrCreate?: LocationCreateOrConnectWithoutPackagesInput | LocationCreateOrConnectWithoutPackagesInput[]
@@ -13248,6 +15280,68 @@ export namespace Prisma {
     update?: LocationUpdateWithWhereUniqueWithoutPackagesInput | LocationUpdateWithWhereUniqueWithoutPackagesInput[]
     updateMany?: LocationUpdateManyWithWhereWithoutPackagesInput | LocationUpdateManyWithWhereWithoutPackagesInput[]
     deleteMany?: LocationScalarWhereInput | LocationScalarWhereInput[]
+  }
+
+  export type OrderUncheckedUpdateManyWithoutPackageNestedInput = {
+    create?: XOR<OrderCreateWithoutPackageInput, OrderUncheckedCreateWithoutPackageInput> | OrderCreateWithoutPackageInput[] | OrderUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutPackageInput | OrderCreateOrConnectWithoutPackageInput[]
+    upsert?: OrderUpsertWithWhereUniqueWithoutPackageInput | OrderUpsertWithWhereUniqueWithoutPackageInput[]
+    createMany?: OrderCreateManyPackageInputEnvelope
+    set?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    update?: OrderUpdateWithWhereUniqueWithoutPackageInput | OrderUpdateWithWhereUniqueWithoutPackageInput[]
+    updateMany?: OrderUpdateManyWithWhereWithoutPackageInput | OrderUpdateManyWithWhereWithoutPackageInput[]
+    deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutOrdersInput = {
+    create?: XOR<UserCreateWithoutOrdersInput, UserUncheckedCreateWithoutOrdersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOrdersInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type PackageCreateNestedOneWithoutOrdersInput = {
+    create?: XOR<PackageCreateWithoutOrdersInput, PackageUncheckedCreateWithoutOrdersInput>
+    connectOrCreate?: PackageCreateOrConnectWithoutOrdersInput
+    connect?: PackageWhereUniqueInput
+  }
+
+  export type LocationCreateNestedOneWithoutOrdersInput = {
+    create?: XOR<LocationCreateWithoutOrdersInput, LocationUncheckedCreateWithoutOrdersInput>
+    connectOrCreate?: LocationCreateOrConnectWithoutOrdersInput
+    connect?: LocationWhereUniqueInput
+  }
+
+  export type UserUpdateOneWithoutOrdersNestedInput = {
+    create?: XOR<UserCreateWithoutOrdersInput, UserUncheckedCreateWithoutOrdersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOrdersInput
+    upsert?: UserUpsertWithoutOrdersInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutOrdersInput, UserUpdateWithoutOrdersInput>, UserUncheckedUpdateWithoutOrdersInput>
+  }
+
+  export type PackageUpdateOneWithoutOrdersNestedInput = {
+    create?: XOR<PackageCreateWithoutOrdersInput, PackageUncheckedCreateWithoutOrdersInput>
+    connectOrCreate?: PackageCreateOrConnectWithoutOrdersInput
+    upsert?: PackageUpsertWithoutOrdersInput
+    disconnect?: PackageWhereInput | boolean
+    delete?: PackageWhereInput | boolean
+    connect?: PackageWhereUniqueInput
+    update?: XOR<XOR<PackageUpdateToOneWithWhereWithoutOrdersInput, PackageUpdateWithoutOrdersInput>, PackageUncheckedUpdateWithoutOrdersInput>
+  }
+
+  export type LocationUpdateOneWithoutOrdersNestedInput = {
+    create?: XOR<LocationCreateWithoutOrdersInput, LocationUncheckedCreateWithoutOrdersInput>
+    connectOrCreate?: LocationCreateOrConnectWithoutOrdersInput
+    upsert?: LocationUpsertWithoutOrdersInput
+    disconnect?: LocationWhereInput | boolean
+    delete?: LocationWhereInput | boolean
+    connect?: LocationWhereUniqueInput
+    update?: XOR<XOR<LocationUpdateToOneWithWhereWithoutOrdersInput, LocationUpdateWithoutOrdersInput>, LocationUncheckedUpdateWithoutOrdersInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -13531,6 +15625,54 @@ export namespace Prisma {
     create: XOR<StudioCreateWithoutUserInput, StudioUncheckedCreateWithoutUserInput>
   }
 
+  export type OrderCreateWithoutUserInput = {
+    id?: string
+    customerName: string
+    email: string
+    phoneNumber: string
+    date: Date | string
+    result?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    packageName: string
+    packageDescription?: string | null
+    packagePrice: number
+    packageImage?: string | null
+    locationName: string
+    locationAddress: string
+    package?: PackageCreateNestedOneWithoutOrdersInput
+    location?: LocationCreateNestedOneWithoutOrdersInput
+  }
+
+  export type OrderUncheckedCreateWithoutUserInput = {
+    id?: string
+    customerName: string
+    email: string
+    phoneNumber: string
+    date: Date | string
+    result?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    packageId?: string | null
+    locationId?: string | null
+    packageName: string
+    packageDescription?: string | null
+    packagePrice: number
+    packageImage?: string | null
+    locationName: string
+    locationAddress: string
+  }
+
+  export type OrderCreateOrConnectWithoutUserInput = {
+    where: OrderWhereUniqueInput
+    create: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput>
+  }
+
+  export type OrderCreateManyUserInputEnvelope = {
+    data: OrderCreateManyUserInput | OrderCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type SessionUpsertWithWhereUniqueWithoutUserInput = {
     where: SessionWhereUniqueInput
     update: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
@@ -13639,6 +15781,45 @@ export namespace Prisma {
     packages?: PackageUncheckedUpdateManyWithoutStudioNestedInput
   }
 
+  export type OrderUpsertWithWhereUniqueWithoutUserInput = {
+    where: OrderWhereUniqueInput
+    update: XOR<OrderUpdateWithoutUserInput, OrderUncheckedUpdateWithoutUserInput>
+    create: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput>
+  }
+
+  export type OrderUpdateWithWhereUniqueWithoutUserInput = {
+    where: OrderWhereUniqueInput
+    data: XOR<OrderUpdateWithoutUserInput, OrderUncheckedUpdateWithoutUserInput>
+  }
+
+  export type OrderUpdateManyWithWhereWithoutUserInput = {
+    where: OrderScalarWhereInput
+    data: XOR<OrderUpdateManyMutationInput, OrderUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type OrderScalarWhereInput = {
+    AND?: OrderScalarWhereInput | OrderScalarWhereInput[]
+    OR?: OrderScalarWhereInput[]
+    NOT?: OrderScalarWhereInput | OrderScalarWhereInput[]
+    id?: StringFilter<"Order"> | string
+    customerName?: StringFilter<"Order"> | string
+    email?: StringFilter<"Order"> | string
+    phoneNumber?: StringFilter<"Order"> | string
+    date?: DateTimeFilter<"Order"> | Date | string
+    result?: StringNullableFilter<"Order"> | string | null
+    createdAt?: DateTimeFilter<"Order"> | Date | string
+    updatedAt?: DateTimeFilter<"Order"> | Date | string
+    userId?: StringNullableFilter<"Order"> | string | null
+    packageId?: StringNullableFilter<"Order"> | string | null
+    locationId?: StringNullableFilter<"Order"> | string | null
+    packageName?: StringFilter<"Order"> | string
+    packageDescription?: StringNullableFilter<"Order"> | string | null
+    packagePrice?: IntFilter<"Order"> | number
+    packageImage?: StringNullableFilter<"Order"> | string | null
+    locationName?: StringFilter<"Order"> | string
+    locationAddress?: StringFilter<"Order"> | string
+  }
+
   export type UserCreateWithoutSessionsInput = {
     id: string
     name: string
@@ -13649,6 +15830,7 @@ export namespace Prisma {
     updatedAt: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
     studio?: StudioCreateNestedOneWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -13661,6 +15843,7 @@ export namespace Prisma {
     updatedAt: Date | string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     studio?: StudioUncheckedCreateNestedOneWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -13689,6 +15872,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     studio?: StudioUpdateOneWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -13701,6 +15885,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     studio?: StudioUncheckedUpdateOneWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAccountsInput = {
@@ -13713,6 +15898,7 @@ export namespace Prisma {
     updatedAt: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     studio?: StudioCreateNestedOneWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -13725,6 +15911,7 @@ export namespace Prisma {
     updatedAt: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     studio?: StudioUncheckedCreateNestedOneWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -13753,6 +15940,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     studio?: StudioUpdateOneWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -13765,6 +15953,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     studio?: StudioUncheckedUpdateOneWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutStudioInput = {
@@ -13777,6 +15966,7 @@ export namespace Prisma {
     updatedAt: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutStudioInput = {
@@ -13789,6 +15979,7 @@ export namespace Prisma {
     updatedAt: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutStudioInput = {
@@ -13834,6 +16025,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     packages?: PackageCreateNestedManyWithoutLocationsInput
+    orders?: OrderCreateNestedManyWithoutLocationInput
   }
 
   export type LocationUncheckedCreateWithoutStudioInput = {
@@ -13844,6 +16036,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     packages?: PackageUncheckedCreateNestedManyWithoutLocationsInput
+    orders?: OrderUncheckedCreateNestedManyWithoutLocationInput
   }
 
   export type LocationCreateOrConnectWithoutStudioInput = {
@@ -13866,6 +16059,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     category: CategoryCreateNestedOneWithoutPackagesInput
     locations?: LocationCreateNestedManyWithoutPackagesInput
+    orders?: OrderCreateNestedManyWithoutPackageInput
   }
 
   export type PackageUncheckedCreateWithoutStudioInput = {
@@ -13878,6 +16072,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     categoryId: string
     locations?: LocationUncheckedCreateNestedManyWithoutPackagesInput
+    orders?: OrderUncheckedCreateNestedManyWithoutPackageInput
   }
 
   export type PackageCreateOrConnectWithoutStudioInput = {
@@ -13911,6 +16106,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStudioInput = {
@@ -13923,6 +16119,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CategoryUpsertWithWhereUniqueWithoutStudioInput = {
@@ -14061,6 +16258,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     studio: StudioCreateNestedOneWithoutPackagesInput
     category: CategoryCreateNestedOneWithoutPackagesInput
+    orders?: OrderCreateNestedManyWithoutPackageInput
   }
 
   export type PackageUncheckedCreateWithoutLocationsInput = {
@@ -14073,11 +16271,60 @@ export namespace Prisma {
     updatedAt?: Date | string
     studioId: string
     categoryId: string
+    orders?: OrderUncheckedCreateNestedManyWithoutPackageInput
   }
 
   export type PackageCreateOrConnectWithoutLocationsInput = {
     where: PackageWhereUniqueInput
     create: XOR<PackageCreateWithoutLocationsInput, PackageUncheckedCreateWithoutLocationsInput>
+  }
+
+  export type OrderCreateWithoutLocationInput = {
+    id?: string
+    customerName: string
+    email: string
+    phoneNumber: string
+    date: Date | string
+    result?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    packageName: string
+    packageDescription?: string | null
+    packagePrice: number
+    packageImage?: string | null
+    locationName: string
+    locationAddress: string
+    user?: UserCreateNestedOneWithoutOrdersInput
+    package?: PackageCreateNestedOneWithoutOrdersInput
+  }
+
+  export type OrderUncheckedCreateWithoutLocationInput = {
+    id?: string
+    customerName: string
+    email: string
+    phoneNumber: string
+    date: Date | string
+    result?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId?: string | null
+    packageId?: string | null
+    packageName: string
+    packageDescription?: string | null
+    packagePrice: number
+    packageImage?: string | null
+    locationName: string
+    locationAddress: string
+  }
+
+  export type OrderCreateOrConnectWithoutLocationInput = {
+    where: OrderWhereUniqueInput
+    create: XOR<OrderCreateWithoutLocationInput, OrderUncheckedCreateWithoutLocationInput>
+  }
+
+  export type OrderCreateManyLocationInputEnvelope = {
+    data: OrderCreateManyLocationInput | OrderCreateManyLocationInput[]
+    skipDuplicates?: boolean
   }
 
   export type StudioUpsertWithoutLocationsInput = {
@@ -14139,6 +16386,22 @@ export namespace Prisma {
     data: XOR<PackageUpdateManyMutationInput, PackageUncheckedUpdateManyWithoutLocationsInput>
   }
 
+  export type OrderUpsertWithWhereUniqueWithoutLocationInput = {
+    where: OrderWhereUniqueInput
+    update: XOR<OrderUpdateWithoutLocationInput, OrderUncheckedUpdateWithoutLocationInput>
+    create: XOR<OrderCreateWithoutLocationInput, OrderUncheckedCreateWithoutLocationInput>
+  }
+
+  export type OrderUpdateWithWhereUniqueWithoutLocationInput = {
+    where: OrderWhereUniqueInput
+    data: XOR<OrderUpdateWithoutLocationInput, OrderUncheckedUpdateWithoutLocationInput>
+  }
+
+  export type OrderUpdateManyWithWhereWithoutLocationInput = {
+    where: OrderScalarWhereInput
+    data: XOR<OrderUpdateManyMutationInput, OrderUncheckedUpdateManyWithoutLocationInput>
+  }
+
   export type StudioCreateWithoutCategoriesInput = {
     id?: string
     name: string
@@ -14186,6 +16449,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     studio: StudioCreateNestedOneWithoutPackagesInput
     locations?: LocationCreateNestedManyWithoutPackagesInput
+    orders?: OrderCreateNestedManyWithoutPackageInput
   }
 
   export type PackageUncheckedCreateWithoutCategoryInput = {
@@ -14198,6 +16462,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     studioId: string
     locations?: LocationUncheckedCreateNestedManyWithoutPackagesInput
+    orders?: OrderUncheckedCreateNestedManyWithoutPackageInput
   }
 
   export type PackageCreateOrConnectWithoutCategoryInput = {
@@ -14339,6 +16604,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     studio: StudioCreateNestedOneWithoutLocationsInput
+    orders?: OrderCreateNestedManyWithoutLocationInput
   }
 
   export type LocationUncheckedCreateWithoutPackagesInput = {
@@ -14349,11 +16615,60 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     studioId: string
+    orders?: OrderUncheckedCreateNestedManyWithoutLocationInput
   }
 
   export type LocationCreateOrConnectWithoutPackagesInput = {
     where: LocationWhereUniqueInput
     create: XOR<LocationCreateWithoutPackagesInput, LocationUncheckedCreateWithoutPackagesInput>
+  }
+
+  export type OrderCreateWithoutPackageInput = {
+    id?: string
+    customerName: string
+    email: string
+    phoneNumber: string
+    date: Date | string
+    result?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    packageName: string
+    packageDescription?: string | null
+    packagePrice: number
+    packageImage?: string | null
+    locationName: string
+    locationAddress: string
+    user?: UserCreateNestedOneWithoutOrdersInput
+    location?: LocationCreateNestedOneWithoutOrdersInput
+  }
+
+  export type OrderUncheckedCreateWithoutPackageInput = {
+    id?: string
+    customerName: string
+    email: string
+    phoneNumber: string
+    date: Date | string
+    result?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId?: string | null
+    locationId?: string | null
+    packageName: string
+    packageDescription?: string | null
+    packagePrice: number
+    packageImage?: string | null
+    locationName: string
+    locationAddress: string
+  }
+
+  export type OrderCreateOrConnectWithoutPackageInput = {
+    where: OrderWhereUniqueInput
+    create: XOR<OrderCreateWithoutPackageInput, OrderUncheckedCreateWithoutPackageInput>
+  }
+
+  export type OrderCreateManyPackageInputEnvelope = {
+    data: OrderCreateManyPackageInput | OrderCreateManyPackageInput[]
+    skipDuplicates?: boolean
   }
 
   export type StudioUpsertWithoutPackagesInput = {
@@ -14446,6 +16761,218 @@ export namespace Prisma {
     data: XOR<LocationUpdateManyMutationInput, LocationUncheckedUpdateManyWithoutPackagesInput>
   }
 
+  export type OrderUpsertWithWhereUniqueWithoutPackageInput = {
+    where: OrderWhereUniqueInput
+    update: XOR<OrderUpdateWithoutPackageInput, OrderUncheckedUpdateWithoutPackageInput>
+    create: XOR<OrderCreateWithoutPackageInput, OrderUncheckedCreateWithoutPackageInput>
+  }
+
+  export type OrderUpdateWithWhereUniqueWithoutPackageInput = {
+    where: OrderWhereUniqueInput
+    data: XOR<OrderUpdateWithoutPackageInput, OrderUncheckedUpdateWithoutPackageInput>
+  }
+
+  export type OrderUpdateManyWithWhereWithoutPackageInput = {
+    where: OrderScalarWhereInput
+    data: XOR<OrderUpdateManyMutationInput, OrderUncheckedUpdateManyWithoutPackageInput>
+  }
+
+  export type UserCreateWithoutOrdersInput = {
+    id: string
+    name: string
+    email: string
+    emailVerified: boolean
+    image?: string | null
+    createdAt: Date | string
+    updatedAt: Date | string
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    studio?: StudioCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutOrdersInput = {
+    id: string
+    name: string
+    email: string
+    emailVerified: boolean
+    image?: string | null
+    createdAt: Date | string
+    updatedAt: Date | string
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    studio?: StudioUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutOrdersInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutOrdersInput, UserUncheckedCreateWithoutOrdersInput>
+  }
+
+  export type PackageCreateWithoutOrdersInput = {
+    id?: string
+    name: string
+    description?: string | null
+    price: number
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    studio: StudioCreateNestedOneWithoutPackagesInput
+    category: CategoryCreateNestedOneWithoutPackagesInput
+    locations?: LocationCreateNestedManyWithoutPackagesInput
+  }
+
+  export type PackageUncheckedCreateWithoutOrdersInput = {
+    id?: string
+    name: string
+    description?: string | null
+    price: number
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    studioId: string
+    categoryId: string
+    locations?: LocationUncheckedCreateNestedManyWithoutPackagesInput
+  }
+
+  export type PackageCreateOrConnectWithoutOrdersInput = {
+    where: PackageWhereUniqueInput
+    create: XOR<PackageCreateWithoutOrdersInput, PackageUncheckedCreateWithoutOrdersInput>
+  }
+
+  export type LocationCreateWithoutOrdersInput = {
+    id?: string
+    name: string
+    address: string
+    link?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    studio: StudioCreateNestedOneWithoutLocationsInput
+    packages?: PackageCreateNestedManyWithoutLocationsInput
+  }
+
+  export type LocationUncheckedCreateWithoutOrdersInput = {
+    id?: string
+    name: string
+    address: string
+    link?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    studioId: string
+    packages?: PackageUncheckedCreateNestedManyWithoutLocationsInput
+  }
+
+  export type LocationCreateOrConnectWithoutOrdersInput = {
+    where: LocationWhereUniqueInput
+    create: XOR<LocationCreateWithoutOrdersInput, LocationUncheckedCreateWithoutOrdersInput>
+  }
+
+  export type UserUpsertWithoutOrdersInput = {
+    update: XOR<UserUpdateWithoutOrdersInput, UserUncheckedUpdateWithoutOrdersInput>
+    create: XOR<UserCreateWithoutOrdersInput, UserUncheckedCreateWithoutOrdersInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutOrdersInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutOrdersInput, UserUncheckedUpdateWithoutOrdersInput>
+  }
+
+  export type UserUpdateWithoutOrdersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    studio?: StudioUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutOrdersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    studio?: StudioUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type PackageUpsertWithoutOrdersInput = {
+    update: XOR<PackageUpdateWithoutOrdersInput, PackageUncheckedUpdateWithoutOrdersInput>
+    create: XOR<PackageCreateWithoutOrdersInput, PackageUncheckedCreateWithoutOrdersInput>
+    where?: PackageWhereInput
+  }
+
+  export type PackageUpdateToOneWithWhereWithoutOrdersInput = {
+    where?: PackageWhereInput
+    data: XOR<PackageUpdateWithoutOrdersInput, PackageUncheckedUpdateWithoutOrdersInput>
+  }
+
+  export type PackageUpdateWithoutOrdersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: IntFieldUpdateOperationsInput | number
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studio?: StudioUpdateOneRequiredWithoutPackagesNestedInput
+    category?: CategoryUpdateOneRequiredWithoutPackagesNestedInput
+    locations?: LocationUpdateManyWithoutPackagesNestedInput
+  }
+
+  export type PackageUncheckedUpdateWithoutOrdersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: IntFieldUpdateOperationsInput | number
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studioId?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
+    locations?: LocationUncheckedUpdateManyWithoutPackagesNestedInput
+  }
+
+  export type LocationUpsertWithoutOrdersInput = {
+    update: XOR<LocationUpdateWithoutOrdersInput, LocationUncheckedUpdateWithoutOrdersInput>
+    create: XOR<LocationCreateWithoutOrdersInput, LocationUncheckedCreateWithoutOrdersInput>
+    where?: LocationWhereInput
+  }
+
+  export type LocationUpdateToOneWithWhereWithoutOrdersInput = {
+    where?: LocationWhereInput
+    data: XOR<LocationUpdateWithoutOrdersInput, LocationUncheckedUpdateWithoutOrdersInput>
+  }
+
+  export type LocationUpdateWithoutOrdersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    link?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studio?: StudioUpdateOneRequiredWithoutLocationsNestedInput
+    packages?: PackageUpdateManyWithoutLocationsNestedInput
+  }
+
+  export type LocationUncheckedUpdateWithoutOrdersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    link?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studioId?: StringFieldUpdateOperationsInput | string
+    packages?: PackageUncheckedUpdateManyWithoutLocationsNestedInput
+  }
+
   export type SessionCreateManyUserInput = {
     id: string
     expiresAt: Date | string
@@ -14469,6 +16996,25 @@ export namespace Prisma {
     password?: string | null
     createdAt: Date | string
     updatedAt: Date | string
+  }
+
+  export type OrderCreateManyUserInput = {
+    id?: string
+    customerName: string
+    email: string
+    phoneNumber: string
+    date: Date | string
+    result?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    packageId?: string | null
+    locationId?: string | null
+    packageName: string
+    packageDescription?: string | null
+    packagePrice: number
+    packageImage?: string | null
+    locationName: string
+    locationAddress: string
   }
 
   export type SessionUpdateWithoutUserInput = {
@@ -14546,6 +17092,63 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type OrderUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    result?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    packageName?: StringFieldUpdateOperationsInput | string
+    packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    packagePrice?: IntFieldUpdateOperationsInput | number
+    packageImage?: NullableStringFieldUpdateOperationsInput | string | null
+    locationName?: StringFieldUpdateOperationsInput | string
+    locationAddress?: StringFieldUpdateOperationsInput | string
+    package?: PackageUpdateOneWithoutOrdersNestedInput
+    location?: LocationUpdateOneWithoutOrdersNestedInput
+  }
+
+  export type OrderUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    result?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    packageId?: NullableStringFieldUpdateOperationsInput | string | null
+    locationId?: NullableStringFieldUpdateOperationsInput | string | null
+    packageName?: StringFieldUpdateOperationsInput | string
+    packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    packagePrice?: IntFieldUpdateOperationsInput | number
+    packageImage?: NullableStringFieldUpdateOperationsInput | string | null
+    locationName?: StringFieldUpdateOperationsInput | string
+    locationAddress?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OrderUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    result?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    packageId?: NullableStringFieldUpdateOperationsInput | string | null
+    locationId?: NullableStringFieldUpdateOperationsInput | string | null
+    packageName?: StringFieldUpdateOperationsInput | string
+    packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    packagePrice?: IntFieldUpdateOperationsInput | number
+    packageImage?: NullableStringFieldUpdateOperationsInput | string | null
+    locationName?: StringFieldUpdateOperationsInput | string
+    locationAddress?: StringFieldUpdateOperationsInput | string
+  }
+
   export type CategoryCreateManyStudioInput = {
     id?: string
     name: string
@@ -14612,6 +17215,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     packages?: PackageUpdateManyWithoutLocationsNestedInput
+    orders?: OrderUpdateManyWithoutLocationNestedInput
   }
 
   export type LocationUncheckedUpdateWithoutStudioInput = {
@@ -14622,6 +17226,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     packages?: PackageUncheckedUpdateManyWithoutLocationsNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutLocationNestedInput
   }
 
   export type LocationUncheckedUpdateManyWithoutStudioInput = {
@@ -14643,6 +17248,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: CategoryUpdateOneRequiredWithoutPackagesNestedInput
     locations?: LocationUpdateManyWithoutPackagesNestedInput
+    orders?: OrderUpdateManyWithoutPackageNestedInput
   }
 
   export type PackageUncheckedUpdateWithoutStudioInput = {
@@ -14655,6 +17261,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categoryId?: StringFieldUpdateOperationsInput | string
     locations?: LocationUncheckedUpdateManyWithoutPackagesNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutPackageNestedInput
   }
 
   export type PackageUncheckedUpdateManyWithoutStudioInput = {
@@ -14668,6 +17275,25 @@ export namespace Prisma {
     categoryId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type OrderCreateManyLocationInput = {
+    id?: string
+    customerName: string
+    email: string
+    phoneNumber: string
+    date: Date | string
+    result?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId?: string | null
+    packageId?: string | null
+    packageName: string
+    packageDescription?: string | null
+    packagePrice: number
+    packageImage?: string | null
+    locationName: string
+    locationAddress: string
+  }
+
   export type PackageUpdateWithoutLocationsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -14678,6 +17304,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studio?: StudioUpdateOneRequiredWithoutPackagesNestedInput
     category?: CategoryUpdateOneRequiredWithoutPackagesNestedInput
+    orders?: OrderUpdateManyWithoutPackageNestedInput
   }
 
   export type PackageUncheckedUpdateWithoutLocationsInput = {
@@ -14690,6 +17317,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studioId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
+    orders?: OrderUncheckedUpdateManyWithoutPackageNestedInput
   }
 
   export type PackageUncheckedUpdateManyWithoutLocationsInput = {
@@ -14702,6 +17330,63 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studioId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OrderUpdateWithoutLocationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    result?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    packageName?: StringFieldUpdateOperationsInput | string
+    packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    packagePrice?: IntFieldUpdateOperationsInput | number
+    packageImage?: NullableStringFieldUpdateOperationsInput | string | null
+    locationName?: StringFieldUpdateOperationsInput | string
+    locationAddress?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneWithoutOrdersNestedInput
+    package?: PackageUpdateOneWithoutOrdersNestedInput
+  }
+
+  export type OrderUncheckedUpdateWithoutLocationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    result?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    packageId?: NullableStringFieldUpdateOperationsInput | string | null
+    packageName?: StringFieldUpdateOperationsInput | string
+    packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    packagePrice?: IntFieldUpdateOperationsInput | number
+    packageImage?: NullableStringFieldUpdateOperationsInput | string | null
+    locationName?: StringFieldUpdateOperationsInput | string
+    locationAddress?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OrderUncheckedUpdateManyWithoutLocationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    result?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    packageId?: NullableStringFieldUpdateOperationsInput | string | null
+    packageName?: StringFieldUpdateOperationsInput | string
+    packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    packagePrice?: IntFieldUpdateOperationsInput | number
+    packageImage?: NullableStringFieldUpdateOperationsInput | string | null
+    locationName?: StringFieldUpdateOperationsInput | string
+    locationAddress?: StringFieldUpdateOperationsInput | string
   }
 
   export type PackageCreateManyCategoryInput = {
@@ -14725,6 +17410,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studio?: StudioUpdateOneRequiredWithoutPackagesNestedInput
     locations?: LocationUpdateManyWithoutPackagesNestedInput
+    orders?: OrderUpdateManyWithoutPackageNestedInput
   }
 
   export type PackageUncheckedUpdateWithoutCategoryInput = {
@@ -14737,6 +17423,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studioId?: StringFieldUpdateOperationsInput | string
     locations?: LocationUncheckedUpdateManyWithoutPackagesNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutPackageNestedInput
   }
 
   export type PackageUncheckedUpdateManyWithoutCategoryInput = {
@@ -14750,6 +17437,25 @@ export namespace Prisma {
     studioId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type OrderCreateManyPackageInput = {
+    id?: string
+    customerName: string
+    email: string
+    phoneNumber: string
+    date: Date | string
+    result?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId?: string | null
+    locationId?: string | null
+    packageName: string
+    packageDescription?: string | null
+    packagePrice: number
+    packageImage?: string | null
+    locationName: string
+    locationAddress: string
+  }
+
   export type LocationUpdateWithoutPackagesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -14758,6 +17464,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studio?: StudioUpdateOneRequiredWithoutLocationsNestedInput
+    orders?: OrderUpdateManyWithoutLocationNestedInput
   }
 
   export type LocationUncheckedUpdateWithoutPackagesInput = {
@@ -14768,6 +17475,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studioId?: StringFieldUpdateOperationsInput | string
+    orders?: OrderUncheckedUpdateManyWithoutLocationNestedInput
   }
 
   export type LocationUncheckedUpdateManyWithoutPackagesInput = {
@@ -14778,6 +17486,63 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     studioId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OrderUpdateWithoutPackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    result?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    packageName?: StringFieldUpdateOperationsInput | string
+    packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    packagePrice?: IntFieldUpdateOperationsInput | number
+    packageImage?: NullableStringFieldUpdateOperationsInput | string | null
+    locationName?: StringFieldUpdateOperationsInput | string
+    locationAddress?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneWithoutOrdersNestedInput
+    location?: LocationUpdateOneWithoutOrdersNestedInput
+  }
+
+  export type OrderUncheckedUpdateWithoutPackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    result?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    locationId?: NullableStringFieldUpdateOperationsInput | string | null
+    packageName?: StringFieldUpdateOperationsInput | string
+    packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    packagePrice?: IntFieldUpdateOperationsInput | number
+    packageImage?: NullableStringFieldUpdateOperationsInput | string | null
+    locationName?: StringFieldUpdateOperationsInput | string
+    locationAddress?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OrderUncheckedUpdateManyWithoutPackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    result?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    locationId?: NullableStringFieldUpdateOperationsInput | string | null
+    packageName?: StringFieldUpdateOperationsInput | string
+    packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    packagePrice?: IntFieldUpdateOperationsInput | number
+    packageImage?: NullableStringFieldUpdateOperationsInput | string | null
+    locationName?: StringFieldUpdateOperationsInput | string
+    locationAddress?: StringFieldUpdateOperationsInput | string
   }
 
 
