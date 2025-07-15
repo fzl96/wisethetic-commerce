@@ -7,4 +7,5 @@ export const createOrderSchema = z.object({
   userId: z.string(),
   packageId: z.string(),
   locationId: z.string(),
+  studioId: z.string(),
 });

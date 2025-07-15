@@ -27,7 +27,7 @@ import {
 } from "@/components/ui/form";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
-import { IconLocation } from "@tabler/icons-react";
+import { IconLocation, IconLoader } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 import { DateTimePicker24h } from "./date-time-picker";
 import { createOrderSchema as formSchema } from "@/lib/schema/order";
@@ -52,6 +52,7 @@ export function PackageOrderForm({ pkg, user }: Props) {
       locationId: "",
       phoneNumber: "",
       userId: user?.id,
+      studioId: pkg.studioId,
     },
   });
 
@@ -213,7 +214,16 @@ export function PackageOrderForm({ pkg, user }: Props) {
               >
                 Cancel
               </Button>
-              <Button type="submit" className="cursor-pointer flex-1">
+              <Button
+                type="submit"
+                className="cursor-pointer flex-1"
+                disabled={form.formState.isSubmitting}
+              >
+                {form.formState.isSubmitting && (
+                  <span>
+                    <IconLoader className="animate-spin" />
+                  </span>
+                )}
                 Book
               </Button>
             </div>

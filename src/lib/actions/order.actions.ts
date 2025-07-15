@@ -30,9 +30,19 @@ export async function createOrder(
     },
   });
 
-  const [pkg, location] = await prisma.$transaction([pkgQuery, locationQuery]);
+  const studioQuery = prisma.studio.findUnique({
+    where: {
+      id: validateFields.data.studioId,
+    },
+  });
 
-  if (!pkg || !location) {
+  const [pkg, location, studio] = await prisma.$transaction([
+    pkgQuery,
+    locationQuery,
+    studioQuery,
+  ]);
+
+  if (!pkg || !location || !studio) {
     return {
       success: false,
       message: "Invalid data. Could not create order",
@@ -55,13 +65,14 @@ export async function createOrder(
         locationId: location.id,
         locationName: location.name,
         locationAddress: location.address,
+        studioName: studio.name,
       },
     });
   } catch (e) {
     console.log(e);
     return {
       success: false,
-      message: "Database error: Failed to create category.",
+      message: "Database error: Failed to create error.",
     };
   }
 

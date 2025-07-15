@@ -95,6 +95,7 @@ model Studio {
   categories Category[]
   locations  Location[]
   packages   Package[]
+  orders     Order[]
 }
 
 model Location {
@@ -181,12 +182,16 @@ model Order {
   userId String?
   user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
 
+  studioId String?
+  studio   Studio? @relation(fields: [studioId], references: [id], onDelete: SetNull)
+
   packageId String?
   package   Package? @relation(fields: [packageId], references: [id], onDelete: SetNull)
 
   locationId String?
   location   Location? @relation(fields: [locationId], references: [id], onDelete: SetNull)
 
+  studioName         String
   packageName        String
   packageDescription String?
   packagePrice       Int

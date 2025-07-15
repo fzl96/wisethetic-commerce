@@ -1681,12 +1681,14 @@ export namespace Prisma {
     categories: number
     locations: number
     packages: number
+    orders: number
   }
 
   export type StudioCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     categories?: boolean | StudioCountOutputTypeCountCategoriesArgs
     locations?: boolean | StudioCountOutputTypeCountLocationsArgs
     packages?: boolean | StudioCountOutputTypeCountPackagesArgs
+    orders?: boolean | StudioCountOutputTypeCountOrdersArgs
   }
 
   // Custom InputTypes
@@ -1719,6 +1721,13 @@ export namespace Prisma {
    */
   export type StudioCountOutputTypeCountPackagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PackageWhereInput
+  }
+
+  /**
+   * StudioCountOutputType without action
+   */
+  export type StudioCountOutputTypeCountOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrderWhereInput
   }
 
 
@@ -6495,6 +6504,7 @@ export namespace Prisma {
     categories?: boolean | Studio$categoriesArgs<ExtArgs>
     locations?: boolean | Studio$locationsArgs<ExtArgs>
     packages?: boolean | Studio$packagesArgs<ExtArgs>
+    orders?: boolean | Studio$ordersArgs<ExtArgs>
     _count?: boolean | StudioCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["studio"]>
 
@@ -6548,6 +6558,7 @@ export namespace Prisma {
     categories?: boolean | Studio$categoriesArgs<ExtArgs>
     locations?: boolean | Studio$locationsArgs<ExtArgs>
     packages?: boolean | Studio$packagesArgs<ExtArgs>
+    orders?: boolean | Studio$ordersArgs<ExtArgs>
     _count?: boolean | StudioCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type StudioIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6564,6 +6575,7 @@ export namespace Prisma {
       categories: Prisma.$CategoryPayload<ExtArgs>[]
       locations: Prisma.$LocationPayload<ExtArgs>[]
       packages: Prisma.$PackagePayload<ExtArgs>[]
+      orders: Prisma.$OrderPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6975,6 +6987,7 @@ export namespace Prisma {
     categories<T extends Studio$categoriesArgs<ExtArgs> = {}>(args?: Subset<T, Studio$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     locations<T extends Studio$locationsArgs<ExtArgs> = {}>(args?: Subset<T, Studio$locationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     packages<T extends Studio$packagesArgs<ExtArgs> = {}>(args?: Subset<T, Studio$packagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PackagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    orders<T extends Studio$ordersArgs<ExtArgs> = {}>(args?: Subset<T, Studio$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7480,6 +7493,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PackageScalarFieldEnum | PackageScalarFieldEnum[]
+  }
+
+  /**
+   * Studio.orders
+   */
+  export type Studio$ordersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Order
+     */
+    select?: OrderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Order
+     */
+    omit?: OrderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderInclude<ExtArgs> | null
+    where?: OrderWhereInput
+    orderBy?: OrderOrderByWithRelationInput | OrderOrderByWithRelationInput[]
+    cursor?: OrderWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OrderScalarFieldEnum | OrderScalarFieldEnum[]
   }
 
   /**
@@ -10999,8 +11036,10 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     userId: string | null
+    studioId: string | null
     packageId: string | null
     locationId: string | null
+    studioName: string | null
     packageName: string | null
     packageDescription: string | null
     packagePrice: number | null
@@ -11021,8 +11060,10 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     userId: string | null
+    studioId: string | null
     packageId: string | null
     locationId: string | null
+    studioName: string | null
     packageName: string | null
     packageDescription: string | null
     packagePrice: number | null
@@ -11043,8 +11084,10 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     userId: number
+    studioId: number
     packageId: number
     locationId: number
+    studioName: number
     packageName: number
     packageDescription: number
     packagePrice: number
@@ -11075,8 +11118,10 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     userId?: true
+    studioId?: true
     packageId?: true
     locationId?: true
+    studioName?: true
     packageName?: true
     packageDescription?: true
     packagePrice?: true
@@ -11097,8 +11142,10 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     userId?: true
+    studioId?: true
     packageId?: true
     locationId?: true
+    studioName?: true
     packageName?: true
     packageDescription?: true
     packagePrice?: true
@@ -11119,8 +11166,10 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     userId?: true
+    studioId?: true
     packageId?: true
     locationId?: true
+    studioName?: true
     packageName?: true
     packageDescription?: true
     packagePrice?: true
@@ -11228,8 +11277,10 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     userId: string | null
+    studioId: string | null
     packageId: string | null
     locationId: string | null
+    studioName: string
     packageName: string
     packageDescription: string | null
     packagePrice: number
@@ -11269,8 +11320,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
+    studioId?: boolean
     packageId?: boolean
     locationId?: boolean
+    studioName?: boolean
     packageName?: boolean
     packageDescription?: boolean
     packagePrice?: boolean
@@ -11278,6 +11331,7 @@ export namespace Prisma {
     locationName?: boolean
     locationAddress?: boolean
     user?: boolean | Order$userArgs<ExtArgs>
+    studio?: boolean | Order$studioArgs<ExtArgs>
     package?: boolean | Order$packageArgs<ExtArgs>
     location?: boolean | Order$locationArgs<ExtArgs>
   }, ExtArgs["result"]["order"]>
@@ -11294,8 +11348,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
+    studioId?: boolean
     packageId?: boolean
     locationId?: boolean
+    studioName?: boolean
     packageName?: boolean
     packageDescription?: boolean
     packagePrice?: boolean
@@ -11303,6 +11359,7 @@ export namespace Prisma {
     locationName?: boolean
     locationAddress?: boolean
     user?: boolean | Order$userArgs<ExtArgs>
+    studio?: boolean | Order$studioArgs<ExtArgs>
     package?: boolean | Order$packageArgs<ExtArgs>
     location?: boolean | Order$locationArgs<ExtArgs>
   }, ExtArgs["result"]["order"]>
@@ -11319,8 +11376,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
+    studioId?: boolean
     packageId?: boolean
     locationId?: boolean
+    studioName?: boolean
     packageName?: boolean
     packageDescription?: boolean
     packagePrice?: boolean
@@ -11328,6 +11387,7 @@ export namespace Prisma {
     locationName?: boolean
     locationAddress?: boolean
     user?: boolean | Order$userArgs<ExtArgs>
+    studio?: boolean | Order$studioArgs<ExtArgs>
     package?: boolean | Order$packageArgs<ExtArgs>
     location?: boolean | Order$locationArgs<ExtArgs>
   }, ExtArgs["result"]["order"]>
@@ -11344,8 +11404,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
+    studioId?: boolean
     packageId?: boolean
     locationId?: boolean
+    studioName?: boolean
     packageName?: boolean
     packageDescription?: boolean
     packagePrice?: boolean
@@ -11354,19 +11416,22 @@ export namespace Prisma {
     locationAddress?: boolean
   }
 
-  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "customerName" | "email" | "phoneNumber" | "date" | "result" | "status" | "paymentStatus" | "createdAt" | "updatedAt" | "userId" | "packageId" | "locationId" | "packageName" | "packageDescription" | "packagePrice" | "packageImage" | "locationName" | "locationAddress", ExtArgs["result"]["order"]>
+  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "customerName" | "email" | "phoneNumber" | "date" | "result" | "status" | "paymentStatus" | "createdAt" | "updatedAt" | "userId" | "studioId" | "packageId" | "locationId" | "studioName" | "packageName" | "packageDescription" | "packagePrice" | "packageImage" | "locationName" | "locationAddress", ExtArgs["result"]["order"]>
   export type OrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Order$userArgs<ExtArgs>
+    studio?: boolean | Order$studioArgs<ExtArgs>
     package?: boolean | Order$packageArgs<ExtArgs>
     location?: boolean | Order$locationArgs<ExtArgs>
   }
   export type OrderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Order$userArgs<ExtArgs>
+    studio?: boolean | Order$studioArgs<ExtArgs>
     package?: boolean | Order$packageArgs<ExtArgs>
     location?: boolean | Order$locationArgs<ExtArgs>
   }
   export type OrderIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Order$userArgs<ExtArgs>
+    studio?: boolean | Order$studioArgs<ExtArgs>
     package?: boolean | Order$packageArgs<ExtArgs>
     location?: boolean | Order$locationArgs<ExtArgs>
   }
@@ -11375,6 +11440,7 @@ export namespace Prisma {
     name: "Order"
     objects: {
       user: Prisma.$UserPayload<ExtArgs> | null
+      studio: Prisma.$StudioPayload<ExtArgs> | null
       package: Prisma.$PackagePayload<ExtArgs> | null
       location: Prisma.$LocationPayload<ExtArgs> | null
     }
@@ -11390,8 +11456,10 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       userId: string | null
+      studioId: string | null
       packageId: string | null
       locationId: string | null
+      studioName: string
       packageName: string
       packageDescription: string | null
       packagePrice: number
@@ -11793,6 +11861,7 @@ export namespace Prisma {
   export interface Prisma__OrderClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends Order$userArgs<ExtArgs> = {}>(args?: Subset<T, Order$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    studio<T extends Order$studioArgs<ExtArgs> = {}>(args?: Subset<T, Order$studioArgs<ExtArgs>>): Prisma__StudioClient<$Result.GetResult<Prisma.$StudioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     package<T extends Order$packageArgs<ExtArgs> = {}>(args?: Subset<T, Order$packageArgs<ExtArgs>>): Prisma__PackageClient<$Result.GetResult<Prisma.$PackagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     location<T extends Order$locationArgs<ExtArgs> = {}>(args?: Subset<T, Order$locationArgs<ExtArgs>>): Prisma__LocationClient<$Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
@@ -11835,8 +11904,10 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Order", 'DateTime'>
     readonly updatedAt: FieldRef<"Order", 'DateTime'>
     readonly userId: FieldRef<"Order", 'String'>
+    readonly studioId: FieldRef<"Order", 'String'>
     readonly packageId: FieldRef<"Order", 'String'>
     readonly locationId: FieldRef<"Order", 'String'>
+    readonly studioName: FieldRef<"Order", 'String'>
     readonly packageName: FieldRef<"Order", 'String'>
     readonly packageDescription: FieldRef<"Order", 'String'>
     readonly packagePrice: FieldRef<"Order", 'Int'>
@@ -12258,6 +12329,25 @@ export namespace Prisma {
   }
 
   /**
+   * Order.studio
+   */
+  export type Order$studioArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Studio
+     */
+    select?: StudioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Studio
+     */
+    omit?: StudioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudioInclude<ExtArgs> | null
+    where?: StudioWhereInput
+  }
+
+  /**
    * Order.package
    */
   export type Order$packageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12456,8 +12546,10 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     userId: 'userId',
+    studioId: 'studioId',
     packageId: 'packageId',
     locationId: 'locationId',
+    studioName: 'studioName',
     packageName: 'packageName',
     packageDescription: 'packageDescription',
     packagePrice: 'packagePrice',
@@ -12907,6 +12999,7 @@ export namespace Prisma {
     categories?: CategoryListRelationFilter
     locations?: LocationListRelationFilter
     packages?: PackageListRelationFilter
+    orders?: OrderListRelationFilter
   }
 
   export type StudioOrderByWithRelationInput = {
@@ -12925,6 +13018,7 @@ export namespace Prisma {
     categories?: CategoryOrderByRelationAggregateInput
     locations?: LocationOrderByRelationAggregateInput
     packages?: PackageOrderByRelationAggregateInput
+    orders?: OrderOrderByRelationAggregateInput
   }
 
   export type StudioWhereUniqueInput = Prisma.AtLeast<{
@@ -12946,6 +13040,7 @@ export namespace Prisma {
     categories?: CategoryListRelationFilter
     locations?: LocationListRelationFilter
     packages?: PackageListRelationFilter
+    orders?: OrderListRelationFilter
   }, "id" | "name" | "username" | "userId">
 
   export type StudioOrderByWithAggregationInput = {
@@ -13224,8 +13319,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
     userId?: StringNullableFilter<"Order"> | string | null
+    studioId?: StringNullableFilter<"Order"> | string | null
     packageId?: StringNullableFilter<"Order"> | string | null
     locationId?: StringNullableFilter<"Order"> | string | null
+    studioName?: StringFilter<"Order"> | string
     packageName?: StringFilter<"Order"> | string
     packageDescription?: StringNullableFilter<"Order"> | string | null
     packagePrice?: IntFilter<"Order"> | number
@@ -13233,6 +13330,7 @@ export namespace Prisma {
     locationName?: StringFilter<"Order"> | string
     locationAddress?: StringFilter<"Order"> | string
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    studio?: XOR<StudioNullableScalarRelationFilter, StudioWhereInput> | null
     package?: XOR<PackageNullableScalarRelationFilter, PackageWhereInput> | null
     location?: XOR<LocationNullableScalarRelationFilter, LocationWhereInput> | null
   }
@@ -13249,8 +13347,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrderInput | SortOrder
+    studioId?: SortOrderInput | SortOrder
     packageId?: SortOrderInput | SortOrder
     locationId?: SortOrderInput | SortOrder
+    studioName?: SortOrder
     packageName?: SortOrder
     packageDescription?: SortOrderInput | SortOrder
     packagePrice?: SortOrder
@@ -13258,6 +13358,7 @@ export namespace Prisma {
     locationName?: SortOrder
     locationAddress?: SortOrder
     user?: UserOrderByWithRelationInput
+    studio?: StudioOrderByWithRelationInput
     package?: PackageOrderByWithRelationInput
     location?: LocationOrderByWithRelationInput
   }
@@ -13277,8 +13378,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
     userId?: StringNullableFilter<"Order"> | string | null
+    studioId?: StringNullableFilter<"Order"> | string | null
     packageId?: StringNullableFilter<"Order"> | string | null
     locationId?: StringNullableFilter<"Order"> | string | null
+    studioName?: StringFilter<"Order"> | string
     packageName?: StringFilter<"Order"> | string
     packageDescription?: StringNullableFilter<"Order"> | string | null
     packagePrice?: IntFilter<"Order"> | number
@@ -13286,6 +13389,7 @@ export namespace Prisma {
     locationName?: StringFilter<"Order"> | string
     locationAddress?: StringFilter<"Order"> | string
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    studio?: XOR<StudioNullableScalarRelationFilter, StudioWhereInput> | null
     package?: XOR<PackageNullableScalarRelationFilter, PackageWhereInput> | null
     location?: XOR<LocationNullableScalarRelationFilter, LocationWhereInput> | null
   }, "id">
@@ -13302,8 +13406,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrderInput | SortOrder
+    studioId?: SortOrderInput | SortOrder
     packageId?: SortOrderInput | SortOrder
     locationId?: SortOrderInput | SortOrder
+    studioName?: SortOrder
     packageName?: SortOrder
     packageDescription?: SortOrderInput | SortOrder
     packagePrice?: SortOrder
@@ -13332,8 +13438,10 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string
     userId?: StringNullableWithAggregatesFilter<"Order"> | string | null
+    studioId?: StringNullableWithAggregatesFilter<"Order"> | string | null
     packageId?: StringNullableWithAggregatesFilter<"Order"> | string | null
     locationId?: StringNullableWithAggregatesFilter<"Order"> | string | null
+    studioName?: StringWithAggregatesFilter<"Order"> | string
     packageName?: StringWithAggregatesFilter<"Order"> | string
     packageDescription?: StringNullableWithAggregatesFilter<"Order"> | string | null
     packagePrice?: IntWithAggregatesFilter<"Order"> | number
@@ -13693,6 +13801,7 @@ export namespace Prisma {
     categories?: CategoryCreateNestedManyWithoutStudioInput
     locations?: LocationCreateNestedManyWithoutStudioInput
     packages?: PackageCreateNestedManyWithoutStudioInput
+    orders?: OrderCreateNestedManyWithoutStudioInput
   }
 
   export type StudioUncheckedCreateInput = {
@@ -13710,6 +13819,7 @@ export namespace Prisma {
     categories?: CategoryUncheckedCreateNestedManyWithoutStudioInput
     locations?: LocationUncheckedCreateNestedManyWithoutStudioInput
     packages?: PackageUncheckedCreateNestedManyWithoutStudioInput
+    orders?: OrderUncheckedCreateNestedManyWithoutStudioInput
   }
 
   export type StudioUpdateInput = {
@@ -13727,6 +13837,7 @@ export namespace Prisma {
     categories?: CategoryUpdateManyWithoutStudioNestedInput
     locations?: LocationUpdateManyWithoutStudioNestedInput
     packages?: PackageUpdateManyWithoutStudioNestedInput
+    orders?: OrderUpdateManyWithoutStudioNestedInput
   }
 
   export type StudioUncheckedUpdateInput = {
@@ -13744,6 +13855,7 @@ export namespace Prisma {
     categories?: CategoryUncheckedUpdateManyWithoutStudioNestedInput
     locations?: LocationUncheckedUpdateManyWithoutStudioNestedInput
     packages?: PackageUncheckedUpdateManyWithoutStudioNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutStudioNestedInput
   }
 
   export type StudioCreateManyInput = {
@@ -14038,6 +14150,7 @@ export namespace Prisma {
     paymentStatus?: $Enums.PaymentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    studioName: string
     packageName: string
     packageDescription?: string | null
     packagePrice: number
@@ -14045,6 +14158,7 @@ export namespace Prisma {
     locationName: string
     locationAddress: string
     user?: UserCreateNestedOneWithoutOrdersInput
+    studio?: StudioCreateNestedOneWithoutOrdersInput
     package?: PackageCreateNestedOneWithoutOrdersInput
     location?: LocationCreateNestedOneWithoutOrdersInput
   }
@@ -14061,8 +14175,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     userId?: string | null
+    studioId?: string | null
     packageId?: string | null
     locationId?: string | null
+    studioName: string
     packageName: string
     packageDescription?: string | null
     packagePrice: number
@@ -14082,6 +14198,7 @@ export namespace Prisma {
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studioName?: StringFieldUpdateOperationsInput | string
     packageName?: StringFieldUpdateOperationsInput | string
     packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
     packagePrice?: IntFieldUpdateOperationsInput | number
@@ -14089,6 +14206,7 @@ export namespace Prisma {
     locationName?: StringFieldUpdateOperationsInput | string
     locationAddress?: StringFieldUpdateOperationsInput | string
     user?: UserUpdateOneWithoutOrdersNestedInput
+    studio?: StudioUpdateOneWithoutOrdersNestedInput
     package?: PackageUpdateOneWithoutOrdersNestedInput
     location?: LocationUpdateOneWithoutOrdersNestedInput
   }
@@ -14105,8 +14223,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    studioId?: NullableStringFieldUpdateOperationsInput | string | null
     packageId?: NullableStringFieldUpdateOperationsInput | string | null
     locationId?: NullableStringFieldUpdateOperationsInput | string | null
+    studioName?: StringFieldUpdateOperationsInput | string
     packageName?: StringFieldUpdateOperationsInput | string
     packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
     packagePrice?: IntFieldUpdateOperationsInput | number
@@ -14127,8 +14247,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     userId?: string | null
+    studioId?: string | null
     packageId?: string | null
     locationId?: string | null
+    studioName: string
     packageName: string
     packageDescription?: string | null
     packagePrice: number
@@ -14148,6 +14270,7 @@ export namespace Prisma {
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studioName?: StringFieldUpdateOperationsInput | string
     packageName?: StringFieldUpdateOperationsInput | string
     packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
     packagePrice?: IntFieldUpdateOperationsInput | number
@@ -14168,8 +14291,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    studioId?: NullableStringFieldUpdateOperationsInput | string | null
     packageId?: NullableStringFieldUpdateOperationsInput | string | null
     locationId?: NullableStringFieldUpdateOperationsInput | string | null
+    studioName?: StringFieldUpdateOperationsInput | string
     packageName?: StringFieldUpdateOperationsInput | string
     packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
     packagePrice?: IntFieldUpdateOperationsInput | number
@@ -14754,8 +14879,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
+    studioId?: SortOrder
     packageId?: SortOrder
     locationId?: SortOrder
+    studioName?: SortOrder
     packageName?: SortOrder
     packageDescription?: SortOrder
     packagePrice?: SortOrder
@@ -14780,8 +14907,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
+    studioId?: SortOrder
     packageId?: SortOrder
     locationId?: SortOrder
+    studioName?: SortOrder
     packageName?: SortOrder
     packageDescription?: SortOrder
     packagePrice?: SortOrder
@@ -14802,8 +14931,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
+    studioId?: SortOrder
     packageId?: SortOrder
     locationId?: SortOrder
+    studioName?: SortOrder
     packageName?: SortOrder
     packageDescription?: SortOrder
     packagePrice?: SortOrder
@@ -15069,6 +15200,13 @@ export namespace Prisma {
     connect?: PackageWhereUniqueInput | PackageWhereUniqueInput[]
   }
 
+  export type OrderCreateNestedManyWithoutStudioInput = {
+    create?: XOR<OrderCreateWithoutStudioInput, OrderUncheckedCreateWithoutStudioInput> | OrderCreateWithoutStudioInput[] | OrderUncheckedCreateWithoutStudioInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutStudioInput | OrderCreateOrConnectWithoutStudioInput[]
+    createMany?: OrderCreateManyStudioInputEnvelope
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+  }
+
   export type CategoryUncheckedCreateNestedManyWithoutStudioInput = {
     create?: XOR<CategoryCreateWithoutStudioInput, CategoryUncheckedCreateWithoutStudioInput> | CategoryCreateWithoutStudioInput[] | CategoryUncheckedCreateWithoutStudioInput[]
     connectOrCreate?: CategoryCreateOrConnectWithoutStudioInput | CategoryCreateOrConnectWithoutStudioInput[]
@@ -15088,6 +15226,13 @@ export namespace Prisma {
     connectOrCreate?: PackageCreateOrConnectWithoutStudioInput | PackageCreateOrConnectWithoutStudioInput[]
     createMany?: PackageCreateManyStudioInputEnvelope
     connect?: PackageWhereUniqueInput | PackageWhereUniqueInput[]
+  }
+
+  export type OrderUncheckedCreateNestedManyWithoutStudioInput = {
+    create?: XOR<OrderCreateWithoutStudioInput, OrderUncheckedCreateWithoutStudioInput> | OrderCreateWithoutStudioInput[] | OrderUncheckedCreateWithoutStudioInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutStudioInput | OrderCreateOrConnectWithoutStudioInput[]
+    createMany?: OrderCreateManyStudioInputEnvelope
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
   }
 
   export type UserUpdateOneRequiredWithoutStudioNestedInput = {
@@ -15140,6 +15285,20 @@ export namespace Prisma {
     deleteMany?: PackageScalarWhereInput | PackageScalarWhereInput[]
   }
 
+  export type OrderUpdateManyWithoutStudioNestedInput = {
+    create?: XOR<OrderCreateWithoutStudioInput, OrderUncheckedCreateWithoutStudioInput> | OrderCreateWithoutStudioInput[] | OrderUncheckedCreateWithoutStudioInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutStudioInput | OrderCreateOrConnectWithoutStudioInput[]
+    upsert?: OrderUpsertWithWhereUniqueWithoutStudioInput | OrderUpsertWithWhereUniqueWithoutStudioInput[]
+    createMany?: OrderCreateManyStudioInputEnvelope
+    set?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    update?: OrderUpdateWithWhereUniqueWithoutStudioInput | OrderUpdateWithWhereUniqueWithoutStudioInput[]
+    updateMany?: OrderUpdateManyWithWhereWithoutStudioInput | OrderUpdateManyWithWhereWithoutStudioInput[]
+    deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
+  }
+
   export type CategoryUncheckedUpdateManyWithoutStudioNestedInput = {
     create?: XOR<CategoryCreateWithoutStudioInput, CategoryUncheckedCreateWithoutStudioInput> | CategoryCreateWithoutStudioInput[] | CategoryUncheckedCreateWithoutStudioInput[]
     connectOrCreate?: CategoryCreateOrConnectWithoutStudioInput | CategoryCreateOrConnectWithoutStudioInput[]
@@ -15180,6 +15339,20 @@ export namespace Prisma {
     update?: PackageUpdateWithWhereUniqueWithoutStudioInput | PackageUpdateWithWhereUniqueWithoutStudioInput[]
     updateMany?: PackageUpdateManyWithWhereWithoutStudioInput | PackageUpdateManyWithWhereWithoutStudioInput[]
     deleteMany?: PackageScalarWhereInput | PackageScalarWhereInput[]
+  }
+
+  export type OrderUncheckedUpdateManyWithoutStudioNestedInput = {
+    create?: XOR<OrderCreateWithoutStudioInput, OrderUncheckedCreateWithoutStudioInput> | OrderCreateWithoutStudioInput[] | OrderUncheckedCreateWithoutStudioInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutStudioInput | OrderCreateOrConnectWithoutStudioInput[]
+    upsert?: OrderUpsertWithWhereUniqueWithoutStudioInput | OrderUpsertWithWhereUniqueWithoutStudioInput[]
+    createMany?: OrderCreateManyStudioInputEnvelope
+    set?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    update?: OrderUpdateWithWhereUniqueWithoutStudioInput | OrderUpdateWithWhereUniqueWithoutStudioInput[]
+    updateMany?: OrderUpdateManyWithWhereWithoutStudioInput | OrderUpdateManyWithWhereWithoutStudioInput[]
+    deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
   }
 
   export type StudioCreateNestedOneWithoutLocationsInput = {
@@ -15454,6 +15627,12 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type StudioCreateNestedOneWithoutOrdersInput = {
+    create?: XOR<StudioCreateWithoutOrdersInput, StudioUncheckedCreateWithoutOrdersInput>
+    connectOrCreate?: StudioCreateOrConnectWithoutOrdersInput
+    connect?: StudioWhereUniqueInput
+  }
+
   export type PackageCreateNestedOneWithoutOrdersInput = {
     create?: XOR<PackageCreateWithoutOrdersInput, PackageUncheckedCreateWithoutOrdersInput>
     connectOrCreate?: PackageCreateOrConnectWithoutOrdersInput
@@ -15482,6 +15661,16 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutOrdersInput, UserUpdateWithoutOrdersInput>, UserUncheckedUpdateWithoutOrdersInput>
+  }
+
+  export type StudioUpdateOneWithoutOrdersNestedInput = {
+    create?: XOR<StudioCreateWithoutOrdersInput, StudioUncheckedCreateWithoutOrdersInput>
+    connectOrCreate?: StudioCreateOrConnectWithoutOrdersInput
+    upsert?: StudioUpsertWithoutOrdersInput
+    disconnect?: StudioWhereInput | boolean
+    delete?: StudioWhereInput | boolean
+    connect?: StudioWhereUniqueInput
+    update?: XOR<XOR<StudioUpdateToOneWithWhereWithoutOrdersInput, StudioUpdateWithoutOrdersInput>, StudioUncheckedUpdateWithoutOrdersInput>
   }
 
   export type PackageUpdateOneWithoutOrdersNestedInput = {
@@ -15796,6 +15985,7 @@ export namespace Prisma {
     categories?: CategoryCreateNestedManyWithoutStudioInput
     locations?: LocationCreateNestedManyWithoutStudioInput
     packages?: PackageCreateNestedManyWithoutStudioInput
+    orders?: OrderCreateNestedManyWithoutStudioInput
   }
 
   export type StudioUncheckedCreateWithoutUserInput = {
@@ -15812,6 +16002,7 @@ export namespace Prisma {
     categories?: CategoryUncheckedCreateNestedManyWithoutStudioInput
     locations?: LocationUncheckedCreateNestedManyWithoutStudioInput
     packages?: PackageUncheckedCreateNestedManyWithoutStudioInput
+    orders?: OrderUncheckedCreateNestedManyWithoutStudioInput
   }
 
   export type StudioCreateOrConnectWithoutUserInput = {
@@ -15830,12 +16021,14 @@ export namespace Prisma {
     paymentStatus?: $Enums.PaymentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    studioName: string
     packageName: string
     packageDescription?: string | null
     packagePrice: number
     packageImage?: string | null
     locationName: string
     locationAddress: string
+    studio?: StudioCreateNestedOneWithoutOrdersInput
     package?: PackageCreateNestedOneWithoutOrdersInput
     location?: LocationCreateNestedOneWithoutOrdersInput
   }
@@ -15851,8 +16044,10 @@ export namespace Prisma {
     paymentStatus?: $Enums.PaymentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    studioId?: string | null
     packageId?: string | null
     locationId?: string | null
+    studioName: string
     packageName: string
     packageDescription?: string | null
     packagePrice: number
@@ -15961,6 +16156,7 @@ export namespace Prisma {
     categories?: CategoryUpdateManyWithoutStudioNestedInput
     locations?: LocationUpdateManyWithoutStudioNestedInput
     packages?: PackageUpdateManyWithoutStudioNestedInput
+    orders?: OrderUpdateManyWithoutStudioNestedInput
   }
 
   export type StudioUncheckedUpdateWithoutUserInput = {
@@ -15977,6 +16173,7 @@ export namespace Prisma {
     categories?: CategoryUncheckedUpdateManyWithoutStudioNestedInput
     locations?: LocationUncheckedUpdateManyWithoutStudioNestedInput
     packages?: PackageUncheckedUpdateManyWithoutStudioNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutStudioNestedInput
   }
 
   export type OrderUpsertWithWhereUniqueWithoutUserInput = {
@@ -16010,8 +16207,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
     userId?: StringNullableFilter<"Order"> | string | null
+    studioId?: StringNullableFilter<"Order"> | string | null
     packageId?: StringNullableFilter<"Order"> | string | null
     locationId?: StringNullableFilter<"Order"> | string | null
+    studioName?: StringFilter<"Order"> | string
     packageName?: StringFilter<"Order"> | string
     packageDescription?: StringNullableFilter<"Order"> | string | null
     packagePrice?: IntFilter<"Order"> | number
@@ -16285,6 +16484,62 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type OrderCreateWithoutStudioInput = {
+    id?: string
+    customerName: string
+    email: string
+    phoneNumber: string
+    date: Date | string
+    result?: string | null
+    status?: $Enums.OrderStatus
+    paymentStatus?: $Enums.PaymentStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    studioName: string
+    packageName: string
+    packageDescription?: string | null
+    packagePrice: number
+    packageImage?: string | null
+    locationName: string
+    locationAddress: string
+    user?: UserCreateNestedOneWithoutOrdersInput
+    package?: PackageCreateNestedOneWithoutOrdersInput
+    location?: LocationCreateNestedOneWithoutOrdersInput
+  }
+
+  export type OrderUncheckedCreateWithoutStudioInput = {
+    id?: string
+    customerName: string
+    email: string
+    phoneNumber: string
+    date: Date | string
+    result?: string | null
+    status?: $Enums.OrderStatus
+    paymentStatus?: $Enums.PaymentStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId?: string | null
+    packageId?: string | null
+    locationId?: string | null
+    studioName: string
+    packageName: string
+    packageDescription?: string | null
+    packagePrice: number
+    packageImage?: string | null
+    locationName: string
+    locationAddress: string
+  }
+
+  export type OrderCreateOrConnectWithoutStudioInput = {
+    where: OrderWhereUniqueInput
+    create: XOR<OrderCreateWithoutStudioInput, OrderUncheckedCreateWithoutStudioInput>
+  }
+
+  export type OrderCreateManyStudioInputEnvelope = {
+    data: OrderCreateManyStudioInput | OrderCreateManyStudioInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutStudioInput = {
     update: XOR<UserUpdateWithoutStudioInput, UserUncheckedUpdateWithoutStudioInput>
     create: XOR<UserCreateWithoutStudioInput, UserUncheckedCreateWithoutStudioInput>
@@ -16411,6 +16666,22 @@ export namespace Prisma {
     categoryId?: StringFilter<"Package"> | string
   }
 
+  export type OrderUpsertWithWhereUniqueWithoutStudioInput = {
+    where: OrderWhereUniqueInput
+    update: XOR<OrderUpdateWithoutStudioInput, OrderUncheckedUpdateWithoutStudioInput>
+    create: XOR<OrderCreateWithoutStudioInput, OrderUncheckedCreateWithoutStudioInput>
+  }
+
+  export type OrderUpdateWithWhereUniqueWithoutStudioInput = {
+    where: OrderWhereUniqueInput
+    data: XOR<OrderUpdateWithoutStudioInput, OrderUncheckedUpdateWithoutStudioInput>
+  }
+
+  export type OrderUpdateManyWithWhereWithoutStudioInput = {
+    where: OrderScalarWhereInput
+    data: XOR<OrderUpdateManyMutationInput, OrderUncheckedUpdateManyWithoutStudioInput>
+  }
+
   export type StudioCreateWithoutLocationsInput = {
     id?: string
     name: string
@@ -16425,6 +16696,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutStudioInput
     categories?: CategoryCreateNestedManyWithoutStudioInput
     packages?: PackageCreateNestedManyWithoutStudioInput
+    orders?: OrderCreateNestedManyWithoutStudioInput
   }
 
   export type StudioUncheckedCreateWithoutLocationsInput = {
@@ -16441,6 +16713,7 @@ export namespace Prisma {
     userId: string
     categories?: CategoryUncheckedCreateNestedManyWithoutStudioInput
     packages?: PackageUncheckedCreateNestedManyWithoutStudioInput
+    orders?: OrderUncheckedCreateNestedManyWithoutStudioInput
   }
 
   export type StudioCreateOrConnectWithoutLocationsInput = {
@@ -16490,6 +16763,7 @@ export namespace Prisma {
     paymentStatus?: $Enums.PaymentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    studioName: string
     packageName: string
     packageDescription?: string | null
     packagePrice: number
@@ -16497,6 +16771,7 @@ export namespace Prisma {
     locationName: string
     locationAddress: string
     user?: UserCreateNestedOneWithoutOrdersInput
+    studio?: StudioCreateNestedOneWithoutOrdersInput
     package?: PackageCreateNestedOneWithoutOrdersInput
   }
 
@@ -16512,7 +16787,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     userId?: string | null
+    studioId?: string | null
     packageId?: string | null
+    studioName: string
     packageName: string
     packageDescription?: string | null
     packagePrice: number
@@ -16556,6 +16833,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutStudioNestedInput
     categories?: CategoryUpdateManyWithoutStudioNestedInput
     packages?: PackageUpdateManyWithoutStudioNestedInput
+    orders?: OrderUpdateManyWithoutStudioNestedInput
   }
 
   export type StudioUncheckedUpdateWithoutLocationsInput = {
@@ -16572,6 +16850,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     categories?: CategoryUncheckedUpdateManyWithoutStudioNestedInput
     packages?: PackageUncheckedUpdateManyWithoutStudioNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutStudioNestedInput
   }
 
   export type PackageUpsertWithWhereUniqueWithoutLocationsInput = {
@@ -16620,6 +16899,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutStudioInput
     locations?: LocationCreateNestedManyWithoutStudioInput
     packages?: PackageCreateNestedManyWithoutStudioInput
+    orders?: OrderCreateNestedManyWithoutStudioInput
   }
 
   export type StudioUncheckedCreateWithoutCategoriesInput = {
@@ -16636,6 +16916,7 @@ export namespace Prisma {
     userId: string
     locations?: LocationUncheckedCreateNestedManyWithoutStudioInput
     packages?: PackageUncheckedCreateNestedManyWithoutStudioInput
+    orders?: OrderUncheckedCreateNestedManyWithoutStudioInput
   }
 
   export type StudioCreateOrConnectWithoutCategoriesInput = {
@@ -16704,6 +16985,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutStudioNestedInput
     locations?: LocationUpdateManyWithoutStudioNestedInput
     packages?: PackageUpdateManyWithoutStudioNestedInput
+    orders?: OrderUpdateManyWithoutStudioNestedInput
   }
 
   export type StudioUncheckedUpdateWithoutCategoriesInput = {
@@ -16720,6 +17002,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     locations?: LocationUncheckedUpdateManyWithoutStudioNestedInput
     packages?: PackageUncheckedUpdateManyWithoutStudioNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutStudioNestedInput
   }
 
   export type PackageUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -16752,6 +17035,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutStudioInput
     categories?: CategoryCreateNestedManyWithoutStudioInput
     locations?: LocationCreateNestedManyWithoutStudioInput
+    orders?: OrderCreateNestedManyWithoutStudioInput
   }
 
   export type StudioUncheckedCreateWithoutPackagesInput = {
@@ -16768,6 +17052,7 @@ export namespace Prisma {
     userId: string
     categories?: CategoryUncheckedCreateNestedManyWithoutStudioInput
     locations?: LocationUncheckedCreateNestedManyWithoutStudioInput
+    orders?: OrderUncheckedCreateNestedManyWithoutStudioInput
   }
 
   export type StudioCreateOrConnectWithoutPackagesInput = {
@@ -16838,6 +17123,7 @@ export namespace Prisma {
     paymentStatus?: $Enums.PaymentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    studioName: string
     packageName: string
     packageDescription?: string | null
     packagePrice: number
@@ -16845,6 +17131,7 @@ export namespace Prisma {
     locationName: string
     locationAddress: string
     user?: UserCreateNestedOneWithoutOrdersInput
+    studio?: StudioCreateNestedOneWithoutOrdersInput
     location?: LocationCreateNestedOneWithoutOrdersInput
   }
 
@@ -16860,7 +17147,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     userId?: string | null
+    studioId?: string | null
     locationId?: string | null
+    studioName: string
     packageName: string
     packageDescription?: string | null
     packagePrice: number
@@ -16904,6 +17193,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutStudioNestedInput
     categories?: CategoryUpdateManyWithoutStudioNestedInput
     locations?: LocationUpdateManyWithoutStudioNestedInput
+    orders?: OrderUpdateManyWithoutStudioNestedInput
   }
 
   export type StudioUncheckedUpdateWithoutPackagesInput = {
@@ -16920,6 +17210,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     categories?: CategoryUncheckedUpdateManyWithoutStudioNestedInput
     locations?: LocationUncheckedUpdateManyWithoutStudioNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutStudioNestedInput
   }
 
   export type CategoryUpsertWithoutPackagesInput = {
@@ -17016,6 +17307,45 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutOrdersInput, UserUncheckedCreateWithoutOrdersInput>
   }
 
+  export type StudioCreateWithoutOrdersInput = {
+    id?: string
+    name: string
+    description?: string | null
+    image?: string | null
+    banner?: string | null
+    email: string
+    phoneNumber: string
+    username: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutStudioInput
+    categories?: CategoryCreateNestedManyWithoutStudioInput
+    locations?: LocationCreateNestedManyWithoutStudioInput
+    packages?: PackageCreateNestedManyWithoutStudioInput
+  }
+
+  export type StudioUncheckedCreateWithoutOrdersInput = {
+    id?: string
+    name: string
+    description?: string | null
+    image?: string | null
+    banner?: string | null
+    email: string
+    phoneNumber: string
+    username: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    categories?: CategoryUncheckedCreateNestedManyWithoutStudioInput
+    locations?: LocationUncheckedCreateNestedManyWithoutStudioInput
+    packages?: PackageUncheckedCreateNestedManyWithoutStudioInput
+  }
+
+  export type StudioCreateOrConnectWithoutOrdersInput = {
+    where: StudioWhereUniqueInput
+    create: XOR<StudioCreateWithoutOrdersInput, StudioUncheckedCreateWithoutOrdersInput>
+  }
+
   export type PackageCreateWithoutOrdersInput = {
     id?: string
     name: string
@@ -17109,6 +17439,51 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     studio?: StudioUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type StudioUpsertWithoutOrdersInput = {
+    update: XOR<StudioUpdateWithoutOrdersInput, StudioUncheckedUpdateWithoutOrdersInput>
+    create: XOR<StudioCreateWithoutOrdersInput, StudioUncheckedCreateWithoutOrdersInput>
+    where?: StudioWhereInput
+  }
+
+  export type StudioUpdateToOneWithWhereWithoutOrdersInput = {
+    where?: StudioWhereInput
+    data: XOR<StudioUpdateWithoutOrdersInput, StudioUncheckedUpdateWithoutOrdersInput>
+  }
+
+  export type StudioUpdateWithoutOrdersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    banner?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutStudioNestedInput
+    categories?: CategoryUpdateManyWithoutStudioNestedInput
+    locations?: LocationUpdateManyWithoutStudioNestedInput
+    packages?: PackageUpdateManyWithoutStudioNestedInput
+  }
+
+  export type StudioUncheckedUpdateWithoutOrdersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    banner?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    categories?: CategoryUncheckedUpdateManyWithoutStudioNestedInput
+    locations?: LocationUncheckedUpdateManyWithoutStudioNestedInput
+    packages?: PackageUncheckedUpdateManyWithoutStudioNestedInput
   }
 
   export type PackageUpsertWithoutOrdersInput = {
@@ -17217,8 +17592,10 @@ export namespace Prisma {
     paymentStatus?: $Enums.PaymentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    studioId?: string | null
     packageId?: string | null
     locationId?: string | null
+    studioName: string
     packageName: string
     packageDescription?: string | null
     packagePrice: number
@@ -17313,12 +17690,14 @@ export namespace Prisma {
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studioName?: StringFieldUpdateOperationsInput | string
     packageName?: StringFieldUpdateOperationsInput | string
     packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
     packagePrice?: IntFieldUpdateOperationsInput | number
     packageImage?: NullableStringFieldUpdateOperationsInput | string | null
     locationName?: StringFieldUpdateOperationsInput | string
     locationAddress?: StringFieldUpdateOperationsInput | string
+    studio?: StudioUpdateOneWithoutOrdersNestedInput
     package?: PackageUpdateOneWithoutOrdersNestedInput
     location?: LocationUpdateOneWithoutOrdersNestedInput
   }
@@ -17334,8 +17713,10 @@ export namespace Prisma {
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studioId?: NullableStringFieldUpdateOperationsInput | string | null
     packageId?: NullableStringFieldUpdateOperationsInput | string | null
     locationId?: NullableStringFieldUpdateOperationsInput | string | null
+    studioName?: StringFieldUpdateOperationsInput | string
     packageName?: StringFieldUpdateOperationsInput | string
     packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
     packagePrice?: IntFieldUpdateOperationsInput | number
@@ -17355,8 +17736,10 @@ export namespace Prisma {
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studioId?: NullableStringFieldUpdateOperationsInput | string | null
     packageId?: NullableStringFieldUpdateOperationsInput | string | null
     locationId?: NullableStringFieldUpdateOperationsInput | string | null
+    studioName?: StringFieldUpdateOperationsInput | string
     packageName?: StringFieldUpdateOperationsInput | string
     packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
     packagePrice?: IntFieldUpdateOperationsInput | number
@@ -17392,6 +17775,29 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     categoryId: string
+  }
+
+  export type OrderCreateManyStudioInput = {
+    id?: string
+    customerName: string
+    email: string
+    phoneNumber: string
+    date: Date | string
+    result?: string | null
+    status?: $Enums.OrderStatus
+    paymentStatus?: $Enums.PaymentStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId?: string | null
+    packageId?: string | null
+    locationId?: string | null
+    studioName: string
+    packageName: string
+    packageDescription?: string | null
+    packagePrice: number
+    packageImage?: string | null
+    locationName: string
+    locationAddress: string
   }
 
   export type CategoryUpdateWithoutStudioInput = {
@@ -17491,6 +17897,75 @@ export namespace Prisma {
     categoryId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type OrderUpdateWithoutStudioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    result?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studioName?: StringFieldUpdateOperationsInput | string
+    packageName?: StringFieldUpdateOperationsInput | string
+    packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    packagePrice?: IntFieldUpdateOperationsInput | number
+    packageImage?: NullableStringFieldUpdateOperationsInput | string | null
+    locationName?: StringFieldUpdateOperationsInput | string
+    locationAddress?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneWithoutOrdersNestedInput
+    package?: PackageUpdateOneWithoutOrdersNestedInput
+    location?: LocationUpdateOneWithoutOrdersNestedInput
+  }
+
+  export type OrderUncheckedUpdateWithoutStudioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    result?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    packageId?: NullableStringFieldUpdateOperationsInput | string | null
+    locationId?: NullableStringFieldUpdateOperationsInput | string | null
+    studioName?: StringFieldUpdateOperationsInput | string
+    packageName?: StringFieldUpdateOperationsInput | string
+    packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    packagePrice?: IntFieldUpdateOperationsInput | number
+    packageImage?: NullableStringFieldUpdateOperationsInput | string | null
+    locationName?: StringFieldUpdateOperationsInput | string
+    locationAddress?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OrderUncheckedUpdateManyWithoutStudioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerName?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    result?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    packageId?: NullableStringFieldUpdateOperationsInput | string | null
+    locationId?: NullableStringFieldUpdateOperationsInput | string | null
+    studioName?: StringFieldUpdateOperationsInput | string
+    packageName?: StringFieldUpdateOperationsInput | string
+    packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    packagePrice?: IntFieldUpdateOperationsInput | number
+    packageImage?: NullableStringFieldUpdateOperationsInput | string | null
+    locationName?: StringFieldUpdateOperationsInput | string
+    locationAddress?: StringFieldUpdateOperationsInput | string
+  }
+
   export type OrderCreateManyLocationInput = {
     id?: string
     customerName: string
@@ -17503,7 +17978,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     userId?: string | null
+    studioId?: string | null
     packageId?: string | null
+    studioName: string
     packageName: string
     packageDescription?: string | null
     packagePrice: number
@@ -17561,6 +18038,7 @@ export namespace Prisma {
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studioName?: StringFieldUpdateOperationsInput | string
     packageName?: StringFieldUpdateOperationsInput | string
     packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
     packagePrice?: IntFieldUpdateOperationsInput | number
@@ -17568,6 +18046,7 @@ export namespace Prisma {
     locationName?: StringFieldUpdateOperationsInput | string
     locationAddress?: StringFieldUpdateOperationsInput | string
     user?: UserUpdateOneWithoutOrdersNestedInput
+    studio?: StudioUpdateOneWithoutOrdersNestedInput
     package?: PackageUpdateOneWithoutOrdersNestedInput
   }
 
@@ -17583,7 +18062,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    studioId?: NullableStringFieldUpdateOperationsInput | string | null
     packageId?: NullableStringFieldUpdateOperationsInput | string | null
+    studioName?: StringFieldUpdateOperationsInput | string
     packageName?: StringFieldUpdateOperationsInput | string
     packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
     packagePrice?: IntFieldUpdateOperationsInput | number
@@ -17604,7 +18085,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    studioId?: NullableStringFieldUpdateOperationsInput | string | null
     packageId?: NullableStringFieldUpdateOperationsInput | string | null
+    studioName?: StringFieldUpdateOperationsInput | string
     packageName?: StringFieldUpdateOperationsInput | string
     packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
     packagePrice?: IntFieldUpdateOperationsInput | number
@@ -17673,7 +18156,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     userId?: string | null
+    studioId?: string | null
     locationId?: string | null
+    studioName: string
     packageName: string
     packageDescription?: string | null
     packagePrice: number
@@ -17725,6 +18210,7 @@ export namespace Prisma {
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    studioName?: StringFieldUpdateOperationsInput | string
     packageName?: StringFieldUpdateOperationsInput | string
     packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
     packagePrice?: IntFieldUpdateOperationsInput | number
@@ -17732,6 +18218,7 @@ export namespace Prisma {
     locationName?: StringFieldUpdateOperationsInput | string
     locationAddress?: StringFieldUpdateOperationsInput | string
     user?: UserUpdateOneWithoutOrdersNestedInput
+    studio?: StudioUpdateOneWithoutOrdersNestedInput
     location?: LocationUpdateOneWithoutOrdersNestedInput
   }
 
@@ -17747,7 +18234,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    studioId?: NullableStringFieldUpdateOperationsInput | string | null
     locationId?: NullableStringFieldUpdateOperationsInput | string | null
+    studioName?: StringFieldUpdateOperationsInput | string
     packageName?: StringFieldUpdateOperationsInput | string
     packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
     packagePrice?: IntFieldUpdateOperationsInput | number
@@ -17768,7 +18257,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    studioId?: NullableStringFieldUpdateOperationsInput | string | null
     locationId?: NullableStringFieldUpdateOperationsInput | string | null
+    studioName?: StringFieldUpdateOperationsInput | string
     packageName?: StringFieldUpdateOperationsInput | string
     packageDescription?: NullableStringFieldUpdateOperationsInput | string | null
     packagePrice?: IntFieldUpdateOperationsInput | number
