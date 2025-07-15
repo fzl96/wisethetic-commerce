@@ -152,13 +152,28 @@ model Package {
   orders    Order[]
 }
 
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SUCCESS
+  CANCEL
+  REFUNDED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+}
+
 model Order {
-  id           String   @id @default(cuid())
-  customerName String
-  email        String
-  phoneNumber  String
-  date         DateTime
-  result       String?
+  id            String        @id @default(cuid())
+  customerName  String
+  email         String
+  phoneNumber   String
+  date          DateTime
+  result        String?
+  status        OrderStatus   @default(PENDING)
+  paymentStatus PaymentStatus @default(PENDING)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

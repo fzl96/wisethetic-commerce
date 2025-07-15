@@ -219,6 +219,8 @@ exports.Prisma.OrderScalarFieldEnum = {
   phoneNumber: 'phoneNumber',
   date: 'date',
   result: 'result',
+  status: 'status',
+  paymentStatus: 'paymentStatus',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   userId: 'userId',
@@ -246,7 +248,18 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.OrderStatus = exports.$Enums.OrderStatus = {
+  PENDING: 'PENDING',
+  PROCESSING: 'PROCESSING',
+  SUCCESS: 'SUCCESS',
+  CANCEL: 'CANCEL',
+  REFUNDED: 'REFUNDED'
+};
 
+exports.PaymentStatus = exports.$Enums.PaymentStatus = {
+  PENDING: 'PENDING',
+  SUCCESS: 'SUCCESS'
+};
 
 exports.Prisma.ModelName = {
   User: 'User',
