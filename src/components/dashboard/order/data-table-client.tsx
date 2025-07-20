@@ -58,6 +58,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { UpdateOrderForm } from "./update-form";
 
 function getIcon(
   status: "PENDING" | "PROCESSING" | "SUCCESS" | "CANCEL" | "REFUNDED",
@@ -331,9 +332,11 @@ function TableCellViewer({ item }: { item: Order }) {
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="gap-1">
-          <DrawerTitle>{item.packageName}</DrawerTitle>
+          <DrawerTitle className="capitalize">
+            #{item.id.toUpperCase()}
+          </DrawerTitle>
         </DrawerHeader>
-        {/* <UpdateCategoryForm category={item} setOpen={setUpdateDrawerOpen} /> */}
+        <UpdateOrderForm order={item} setOpen={setUpdateDrawerOpen} />
       </DrawerContent>
     </Drawer>
   );
@@ -350,11 +353,23 @@ export function SubmitButton({
 }) {
   return (
     <DrawerFooter>
-      <Button type="submit" form={formId} disabled={!isDirty || isSubmitting}>
+      <Button
+        className="cursor-pointer"
+        type="submit"
+        form={formId}
+        disabled={!isDirty || isSubmitting}
+      >
+        {isSubmitting && (
+          <span>
+            <IconLoader className="animate-spin" />
+          </span>
+        )}
         Submit
       </Button>
       <DrawerClose asChild>
-        <Button variant="outline">Done</Button>
+        <Button className="cursor-pointer" variant="outline">
+          Done
+        </Button>
       </DrawerClose>
     </DrawerFooter>
   );
@@ -411,9 +426,9 @@ export function CategoryMenu({ item }: { item: Order }) {
       >
         <DrawerContent>
           <DrawerHeader className="gap-1">
-            <DrawerTitle>{item.customerName}</DrawerTitle>
+            <DrawerTitle>#{item.id.toUpperCase()}</DrawerTitle>
           </DrawerHeader>
-          {/* <UpdateCategoryForm category={item} setOpen={setShowUpdateForm} /> */}
+          <UpdateOrderForm order={item} setOpen={setShowUpdateForm} />
         </DrawerContent>
       </Drawer>
       <Drawer

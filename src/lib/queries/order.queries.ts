@@ -100,8 +100,8 @@ export async function getTotalRevenue(studioId: string) {
     },
     where: {
       studioId,
-      // status: "SUCCESS",
-      // paymentStatus: "SUCCESS",
+      status: "SUCCESS",
+      paymentStatus: "SUCCESS",
     },
   });
 

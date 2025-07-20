@@ -33,3 +33,9 @@ export const createOrderSchema = z.object({
   locationId: z.string(),
   studioId: z.string(),
 });
+
+export const updateOrderSchema = z.object({
+  status: z.enum(["PENDING", "PROCESSING", "SUCCESS", "CANCEL", "REFUNDED"]),
+  paymentStatus: z.enum(["PENDING", "SUCCESS"]),
+  result: z.string().nullish(),
+});

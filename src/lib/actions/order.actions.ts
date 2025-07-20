@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
-import { createOrderSchema } from "@/lib/schema/order";
+import { createOrderSchema, updateOrderSchema } from "@/lib/schema/order";
 import * as z from "zod";
 
 export async function createOrder(
@@ -81,5 +81,41 @@ export async function createOrder(
   return {
     success: true,
     message: "Booked!",
+  };
+}
+
+export async function updateOrder(
+  id: string,
+  values: z.infer<typeof updateOrderSchema>,
+) {
+  const validatedFields = updateOrderSchema.safeParse(values);
+
+  if (!validatedFields.success) {
+    return {
+      success: false,
+      message: "Invalid data. Could not update category.",
+    };
+  }
+
+  const { status, paymentStatus, result } = validatedFields.data;
+
+  try {
+    await prisma.order.update({
+      where: { id },
+      data: { status, paymentStatus, result },
+    });
+  } catch (error) {
+    console.log(error);
+    return {
+      success: false,
+      message: "Database Error: Failed to update order.",
+    };
+  }
+
+  revalidatePath("/dashboard");
+
+  return {
+    success: true,
+    message: "Order updated successfully.",
   };
 }
