@@ -21,10 +21,6 @@ export async function OrderDataTable({ studioId, status, page, query }: Props) {
         page={page}
         data={order}
       />
-      {/* <pre> */}
-      {/*   <code>{JSON.stringify(order, null, 2)}</code> */}
-      {/*   <span>Total Page: {totalPage}</span> */}
-      {/* </pre> */}
     </div>
   );
 }
