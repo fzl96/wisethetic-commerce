@@ -1,3 +1,4 @@
+import { getUser } from "@/server/user";
 import { prisma } from "../prisma";
 import { subMonths, startOfMonth, endOfMonth } from "date-fns";
 
@@ -187,4 +188,32 @@ export async function getOrderCountComparison(studioId: string) {
       percentChange: calcChange(thisSuccess, lastSuccess),
     },
   };
+}
+
+export async function getUserOrders() {
+  const user = await getUser();
+
+  if (!user) return [];
+
+  const orders = await prisma.order.findMany({
+    where: {
+      userId: user.id,
+    },
+  });
+
+  return orders;
+}
+
+export async function getUserOrderDetails(orderId: string) {
+  const user = await getUser();
+
+  if (!user) return null;
+  const order = await prisma.order.findUnique({
+    where: {
+      userId: user.id,
+      id: orderId,
+    },
+  });
+
+  return order;
 }
