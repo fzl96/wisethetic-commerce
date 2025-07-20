@@ -1,13 +1,35 @@
-import { DataTable } from "@/components/data-table";
-import { SectionCards } from "@/components/section-cards";
+import { redirect } from "next/navigation";
+import { OrderDataTable } from "@/components/dashboard/order/data-table";
+import { SectionCards } from "@/components/dashboard/order/section-cards";
+import { getStudioId } from "@/server/user";
 
-import data from "./data.json";
+export default async function DasbhoardPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | undefined }>;
+}) {
+  const studio = await getStudioId();
+  const query = (await searchParams).query || "";
+  const page = parseInt((await searchParams).page as string) || 1;
+  const status =
+    ((await searchParams).status as
+      | "PENDING"
+      | "PROCESSING"
+      | "SUCCESS"
+      | "CANCEL"
+      | "REFUNDED") || "";
 
-export default async function DasbhoardPage() {
+  if (!studio?.id) redirect("/");
+
   return (
     <>
-      <SectionCards />
-      <DataTable data={data} />
+      <SectionCards studioId={studio.id} />
+      <OrderDataTable
+        studioId={studio.id}
+        status={status}
+        page={page}
+        query={query}
+      />
     </>
   );
 }

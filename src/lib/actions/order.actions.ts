@@ -65,6 +65,7 @@ export async function createOrder(
         locationId: location.id,
         locationName: location.name,
         locationAddress: location.address,
+        studioId: validateFields.data.studioId,
         studioName: studio.name,
       },
     });
