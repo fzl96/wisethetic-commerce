@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
@@ -50,6 +51,7 @@ interface NavbarProps {
 }
 
 export function Navbar({ user, studio }: NavbarProps) {
+  const router = useRouter();
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
 
@@ -61,6 +63,11 @@ export function Navbar({ user, studio }: NavbarProps) {
       setHidden(false);
     }
   });
+
+  const logout = async () => {
+    await signOut();
+    router.refresh();
+  };
 
   return (
     <>
@@ -141,7 +148,7 @@ export function Navbar({ user, studio }: NavbarProps) {
                       <Link href="/account/orders">Orders</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                      onClick={() => signOut()}
+                      onClick={logout}
                       className="cursor-pointer rounded-none rounded-b-lg px-5 py-3 text-[#FF453A] hover:text-[#FF453A]"
                     >
                       Sign out
