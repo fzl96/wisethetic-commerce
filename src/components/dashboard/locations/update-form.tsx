@@ -111,11 +111,11 @@ export function UpdateLocationForm({
                 <FormItem>
                   <FormLabel>Address Link</FormLabel>
                   <FormControl>
-                    {/* @ts-expect-error cannot read nullish */}
                     <Input
                       placeholder="Enter the map address link."
                       type="text"
                       {...field}
+                      value={field.value ?? ""}
                     />
                   </FormControl>
                   <FormDescription>

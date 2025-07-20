@@ -143,7 +143,11 @@ export function UpdatePackageForm({
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter the description" {...field} />
+                    <Input
+                      placeholder="Enter the description"
+                      {...field}
+                      value={field.value ?? ""}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

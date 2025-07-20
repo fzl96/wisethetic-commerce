@@ -90,11 +90,11 @@ export function UpdateCategoryForm({
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    {/* @ts-expect-error cannot read nullish */}
                     <Input
                       placeholder="Enter the description"
                       type="text"
                       {...field}
+                      value={field.value ?? ""}
                     />
                   </FormControl>
                   <FormDescription>
