@@ -71,7 +71,19 @@ export async function getPackagesStore({
   return packages;
 }
 
-export async function getPackageStore(id: string) {
+export async function getPackageStore(
+  id: string,
+  location: string | undefined,
+) {
+  const reserved = await prisma.order.findMany({
+    select: {
+      date: true,
+    },
+    where: {
+      packageId: id,
+      locationId: location,
+    },
+  });
   const pkg = await prisma.package.findUnique({
     include: {
       locations: true,
@@ -82,5 +94,5 @@ export async function getPackageStore(id: string) {
     },
   });
 
-  return pkg;
+  return { reserved, pkg };
 }

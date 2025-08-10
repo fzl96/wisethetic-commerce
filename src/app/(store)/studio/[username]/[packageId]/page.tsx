@@ -4,16 +4,19 @@ import { PackageDetail } from "@/components/homepage/package-detail";
 
 export default async function PackagePage({
   params,
+  searchParams,
 }: {
   params: Promise<{ packageId: string }>;
+  searchParams: Promise<{ [key: string]: string | undefined }>;
 }) {
   const { packageId } = await params;
+  const location = (await searchParams).location;
 
   return (
     <MaxWidthWrapper className="mt-10 flex flex-col items-center justify-center px-5 md:px-48 space-y-6">
       <div className="flex w-full flex-col gap-10 md:flex-row">
         <Suspense fallback={"Loading..."}>
-          <PackageDetail packageId={packageId} />
+          <PackageDetail packageId={packageId} location={location} />
         </Suspense>
       </div>
     </MaxWidthWrapper>

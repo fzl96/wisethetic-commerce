@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
 import { z } from "zod";
@@ -36,10 +36,13 @@ import { createOrder } from "@/lib/actions/order.actions";
 interface Props {
   pkg: z.infer<typeof packageStoreSchema>;
   user?: User;
+  reserved: { date: Date }[];
+  locationId: string | undefined;
 }
 
-export function PackageOrderForm({ pkg, user }: Props) {
+export function PackageOrderForm({ pkg, user, reserved, locationId }: Props) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [step, setStep] = useState<number>(1);
   const [date, setDate] = useState<Date>();
 
@@ -88,6 +91,13 @@ export function PackageOrderForm({ pkg, user }: Props) {
                     className=""
                     value={field.value}
                     onValueChange={field.onChange}
+                    onClick={() => {
+                      const params = new URLSearchParams(
+                        searchParams.toString(),
+                      );
+                      params.set("location", field.value);
+                      router.push(`?${params.toString()}`, { scroll: false });
+                    }}
                   >
                     {pkg?.locations.map((location) => (
                       <div className="" key={location.id}>
@@ -130,7 +140,12 @@ export function PackageOrderForm({ pkg, user }: Props) {
             </div>
             <div className="my-5 space-y-2">
               <h3>Date and Time</h3>
-              <DateTimePicker24h date={date} setDate={setDate} />
+              <DateTimePicker24h
+                date={date}
+                setDate={setDate}
+                reserved={reserved}
+                locationId={locationId}
+              />
             </div>
             <Button
               className="w-full cursor-pointer"

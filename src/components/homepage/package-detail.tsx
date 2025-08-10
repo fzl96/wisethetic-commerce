@@ -6,11 +6,12 @@ import { rupiah } from "@/lib/utils";
 
 interface Props {
   packageId: string;
+  location: string | undefined;
 }
 
-export async function PackageDetail({ packageId }: Props) {
+export async function PackageDetail({ packageId, location }: Props) {
   const user = await getUser();
-  const pkg = await getPackageStore(packageId);
+  const { reserved, pkg } = await getPackageStore(packageId, location);
 
   return (
     <>
@@ -38,7 +39,14 @@ export async function PackageDetail({ packageId }: Props) {
         </div>
         <p className="text-lg text-muted-foreground">{pkg?.description}</p>
         <p className="text-xl ">{rupiah(pkg?.price || 0)}</p>
-        {pkg && <PackageOrderForm pkg={pkg} user={user} />}
+        {pkg && (
+          <PackageOrderForm
+            pkg={pkg}
+            user={user}
+            reserved={reserved}
+            locationId={location}
+          />
+        )}
       </div>
     </>
   );

@@ -16,36 +16,44 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 interface Props {
   date?: Date;
+  reserved: { date: Date }[];
   setDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+  locationId: string | undefined;
 }
 
-export function DateTimePicker24h({ date, setDate }: Props) {
+export function DateTimePicker24h({
+  date,
+  setDate,
+  reserved,
+  locationId,
+}: Props) {
   const [isOpen, setIsOpen] = React.useState(false);
 
-  // const hours = Array.from({ length: 12 }, (_, i) => i + 10); // 10 to 21
-  const handleDateSelect = (selectedDate: Date | undefined) => {
-    if (selectedDate) {
-      setDate(selectedDate);
-    }
+  const handleDateSelect = (selectedDay: Date | undefined) => {
+    if (!selectedDay) return;
+
+    const newDate = new Date(selectedDay);
+    const hours = date ? date.getHours() : 10;
+    const minutes = date ? date.getMinutes() : 0;
+    newDate.setHours(hours, minutes, 0, 0);
+
+    setDate(newDate);
   };
 
-  // const handleTimeChange = (type: "hour" | "minute", value: string) => {
-  //   if (date) {
-  //     const newDate = new Date(date);
-  //     if (type === "hour") {
-  //       newDate.setHours(parseInt(value));
-  //     } else if (type === "minute") {
-  //       newDate.setMinutes(parseInt(value));
-  //     }
-  //     setDate(newDate);
-  //   }
-  // };
+  const handleTimeSelect = (hours: number, minutes: number) => {
+    const newDate = date ? new Date(date) : new Date();
+    newDate.setHours(hours, minutes, 0, 0);
+    setDate(newDate);
+    // The line `setIsOpen(false);` has been removed from here.
+  };
 
-  console.log(date);
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  yesterday.setHours(23, 59, 59, 999);
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
-      <PopoverTrigger asChild>
+      <PopoverTrigger asChild disabled={!locationId}>
         <Button
           variant="outline"
           className={cn(
@@ -55,11 +63,10 @@ export function DateTimePicker24h({ date, setDate }: Props) {
         >
           <div className="flex items-center">
             <CalendarIcon className="mr-2 h-4 w-4" />
-
             {date ? (
               format(date, "MMM dd, yyyy")
             ) : (
-              <span>Select a date and time</span>
+              <span>Select date & time</span>
             )}
           </div>
           <span>{date ? format(date, "HH:mm") : ""}</span>
@@ -71,7 +78,7 @@ export function DateTimePicker24h({ date, setDate }: Props) {
             mode="single"
             selected={date}
             onSelect={handleDateSelect}
-            initialFocus
+            disabled={(day) => day < yesterday}
           />
           <div className="flex flex-col sm:flex-row sm:h-[300px] divide-y sm:divide-y-0 sm:divide-x">
             <ScrollArea className="w-64 sm:w-auto pl-2 pr-4 py-2">
@@ -84,6 +91,21 @@ export function DateTimePicker24h({ date, setDate }: Props) {
                     .toString()
                     .padStart(2, "0")}`;
 
+                  const isReserved =
+                    date &&
+                    reserved.some((r) => {
+                      const sameDay =
+                        r.date.getFullYear() === date.getFullYear() &&
+                        r.date.getMonth() === date.getMonth() &&
+                        r.date.getDate() === date.getDate();
+                      const sameTime =
+                        r.date.getHours() === hours &&
+                        r.date.getMinutes() === minutes;
+                      return sameDay && sameTime;
+                    });
+
+                  if (isReserved) return null;
+
                   return (
                     <Button
                       key={label}
@@ -95,16 +117,7 @@ export function DateTimePicker24h({ date, setDate }: Props) {
                           : "ghost"
                       }
                       className="sm:w-full cursor-pointer px-4 py-2 text-lg font-normal"
-                      onClick={() => {
-                        if (date) {
-                          const newDate = new Date(date);
-                          newDate.setHours(hours);
-                          newDate.setMinutes(minutes);
-                          newDate.setSeconds(0);
-                          newDate.setMilliseconds(0);
-                          setDate(newDate);
-                        }
-                      }}
+                      onClick={() => handleTimeSelect(hours, minutes)}
                     >
                       {label}
                     </Button>
@@ -113,48 +126,6 @@ export function DateTimePicker24h({ date, setDate }: Props) {
               </div>
               <ScrollBar orientation="horizontal" className="sm:hidden" />
             </ScrollArea>
-            {/* <ScrollArea className="w-64 sm:w-auto"> */}
-            {/*   <div className="flex sm:flex-col p-2"> */}
-            {/*     {hours.map((hour) => ( */}
-            {/*       <Button */}
-            {/*         key={hour} */}
-            {/*         size="icon" */}
-            {/*         variant={ */}
-            {/*           date && date.getHours() === hour ? "default" : "ghost" */}
-            {/*         } */}
-            {/*         className="sm:w-full shrink-0 aspect-square" */}
-            {/*         onClick={() => handleTimeChange("hour", hour.toString())} */}
-            {/*       > */}
-            {/*         {hour} */}
-            {/*       </Button> */}
-            {/*     ))} */}
-            {/*   </div> */}
-            {/*   <ScrollBar orientation="horizontal" className="sm:hidden" /> */}
-            {/* </ScrollArea> */}
-            {/* <ScrollArea className="w-64 sm:w-auto"> */}
-            {/*   <div className="flex sm:flex-col p-2"> */}
-            {/*     {Array.from({ length: 4 }, (_, i) => i * 15) */}
-            {/*       .filter((minute) => !(date?.getHours() === 21 && minute > 0)) */}
-            {/*       .map((minute) => ( */}
-            {/*         <Button */}
-            {/*           key={minute} */}
-            {/*           size="icon" */}
-            {/*           variant={ */}
-            {/*             date && date.getMinutes() === minute */}
-            {/*               ? "default" */}
-            {/*               : "ghost" */}
-            {/*           } */}
-            {/*           className="sm:w-full shrink-0 aspect-square" */}
-            {/*           onClick={() => */}
-            {/*             handleTimeChange("minute", minute.toString()) */}
-            {/*           } */}
-            {/*         > */}
-            {/*           {minute.toString().padStart(2, "0")} */}
-            {/*         </Button> */}
-            {/*       ))} */}
-            {/*   </div> */}
-            {/*   <ScrollBar orientation="horizontal" className="sm:hidden" /> */}
-            {/* </ScrollArea> */}
           </div>
         </div>
       </PopoverContent>
