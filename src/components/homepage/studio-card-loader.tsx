@@ -14,7 +14,7 @@ export function StudioCardsLoader({ className }: { className?: string }) {
 function Card() {
   return (
     <div className="rounded-xl border border-home-border bg-home-card-background p-3 shadow-sm transition-all duration-200 hover:bg-home-card-background-hover">
-      <div className="h-96 overflow-hidden rounded-lg lg:h-[35rem] ">
+      <div className="rounded-lg aspect-[4/5] w-full border">
         <Skeleton className="h-full" />
       </div>
       <div className="space-y-2 px-2 py-5 text-left ">
