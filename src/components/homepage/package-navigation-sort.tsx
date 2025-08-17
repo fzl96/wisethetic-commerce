@@ -1,8 +1,6 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { CategorySchema } from "@/lib/schema/category";
-import { z } from "zod";
 import {
   Select,
   SelectContent,
@@ -13,22 +11,25 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-interface Props {
-  categories: z.infer<typeof CategorySchema>[];
-}
+const sortOptions = [
+  {
+    label: "Latest",
+    value: "latest",
+  },
+  {
+    label: "Popular",
+    value: "popular",
+  },
+];
 
-export function PackageCategorySelect({ categories }: Props) {
+export function PackageNavigationSort() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
   const handleSelectCategory = (value: string) => {
     const params = new URLSearchParams(searchParams.toString());
 
-    if (value === "all") {
-      params.delete("category");
-    } else {
-      params.set("category", value);
-    }
+    params.set("sort", value);
 
     router.push(`?${params.toString()}`);
   };
@@ -36,15 +37,14 @@ export function PackageCategorySelect({ categories }: Props) {
   return (
     <Select onValueChange={handleSelectCategory}>
       <SelectTrigger className="w-full md:w-40">
-        <SelectValue placeholder="Select a Category" />
+        <SelectValue placeholder="Sort" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Category</SelectLabel>
-          <SelectItem value="all">All</SelectItem>
-          {categories.map((category) => (
-            <SelectItem value={category.id} key={category.id}>
-              {category.name}
+          {sortOptions.map((sort) => (
+            <SelectItem value={sort.value} key={sort.value}>
+              {sort.label}
             </SelectItem>
           ))}
         </SelectGroup>

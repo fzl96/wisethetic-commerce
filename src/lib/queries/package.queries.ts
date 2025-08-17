@@ -40,11 +40,13 @@ export async function getPackagesStore({
   query,
   studioId,
   categoryId,
+  sort,
 }: {
   page: number;
   query: string;
   studioId: string;
   categoryId: string;
+  sort: string;
 }) {
   const packages = await prisma.package.findMany({
     skip: (page - 1) * 6,
@@ -57,6 +59,11 @@ export async function getPackagesStore({
         },
       },
       locations: true,
+      _count: {
+        select: {
+          orders: true,
+        },
+      },
     },
     where: {
       ...(categoryId && { categoryId }),
@@ -66,6 +73,8 @@ export async function getPackagesStore({
         mode: "insensitive",
       },
     },
+    orderBy:
+      sort == "latest" ? { createdAt: "desc" } : { orders: { _count: "desc" } },
   });
 
   return packages;

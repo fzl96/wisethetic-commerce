@@ -17,6 +17,9 @@ export const packageSchema = z.object({
       name: z.string(),
     })
     .array(),
+  _count: z.object({
+    orders: z.number(),
+  }),
   createdAt: z.date(),
   updatedAt: z.date(),
 });

@@ -9,11 +9,13 @@ export async function PackageCards({
   query,
   categoryId,
   username,
+  sort,
 }: {
   page: number;
   query: string;
   categoryId: string;
   username: string;
+  sort: string;
 }) {
   const studioId = await getStudioId(username);
   if (!studioId) {
@@ -25,6 +27,7 @@ export async function PackageCards({
     query,
     categoryId,
     studioId,
+    sort,
   });
 
   return (

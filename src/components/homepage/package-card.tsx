@@ -32,7 +32,8 @@ export function PackageCard({ pkg }: { pkg: z.infer<typeof packageSchema> }) {
         <h3 className="text-left font-accent text-2xl font-medium">
           {pkg.name}
         </h3>
-        <p className="font-light">{rupiah(pkg.price)}</p>
+        <p className="">{rupiah(pkg.price)}</p>
+        <p className="text-sm font-light">{pkg._count.orders} Order</p>
       </div>
     </div>
   );

@@ -24,6 +24,7 @@ export default async function StudioPage({
   const page = parseInt((await searchParams).page as string) || 1;
   const query = (await searchParams).query || "";
   const categoryId = (await searchParams).category || "";
+  const sort = (await searchParams).sort || "order";
 
   return (
     <MaxWidthWrapper className="mt-10 flex flex-col items-center justify-center px-5 md:px-48 space-y-6">
@@ -45,6 +46,7 @@ export default async function StudioPage({
             query={query}
             username={cleanUsername}
             categoryId={categoryId}
+            sort={sort}
           />
         </Suspense>
       </div>
