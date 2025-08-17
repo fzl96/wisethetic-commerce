@@ -26,7 +26,7 @@ export async function TopStudioSections() {
           variant: "default",
         })}
       >
-        Explroe more
+        Explore more
       </Link>
     </div>
   );

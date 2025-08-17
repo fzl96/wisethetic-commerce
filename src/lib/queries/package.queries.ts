@@ -105,3 +105,63 @@ export async function getPackageStore(
 
   return { reserved, pkg };
 }
+
+// export async function getPopularPackagePage(query: string) {
+//
+//   const totalPages = Math.ceil(totalItems / 9);
+//
+//   return totalPages;
+// }
+
+export async function getPopularPackages(query: string, page: number) {
+  const totalItems = prisma.package.count({
+    where: {
+      name: {
+        contains: query,
+        mode: "insensitive",
+      },
+    },
+    orderBy: {
+      orders: { _count: "desc" },
+    },
+  });
+  const pckgs = prisma.package.findMany({
+    skip: (page - 1) * 9,
+    take: 9,
+    include: {
+      studio: {
+        select: {
+          id: true,
+          username: true,
+          name: true,
+        },
+      },
+      category: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+      locations: true,
+      _count: {
+        select: {
+          orders: true,
+        },
+      },
+    },
+    where: {
+      name: {
+        contains: query,
+        mode: "insensitive",
+      },
+    },
+    orderBy: { orders: { _count: "desc" } },
+  });
+
+  const [total, packages] = await Promise.all([totalItems, pckgs]);
+
+  return {
+    totalPages: Math.ceil(total / 9),
+    packages,
+  };
+}

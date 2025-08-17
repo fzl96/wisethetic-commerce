@@ -40,7 +40,7 @@ const links: { href: string; title: string; icon: React.ReactNode }[] = [
 
 const internalLinks: { href: string; title: string }[] = [
   { href: "/home", title: "Home" },
-  { href: "/portfolio", title: "Portfolio" },
+  { href: "/popular", title: "Popular" },
   { href: "/services", title: "Services" },
   { href: "/account", title: "Account" },
 ];

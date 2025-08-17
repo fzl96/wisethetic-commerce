@@ -24,6 +24,35 @@ export const packageSchema = z.object({
   updatedAt: z.date(),
 });
 
+export const popularPackageSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  description: z.string().nullish(),
+  price: z.number(),
+  studioId: z.string(),
+  image: z.string().nullish(),
+  studio: z.object({
+    id: z.string(),
+    name: z.string(),
+    username: z.string(),
+  }),
+  category: z.object({
+    id: z.string(),
+    name: z.string(),
+  }),
+  locations: z
+    .object({
+      id: z.string(),
+      name: z.string(),
+    })
+    .array(),
+  _count: z.object({
+    orders: z.number(),
+  }),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+});
+
 export const packageStoreSchema = z.object({
   id: z.string(),
   name: z.string(),

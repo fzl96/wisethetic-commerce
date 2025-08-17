@@ -6,7 +6,11 @@ import { useState } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { signOut } from "@/lib/auth-client";
 
-import { IconLogin2, IconCornerDownRight } from "@tabler/icons-react";
+import {
+  IconLogin2,
+  IconCornerDownRight,
+  IconSparkles,
+} from "@tabler/icons-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -102,7 +106,12 @@ export function Navbar({ user, studio }: NavbarProps) {
                 <Link href="/studio">Studio</Link>
               </li>
               <li>
-                <Link href="/portfolio">Portfolio</Link>
+                <Link href="/popular" className="flex items-center">
+                  Popular
+                  <span>
+                    <IconSparkles stroke={1} />
+                  </span>
+                </Link>
               </li>
             </ul>
             <ModeToggle />
