@@ -22,9 +22,9 @@ export async function getPackagesPageStore(
   const totalItems = await prisma.package.count({
     where: {
       studioId,
-      categoryId,
+      ...(categoryId && { categoryId }),
       name: {
-        equals: `%${query}%`,
+        contains: query,
         mode: "insensitive",
       },
     },

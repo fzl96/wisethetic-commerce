@@ -57,3 +57,20 @@ export const UpdateStudioSchema = z.object({
   image: z.string().nullish(),
   banner: z.string().nullish(),
 });
+
+export function makeDeletestudioSchema(username: string) {
+  return z.object({
+    username: z.literal(username, {
+      errorMap: () => ({ message: "The studio username does not match" }),
+    }),
+    confirm: z.literal("delete my studio", {
+      errorMap: () => ({ message: "The verification text does not match" }),
+    }),
+    // username: z.string().refine((val) => val === username, {
+    //   message: "The studio username does not match",
+    // }),
+    // confirm: z.string().refine((val) => val === "delete my studio", {
+    //   message: "The verification text does not match",
+    // }),
+  });
+}

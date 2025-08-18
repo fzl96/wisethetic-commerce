@@ -25,6 +25,14 @@ import { IconLoader } from "@tabler/icons-react";
 import { updateStudio } from "@/lib/actions/studio.actions";
 import { StudioSchema } from "@/lib/schema/studio";
 import { useStudioPreview } from "@/store/image";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export function UpdateStudioForm({
   studio,
@@ -106,141 +114,148 @@ export function UpdateStudioForm({
   }
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-6"
-      >
-        <div className="flex flex-col gap-2 ">
-          <h1 className="text-2xl font-bold">Update your studio</h1>
-          <p className="text-muted-foreground text-sm text-balance">
-            Enter your studio detail
-          </p>
-        </div>
+    <Card className="rounded-sm">
+      <CardHeader>
+        <CardTitle className="text-xl">Update Studio</CardTitle>
+        <CardDescription>Enter your studio detail</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex flex-col gap-6"
+          >
+            <FormField
+              control={form.control}
+              name="banner"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor={field.name}>Banner Image</FormLabel>
+                  <FormControl>
+                    <FileUploader
+                      disabled={isPending}
+                      onFieldChange={field.onChange}
+                      files={bannerImg}
+                      imgUrl={field.value ?? ""}
+                      setFiles={setBannerImg}
+                    />
+                  </FormControl>
+                  <FormMessage {...field} />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="image"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor={field.name}>Image</FormLabel>
+                  <FormControl>
+                    <FileUploader
+                      disabled={isPending}
+                      onFieldChange={field.onChange}
+                      files={img}
+                      imgUrl={field.value ?? ""}
+                      setFiles={setImg}
+                    />
+                  </FormControl>
+                  <FormMessage {...field} />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Wisethetic studio"
+                      type="text"
+                      {...field}
+                    />
+                  </FormControl>
 
-        <FormField
-          control={form.control}
-          name="banner"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel htmlFor={field.name}>Banner Image</FormLabel>
-              <FormControl>
-                <FileUploader
-                  disabled={isPending}
-                  onFieldChange={field.onChange}
-                  files={bannerImg}
-                  imgUrl={field.value ?? ""}
-                  setFiles={setBannerImg}
-                />
-              </FormControl>
-              <FormMessage {...field} />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="image"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel htmlFor={field.name}>Image</FormLabel>
-              <FormControl>
-                <FileUploader
-                  disabled={isPending}
-                  onFieldChange={field.onChange}
-                  files={img}
-                  imgUrl={field.value ?? ""}
-                  setFiles={setImg}
-                />
-              </FormControl>
-              <FormMessage {...field} />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input placeholder="Wisethetic studio" type="text" {...field} />
-              </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Wisethetic is a studo with magic"
+                      type="text"
+                      {...field}
+                      value={field.value ?? ""}
+                    />
+                  </FormControl>
 
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Description</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Wisethetic is a studo with magic"
-                  type="text"
-                  {...field}
-                  value={field.value ?? ""}
-                />
-              </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Username</FormLabel>
+                  <FormControl>
+                    <Input placeholder="wisethetic" type="text" {...field} />
+                  </FormControl>
+                  <FormDescription>
+                    @{form.watch("username") ?? "wisethetic"}
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder="wisethetic" type="text" {...field} />
-              </FormControl>
-              <FormDescription>
-                @{form.watch("username") ?? "wisethetic"}
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="wisethetic@studio.com"
+                      type="text"
+                      {...field}
+                    />
+                  </FormControl>
 
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="wisethetic@studio.com"
-                  type="text"
-                  {...field}
-                />
-              </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+            <FormField
+              control={form.control}
+              name="phoneNumber"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Phone Number</FormLabel>
+                  <FormControl>
+                    <Input placeholder="085155559898" type="text" {...field} />
+                  </FormControl>
 
-        <FormField
-          control={form.control}
-          name="phoneNumber"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Phone Number</FormLabel>
-              <FormControl>
-                <Input placeholder="085155559898" type="text" {...field} />
-              </FormControl>
-
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </form>
+        </Form>
+      </CardContent>
+      <CardFooter className="flex justify-end">
         <Button type="submit" disabled={disabled} className="cursor-pointer">
           {isPending && (
             <span>
@@ -249,7 +264,7 @@ export function UpdateStudioForm({
           )}
           Submit
         </Button>
-      </form>
-    </Form>
+      </CardFooter>
+    </Card>
   );
 }

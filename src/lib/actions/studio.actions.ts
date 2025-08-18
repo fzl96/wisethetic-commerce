@@ -5,9 +5,9 @@ import { prisma } from "@/lib/prisma";
 import {
   CreateStudioSchema,
   UpdateStudioSchema,
-  // UpdateCategorySchema,
-  // UpdateCategorySchema,
+  makeDeletestudioSchema,
 } from "@/lib/schema/studio";
+import { getUser } from "@/server/user";
 import * as z from "zod";
 
 export async function createStudio(values: z.infer<typeof CreateStudioSchema>) {
@@ -99,5 +99,49 @@ export async function updateStudio(
   return {
     success: true,
     message: `Successfully updated: ${validateFields.data.name}`,
+  };
+}
+
+export async function deleteStudio(
+  id: string,
+  values: {
+    username: string;
+    confirm: string;
+  },
+) {
+  const user = await getUser();
+  const studio = await prisma.studio.findUnique({
+    include: {
+      user: {
+        select: {
+          id: true,
+        },
+      },
+    },
+    where: {
+      id,
+    },
+  });
+  if (
+    studio?.user.id !== user?.id ||
+    studio?.username !== values.username ||
+    values.confirm !== "delete my studio"
+  ) {
+    return {
+      success: false,
+      message: "Not allowed",
+    };
+  }
+
+  await prisma.studio.delete({
+    where: {
+      id,
+    },
+  });
+
+  revalidatePath("/");
+  return {
+    success: true,
+    message: "Studio deleted",
   };
 }
