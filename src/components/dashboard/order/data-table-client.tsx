@@ -368,7 +368,7 @@ export function SubmitButton({
       </Button>
       <DrawerClose asChild>
         <Button className="cursor-pointer" variant="outline">
-          Done
+          Cancel
         </Button>
       </DrawerClose>
     </DrawerFooter>
@@ -452,7 +452,7 @@ export function CategoryMenu({ item }: { item: Order }) {
               Delete
             </Button>
             <DrawerClose asChild>
-              <Button variant="outline">Done</Button>
+              <Button variant="outline">Cancel</Button>
             </DrawerClose>
           </DrawerFooter>
         </DrawerContent>

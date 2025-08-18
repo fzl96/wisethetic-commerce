@@ -419,7 +419,7 @@ export function SubmitButton({
         Submit
       </Button>
       <DrawerClose asChild>
-        <Button variant="outline">Done</Button>
+        <Button variant="outline">Cancel</Button>
       </DrawerClose>
     </DrawerFooter>
   );
@@ -516,7 +516,7 @@ export function ActionMenu({
               Delete
             </Button>
             <DrawerClose asChild>
-              <Button variant="outline">Done</Button>
+              <Button variant="outline">Cancel</Button>
             </DrawerClose>
           </DrawerFooter>
         </DrawerContent>
