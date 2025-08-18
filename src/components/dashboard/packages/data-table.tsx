@@ -30,6 +30,11 @@ export async function PackagesDataTable({ studioId, page }: Props) {
           name: true,
         },
       },
+      _count: {
+        select: {
+          orders: true,
+        },
+      },
     },
   });
   const totalPages = await getPackagesPage(studioId);
