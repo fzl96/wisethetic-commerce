@@ -59,6 +59,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { UpdateOrderForm } from "./update-form";
+import { deleteOrder } from "@/lib/actions/order.actions";
 
 function getIcon(
   status: "PENDING" | "PROCESSING" | "SUCCESS" | "CANCEL" | "REFUNDED",
@@ -376,17 +377,20 @@ export function SubmitButton({
 }
 
 export function CategoryMenu({ item }: { item: Order }) {
+  const router = useRouter();
   const [showUpdateForm, setShowUpdateForm] = React.useState(false);
   const [showDeleteForm, setShowDeleteForm] = React.useState(false);
   const [deleting, setDeleting] = React.useState(false);
 
   const isMobile = useIsMobile();
 
-  const deleteCategoryAction = async () => {
+  const deleteOrderAction = async () => {
     setDeleting(true);
+    await deleteOrder(item.id);
     // await deleteCategory(item.id);
     setShowDeleteForm(false);
     setDeleting(false);
+    router.refresh();
   };
 
   return (
@@ -415,6 +419,11 @@ export function CategoryMenu({ item }: { item: Order }) {
             variant="destructive"
             className="cursor-pointer"
           >
+            {deleting && (
+              <span className="animate-spin">
+                <IconLoader />
+              </span>
+            )}
             Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
@@ -445,10 +454,15 @@ export function CategoryMenu({ item }: { item: Order }) {
             <Button
               type="button"
               variant="destructive"
-              onClick={deleteCategoryAction}
+              onClick={deleteOrderAction}
               disabled={deleting}
               className="cursor-pointer"
             >
+              {deleting && (
+                <span className="animate-spin">
+                  <IconLoader />
+                </span>
+              )}
               Delete
             </Button>
             <DrawerClose asChild>

@@ -119,3 +119,11 @@ export async function updateOrder(
     message: "Order updated successfully.",
   };
 }
+
+export async function deleteOrder(id: string) {
+  await prisma.order.delete({
+    where: {
+      id,
+    },
+  });
+}
