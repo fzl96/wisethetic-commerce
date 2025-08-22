@@ -1,7 +1,23 @@
+import { Metadata } from "next";
 import { Suspense } from "react";
 import { MaxWidthWrapper } from "@/components/max-width-wrapper";
 import { PackageDetail } from "@/components/homepage/package-detail";
 import { PackageDetailLoader } from "@/components/homepage/package-detail-loader";
+import { getPackage } from "@/lib/queries/package.queries";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ packageId: string }>;
+}): Promise<Metadata> {
+  const { packageId } = await params;
+
+  const pkg = await getPackage(packageId);
+
+  return {
+    title: `${pkg?.name} - ${pkg?.category.name}`,
+  };
+}
 
 export default async function PackagePage({
   params,

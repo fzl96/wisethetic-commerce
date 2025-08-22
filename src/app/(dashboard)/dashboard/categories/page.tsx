@@ -1,8 +1,13 @@
+import { Metadata } from "next";
 import { Suspense } from "react";
 import { CategoriesDataTable } from "@/components/dashboard/categories/data-table";
 import { redirect } from "next/navigation";
 import { getStudioId } from "@/server/user";
 import { DashboardLoader } from "@/components/dashboard/loader";
+
+export const metadata: Metadata = {
+  title: "Categories",
+};
 
 export default async function CategoriesPage({
   searchParams,

@@ -1,5 +1,14 @@
+import { Metadata } from "next";
 import { NavServer } from "@/components/homepage/header/nav-server";
 import { Footer } from "@/components/homepage/footer";
+
+export const metadata: Metadata = {
+  title: {
+    template: "%s",
+    default: "Wisethetic - Where Photography Meets Simplicity",
+  },
+  description: "Make booking effortless. Make moments unforgettable",
+};
 
 export default function StoreLayout({
   children,

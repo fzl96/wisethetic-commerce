@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { getUser } from "@/server/user";
@@ -5,6 +6,10 @@ import { UpdateStudioForm } from "@/components/dashboard/studio/update-form";
 import { DeleteStudioForm } from "@/components/dashboard/studio/delete-studio-form";
 import { Banner } from "@/components/dashboard/studio/banner";
 import { ImagePreview } from "@/components/dashboard/studio/img";
+
+export const metadata: Metadata = {
+  title: "Studio",
+};
 
 export default async function StudioPage() {
   const user = await getUser();

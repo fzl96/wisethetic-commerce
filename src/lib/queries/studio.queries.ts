@@ -73,3 +73,13 @@ export async function getStudioId(username: string) {
 
   return res?.id;
 }
+
+export async function getStudio(username: string) {
+  const res = await prisma.studio.findUnique({
+    where: {
+      username,
+    },
+  });
+
+  return res;
+}

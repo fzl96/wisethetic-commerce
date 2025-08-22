@@ -1,9 +1,14 @@
+import { Metadata } from "next";
 import { Suspense } from "react";
 import { Card, CardTitle, CardHeader, CardContent } from "@/components/ui/card";
 // import { OrderDetails } from "./_components/order-details";
 // import { OrderDetailsSkeleton } from "./_components/order-details-skeleton";
 import { OrderDetailsSkeleton } from "@/components/account/order-details-skeleton";
 import { OrderDetails } from "@/components/account/order-details";
+
+export const metadata: Metadata = {
+  title: "Orders | Wisethetic",
+};
 
 export default async function OrderIdPage({
   params,

@@ -80,6 +80,21 @@ export async function getPackagesStore({
   return packages;
 }
 
+export async function getPackage(id: string) {
+  return await prisma.package.findUnique({
+    include: {
+      category: {
+        select: {
+          name: true,
+        },
+      },
+    },
+    where: {
+      id,
+    },
+  });
+}
+
 export async function getPackageStore(
   id: string,
   location: string | undefined,
@@ -105,13 +120,6 @@ export async function getPackageStore(
 
   return { reserved, pkg };
 }
-
-// export async function getPopularPackagePage(query: string) {
-//
-//   const totalPages = Math.ceil(totalItems / 9);
-//
-//   return totalPages;
-// }
 
 export async function getPopularPackages(query: string, page: number) {
   const totalItems = prisma.package.count({

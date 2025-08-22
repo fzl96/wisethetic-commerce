@@ -1,7 +1,12 @@
+import { Metadata } from "next";
 import { MaxWidthWrapper } from "@/components/max-width-wrapper";
 import { StudioCards } from "@/components/homepage/studio-cards";
 import { Suspense } from "react";
 import { StudioCardsLoader } from "@/components/homepage/studio-card-loader";
+
+export const metadata: Metadata = {
+  title: "Studio",
+};
 
 export default async function ProductCategoryPage({
   searchParams,

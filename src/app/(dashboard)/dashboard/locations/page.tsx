@@ -1,8 +1,13 @@
+import { Metadata } from "next";
 import { Suspense } from "react";
 import { LocationDataTable } from "@/components/dashboard/locations/data-table";
 import { redirect } from "next/navigation";
 import { getStudioId } from "@/server/user";
 import { DashboardLoader } from "@/components/dashboard/loader";
+
+export const metadata: Metadata = {
+  title: "Locations",
+};
 
 export default async function LocationsPage({
   searchParams,

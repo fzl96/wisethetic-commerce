@@ -1,7 +1,12 @@
+import { Metadata } from "next";
 import { Suspense } from "react";
 import { MaxWidthWrapper } from "@/components/max-width-wrapper";
 import { PackagesCardsLoader } from "@/components/homepage/packages-loader";
 import { PopularPackageCards } from "@/components/homepage/popular-cards";
+
+export const metadata: Metadata = {
+  title: "Popular Packages | Wisethetic",
+};
 
 export default async function PopularPage({
   searchParams,

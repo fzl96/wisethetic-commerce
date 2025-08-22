@@ -1,9 +1,14 @@
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { OrderDataTable } from "@/components/dashboard/order/data-table";
 import { SectionCards } from "@/components/dashboard/order/section-cards";
 import { getStudioId } from "@/server/user";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+};
 
 export default async function DasbhoardPage({
   searchParams,

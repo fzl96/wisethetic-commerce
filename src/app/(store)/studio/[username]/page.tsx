@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { PackageCards } from "@/components/homepage/package-cards";
 import { PackageNavigation } from "@/components/homepage/package-navigation";
 import { PackagesCardsLoader } from "@/components/homepage/packages-loader";
@@ -6,6 +7,23 @@ import { StudioBannerLoader } from "@/components/homepage/studio-banner-loader";
 import { MaxWidthWrapper } from "@/components/max-width-wrapper";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
+import { getStudio } from "@/lib/queries/studio.queries";
+
+type Props = {
+  params: Promise<{ username: string }>;
+  searchParams: Promise<{ [key: string]: string | undefined }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { username } = await params;
+
+  const studio = await getStudio(decodeAndCleanUsername(username));
+
+  return {
+    title: `${studio?.name} - ${studio?.description}`,
+    description: studio?.description ?? "",
+  };
+}
 
 function decodeAndCleanUsername(username: string): string {
   const decoded = decodeURIComponent(username);

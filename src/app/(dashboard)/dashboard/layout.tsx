@@ -1,8 +1,16 @@
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getUser } from "@/server/user";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+
+export const metadata: Metadata = {
+  title: {
+    template: "%s | Wisethetic",
+    default: "Wisethetic",
+  },
+};
 
 export default async function DashboardLayout({
   children,
