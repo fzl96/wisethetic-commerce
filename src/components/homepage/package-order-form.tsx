@@ -49,11 +49,11 @@ export function PackageOrderForm({ pkg, user, reserved, locationId }: Props) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      customerName: "",
+      customerName: user?.name ?? "",
       email: user?.email,
       packageId: pkg.id,
       locationId: "",
-      phoneNumber: "",
+      phoneNumber: user?.phone ?? "",
       userId: user?.id,
       studioId: pkg.studioId,
     },

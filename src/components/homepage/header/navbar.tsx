@@ -142,7 +142,7 @@ export function Navbar({ user, studio }: NavbarProps) {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
                     align="end"
-                    className="mt-2 w-40 rounded-lg border-none bg-home-card-background p-0 "
+                    className="mt-2 w-40 rounded-lg border-none bg-background p-0 "
                   >
                     <DropdownMenuItem
                       className="cursor-pointer rounded-none rounded-t-lg border-b px-5 py-3"
