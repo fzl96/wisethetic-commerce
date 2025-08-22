@@ -122,6 +122,7 @@ export function UpdateStudioForm({
       <CardContent>
         <Form {...form}>
           <form
+            id="studio-update-form"
             onSubmit={form.handleSubmit(onSubmit)}
             className="flex flex-col gap-6"
           >
@@ -256,7 +257,12 @@ export function UpdateStudioForm({
         </Form>
       </CardContent>
       <CardFooter className="flex justify-end">
-        <Button type="submit" disabled={disabled} className="cursor-pointer">
+        <Button
+          form="studio-update-form"
+          type="submit"
+          disabled={disabled}
+          className="cursor-pointer"
+        >
           {isPending && (
             <span>
               <IconLoader className="animate-spin" />

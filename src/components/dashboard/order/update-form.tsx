@@ -78,7 +78,7 @@ export function UpdateOrderForm({
     defaultValues: {
       status: order.status,
       paymentStatus: order.paymentStatus,
-      result: "",
+      result: order.result ?? "",
     },
   });
 
@@ -99,7 +99,7 @@ export function UpdateOrderForm({
 
   return (
     <>
-      <div className="flex flex-col gap-4 overflow-y-auto px-4 text-sm">
+      <div className="flex flex-col gap-4 overflow-y-auto px-4 text-sm pb-2">
         <div className="flex flex-col gap-5">
           <div className="flex flex-col">
             <span>Date: {format(order.createdAt, "MMM dd, yyyy")}</span>
