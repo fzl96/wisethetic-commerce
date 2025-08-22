@@ -199,6 +199,9 @@ export async function getUserOrders() {
     where: {
       userId: user.id,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
   return orders;
