@@ -65,7 +65,7 @@ function RevenueBadge({ percentChange }: { percentChange: number | null }) {
   if (percentChange > 0) {
     return (
       <Badge variant="outline">
-        <IconTrendingUp />+{percentChange}%
+        <IconTrendingUp />+{percentChange.toFixed(1)}%
       </Badge>
     );
   }
@@ -73,7 +73,7 @@ function RevenueBadge({ percentChange }: { percentChange: number | null }) {
   if (percentChange < 0) {
     return (
       <Badge variant="outline">
-        <IconTrendingDown />-{percentChange}%
+        <IconTrendingDown />-{percentChange.toFixed(1)}%
       </Badge>
     );
   }
