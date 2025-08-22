@@ -66,11 +66,5 @@ export function makeDeletestudioSchema(username: string) {
     confirm: z.literal("delete my studio", {
       errorMap: () => ({ message: "The verification text does not match" }),
     }),
-    // username: z.string().refine((val) => val === username, {
-    //   message: "The studio username does not match",
-    // }),
-    // confirm: z.string().refine((val) => val === "delete my studio", {
-    //   message: "The verification text does not match",
-    // }),
   });
 }

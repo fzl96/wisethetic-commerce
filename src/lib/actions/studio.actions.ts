@@ -2,11 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
-import {
-  CreateStudioSchema,
-  UpdateStudioSchema,
-  makeDeletestudioSchema,
-} from "@/lib/schema/studio";
+import { CreateStudioSchema, UpdateStudioSchema } from "@/lib/schema/studio";
 import { getUser } from "@/server/user";
 import * as z from "zod";
 

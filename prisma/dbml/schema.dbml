@@ -1,0 +1,192 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table user {
+  id String [pk]
+  name String [not null]
+  email String [unique, not null]
+  emailVerified Boolean [not null]
+  image String
+  phone String
+  createdAt DateTime [not null]
+  updatedAt DateTime [not null]
+  sessions session [not null]
+  accounts account [not null]
+  studio Studio
+  orders Order [not null]
+}
+
+Table session {
+  id String [pk]
+  expiresAt DateTime [not null]
+  token String [unique, not null]
+  createdAt DateTime [not null]
+  updatedAt DateTime [not null]
+  ipAddress String
+  userAgent String
+  userId String [not null]
+  user user [not null]
+}
+
+Table account {
+  id String [pk]
+  accountId String [not null]
+  providerId String [not null]
+  userId String [not null]
+  user user [not null]
+  accessToken String
+  refreshToken String
+  idToken String
+  accessTokenExpiresAt DateTime
+  refreshTokenExpiresAt DateTime
+  scope String
+  password String
+  createdAt DateTime [not null]
+  updatedAt DateTime [not null]
+}
+
+Table verification {
+  id String [pk]
+  identifier String [not null]
+  value String [not null]
+  expiresAt DateTime [not null]
+  createdAt DateTime
+  updatedAt DateTime
+}
+
+Table Studio {
+  id String [pk]
+  name String [unique, not null]
+  description String
+  image String
+  banner String
+  email String [not null]
+  phoneNumber String [not null]
+  username String [unique, not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  userId String [unique, not null]
+  user user [not null]
+  categories Category [not null]
+  locations Location [not null]
+  packages Package [not null]
+  orders Order [not null]
+}
+
+Table Location {
+  id String [pk]
+  name String [not null]
+  address String [not null]
+  link String
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  studioId String [not null]
+  studio Studio [not null]
+  packages Package [not null]
+  orders Order [not null]
+
+  indexes {
+    (studioId, name) [unique]
+  }
+}
+
+Table Category {
+  id String [pk]
+  name String [unique, not null]
+  description String
+  image String
+  studioId String [not null]
+  studio Studio [not null]
+  packages Package [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+
+  indexes {
+    (studioId, name) [unique]
+  }
+}
+
+Table Package {
+  id String [pk]
+  name String [not null]
+  description String
+  price Int [not null]
+  image String
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  studioId String [not null]
+  studio Studio [not null]
+  categoryId String [not null]
+  category Category [not null]
+  locations Location [not null]
+  orders Order [not null]
+}
+
+Table Order {
+  id String [pk]
+  customerName String [not null]
+  email String [not null]
+  phoneNumber String [not null]
+  date DateTime [not null]
+  result String
+  status OrderStatus [not null, default: 'PENDING']
+  paymentStatus PaymentStatus [not null, default: 'PENDING']
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  userId String
+  user user
+  studioId String
+  studio Studio
+  packageId String
+  package Package
+  locationId String
+  location Location
+  studioName String [not null]
+  packageName String [not null]
+  packageDescription String
+  packagePrice Int [not null]
+  packageImage String
+  locationName String [not null]
+  locationAddress String [not null]
+}
+
+Table LocationToPackage {
+  packagesId String [ref: > Package.id]
+  locationsId String [ref: > Location.id]
+}
+
+Enum OrderStatus {
+  PENDING
+  PROCESSING
+  SUCCESS
+  CANCEL
+  REFUNDED
+}
+
+Enum PaymentStatus {
+  PENDING
+  SUCCESS
+}
+
+Ref: session.userId > user.id [delete: Cascade]
+
+Ref: account.userId > user.id [delete: Cascade]
+
+Ref: Studio.userId - user.id [delete: Cascade]
+
+Ref: Location.studioId > Studio.id [delete: Cascade]
+
+Ref: Category.studioId > Studio.id [delete: Cascade]
+
+Ref: Package.studioId > Studio.id [delete: Cascade]
+
+Ref: Package.categoryId > Category.id [delete: Cascade]
+
+Ref: Order.userId > user.id [delete: Set Null]
+
+Ref: Order.studioId > Studio.id [delete: Set Null]
+
+Ref: Order.packageId > Package.id [delete: Set Null]
+
+Ref: Order.locationId > Location.id [delete: Set Null]

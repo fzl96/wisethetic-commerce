@@ -17,9 +17,12 @@ export const auth = betterAuth({
   },
   user: {
     additionalFields: {
-      studioId: {
+      phone: {
         type: "string",
         required: false,
+        defaultValue: null,
+        input: true,
+        returned: true,
       },
     },
   },
