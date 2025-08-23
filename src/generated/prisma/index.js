@@ -277,8 +277,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../../prisma",
   "clientVersion": "6.10.1",
@@ -287,6 +286,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -297,7 +297,7 @@ const config = {
   },
   "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ngenerator dbml {\n  provider = \"prisma-dbml-generator\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id            String    @id\n  name          String\n  email         String\n  emailVerified Boolean\n  image         String?\n  phone         String?\n  createdAt     DateTime\n  updatedAt     DateTime\n  sessions      Session[]\n  accounts      Account[]\n  studio        Studio?\n  orders        Order[]\n\n  @@unique([email])\n  @@map(\"user\")\n}\n\nmodel Session {\n  id        String   @id\n  expiresAt DateTime\n  token     String\n  createdAt DateTime\n  updatedAt DateTime\n  ipAddress String?\n  userAgent String?\n  userId    String\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@unique([token])\n  @@map(\"session\")\n}\n\nmodel Account {\n  id                    String    @id\n  accountId             String\n  providerId            String\n  userId                String\n  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)\n  accessToken           String?\n  refreshToken          String?\n  idToken               String?\n  accessTokenExpiresAt  DateTime?\n  refreshTokenExpiresAt DateTime?\n  scope                 String?\n  password              String?\n  createdAt             DateTime\n  updatedAt             DateTime\n\n  @@map(\"account\")\n}\n\nmodel Verification {\n  id         String    @id\n  identifier String\n  value      String\n  expiresAt  DateTime\n  createdAt  DateTime?\n  updatedAt  DateTime?\n\n  @@map(\"verification\")\n}\n\nmodel Studio {\n  id          String  @id @default(cuid())\n  name        String  @unique\n  description String?\n  image       String?\n  banner      String?\n  email       String\n  phoneNumber String\n  username    String  @unique\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  userId String @unique\n  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  categories Category[]\n  locations  Location[]\n  packages   Package[]\n  orders     Order[]\n}\n\nmodel Location {\n  id      String  @id @default(cuid())\n  name    String\n  address String\n  link    String?\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  studioId String\n  studio   Studio @relation(fields: [studioId], references: [id], onDelete: Cascade)\n\n  packages Package[]\n  orders   Order[]\n\n  @@unique([studioId, name])\n}\n\nmodel Category {\n  id          String  @id @default(cuid())\n  name        String  @unique\n  description String?\n  image       String?\n\n  studioId String\n  studio   Studio @relation(fields: [studioId], references: [id], onDelete: Cascade)\n\n  packages Package[]\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@unique([studioId, name])\n}\n\nmodel Package {\n  id          String  @id @default(cuid())\n  name        String\n  description String?\n  price       Int\n  image       String?\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  studioId String\n  studio   Studio @relation(fields: [studioId], references: [id], onDelete: Cascade)\n\n  categoryId String\n  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)\n\n  locations Location[]\n  orders    Order[]\n}\n\nenum OrderStatus {\n  PENDING\n  PROCESSING\n  SUCCESS\n  CANCEL\n  REFUNDED\n}\n\nenum PaymentStatus {\n  PENDING\n  SUCCESS\n}\n\nmodel Order {\n  id            String        @id @default(cuid())\n  customerName  String\n  email         String\n  phoneNumber   String\n  date          DateTime\n  result        String?\n  status        OrderStatus   @default(PENDING)\n  paymentStatus PaymentStatus @default(PENDING)\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  userId String?\n  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)\n\n  studioId String?\n  studio   Studio? @relation(fields: [studioId], references: [id], onDelete: SetNull)\n\n  packageId String?\n  package   Package? @relation(fields: [packageId], references: [id], onDelete: SetNull)\n\n  locationId String?\n  location   Location? @relation(fields: [locationId], references: [id], onDelete: SetNull)\n\n  studioName         String\n  packageName        String\n  packageDescription String?\n  packagePrice       Int\n  packageImage       String?\n  locationName       String\n  locationAddress    String\n}\n",
   "inlineSchemaHash": "a9720626a75fcf02e919665ff361c836947e7840dce78a7f53dd2a10e471220d",
-  "copyEngine": false
+  "copyEngine": true
 }
 
 const fs = require('fs')
@@ -305,8 +305,8 @@ const fs = require('fs')
 config.dirname = __dirname
 if (!fs.existsSync(path.join(__dirname, 'schema.prisma'))) {
   const alternativePaths = [
+    "../src/generated/prisma",
     "src/generated/prisma",
-    "generated/prisma",
   ]
   
   const alternativePath = alternativePaths.find((altPath) => {
@@ -334,3 +334,9 @@ const PrismaClient = getPrismaClient(config)
 exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-debian-openssl-3.0.x.so.node");
+path.join(process.cwd(), "../src/generated/prisma/libquery_engine-debian-openssl-3.0.x.so.node")
+// file annotations for bundling tools to include these files
+path.join(__dirname, "schema.prisma");
+path.join(process.cwd(), "../src/generated/prisma/schema.prisma")

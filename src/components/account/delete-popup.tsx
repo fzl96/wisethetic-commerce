@@ -65,9 +65,9 @@ export function DeletePopup({ id, email }: { id: string; email: string }) {
         </DialogTrigger>
         <DialogContent className="p-0 sm:max-w-[425px]">
           <DialogHeader className="px-5 pt-5">
-            <DialogTitle className="text-2xl">Delete Studio</DialogTitle>
+            <DialogTitle className="text-2xl">Delete Account</DialogTitle>
             <DialogDescription className="text-base">
-              This studio will be permanently deleted, including its orders
+              This account will be permanently deleted, including its orders
               history. This action is irreversible and can not be undone
             </DialogDescription>
           </DialogHeader>
@@ -136,7 +136,7 @@ function DeleteUser({ id, email }: { id: string; email: string }) {
             render={({ field }) => (
               <FormItem>
                 <FormDescription>
-                  Enter the studio username{" "}
+                  Enter the account email{" "}
                   <span className="font-semibold">{email}</span> to continue:
                 </FormDescription>
                 <FormControl>
