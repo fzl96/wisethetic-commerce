@@ -15,7 +15,7 @@ export default function StorePage() {
         </span>
       </h1>
       <p className="mt-7 max-w-xl text-2xl font-light">
-        Test
+        Make booking effortless. Make moments unforgettable
       </p>
 
       <Suspense
