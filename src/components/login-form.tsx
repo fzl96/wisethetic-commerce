@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,6 +11,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { signIn } from "@/lib/auth-client";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 // import { Input } from "@/components/ui/input";
 // import { Label } from "@/components/ui/label";
 //
@@ -17,6 +26,9 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const [termsDialog, setTermsDialog] = useState(false);
+  const [policyDialog, setPolicyDialog] = useState(false);
+
   const signInWithGoogle = async () => {
     await signIn.social({
       provider: "google",
@@ -27,7 +39,7 @@ export function LoginForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Welcome back</CardTitle>
+          <CardTitle className="text-xl">Welcome</CardTitle>
           <CardDescription>Login with your Google account</CardDescription>
         </CardHeader>
         <CardContent>
@@ -37,7 +49,7 @@ export function LoginForm({
                 <Button
                   type="button"
                   variant="outline"
-                  className="w-full"
+                  className="w-full cursor-pointer"
                   onClick={signInWithGoogle}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -50,51 +62,136 @@ export function LoginForm({
                 </Button>
               </div>
             </div>
-            {/*   <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t"> */}
-            {/*     <span className="bg-card text-muted-foreground relative z-10 px-2"> */}
-            {/*       Or continue with */}
-            {/*     </span> */}
-            {/*   </div> */}
-            {/*   <div className="grid gap-6"> */}
-            {/*     <div className="grid gap-3"> */}
-            {/*       <Label htmlFor="email">Email</Label> */}
-            {/*       <Input */}
-            {/*         id="email" */}
-            {/*         type="email" */}
-            {/*         placeholder="m@example.com" */}
-            {/*         required */}
-            {/*       /> */}
-            {/*     </div> */}
-            {/*     <div className="grid gap-3"> */}
-            {/*       <div className="flex items-center"> */}
-            {/*         <Label htmlFor="password">Password</Label> */}
-            {/*         <a */}
-            {/*           href="#" */}
-            {/*           className="ml-auto text-sm underline-offset-4 hover:underline" */}
-            {/*         > */}
-            {/*           Forgot your password? */}
-            {/*         </a> */}
-            {/*       </div> */}
-            {/*       <Input id="password" type="password" required /> */}
-            {/*     </div> */}
-            {/*     <Button type="submit" className="w-full"> */}
-            {/*       Login */}
-            {/*     </Button> */}
-            {/*   </div> */}
-            {/*   <div className="text-center text-sm"> */}
-            {/*     Don&apos;t have an account?{" "} */}
-            {/*     <a href="#" className="underline underline-offset-4"> */}
-            {/*       Sign up */}
-            {/*     </a> */}
-            {/*   </div> */}
-            {/* </div> */}
           </form>
         </CardContent>
       </Card>
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        By clicking continue, you agree to our{" "}
+        <span
+          className="underline cursor-pointer"
+          onClick={() => setTermsDialog(true)}
+        >
+          Terms of Service
+        </span>{" "}
+        and{" "}
+        <span
+          className="underline cursor-pointer"
+          onClick={() => setPolicyDialog(true)}
+        >
+          Privacy Policy
+        </span>{" "}
       </div>
+      <Dialog open={termsDialog} onOpenChange={setTermsDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Terms of Service (Syarat & Ketentuan)</DialogTitle>
+            <DialogDescription className="text-base">
+              <p className="">
+                Dengan membuat akun atau masuk ke aplikasi ini, Anda menyetujui
+                hal-hal berikut:
+              </p>
+
+              <ul className="list-disc list-inside space-y-2 ">
+                <li>
+                  Anda memberikan informasi yang benar, lengkap, dan dapat
+                  dipertanggungjawabkan saat melakukan pendaftaran.
+                </li>
+                <li>
+                  Anda bertanggung jawab menjaga keamanan akun Anda, termasuk
+                  email dan kata sandi.
+                </li>
+                <li>
+                  Anda memahami bahwa aplikasi ini adalah platform penghubung
+                  antara studio foto dan pengguna.
+                </li>
+                <li>
+                  Setiap transaksi, pemesanan, dan perubahan jadwal mengikuti
+                  kebijakan masing-masing studio.
+                </li>
+                <li>
+                  Anda dilarang melakukan tindakan yang merugikan studio,
+                  pengguna lain, atau sistem (penipuan, penyalahgunaan, akses
+                  ilegal, dan sejenisnya).
+                </li>
+                <li>
+                  Kami berhak membatasi, menangguhkan, atau menghapus akun jika
+                  terjadi pelanggaran terhadap ketentuan.
+                </li>
+                <li>
+                  Fitur dan layanan platform dapat berubah sewaktu-waktu untuk
+                  meningkatkan kualitas layanan.
+                </li>
+              </ul>
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={policyDialog} onOpenChange={setPolicyDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Privacy Policy (Kebijakan Privasi)</DialogTitle>
+            <DialogDescription className="text-base">
+              <p className="">
+                Dengan menggunakan aplikasi ini, Anda menyetujui cara kami
+                mengumpulkan dan memproses data pribadi Anda:
+              </p>
+
+              <ul className="list-disc list-inside space-y-2 ">
+                <li>
+                  <span className="font-semibold ">Data yang dikumpulkan:</span>{" "}
+                  nama, email, nomor telepon (opsional), informasi profil, dan
+                  aktivitas pemesanan.
+                </li>
+
+                <li>
+                  <span className="font-semibold ">
+                    Tujuan penggunaan data:
+                  </span>
+                  <ul className="list-disc ml-5 space-y-1">
+                    <li>Mengelola akun dan otentikasi pengguna</li>
+                    <li>Memproses pemesanan studio</li>
+                    <li>Menghubungkan Anda dengan studio yang Anda pilih</li>
+                    <li>
+                      Meningkatkan kualitas layanan dan pengalaman pengguna
+                    </li>
+                  </ul>
+                </li>
+
+                <li>
+                  <span className="font-semibold ">Perlindungan data:</span>{" "}
+                  Kami menjaga keamanan data Anda dan tidak membagikannya kepada
+                  pihak ketiga kecuali:
+                  <ul className="list-disc ml-5 space-y-1">
+                    <li>Studio yang Anda pesan</li>
+                    <li>Pihak yang diwajibkan oleh hukum</li>
+                  </ul>
+                </li>
+
+                <li>
+                  <span className="font-semibold ">Hak pengguna:</span> Anda
+                  dapat mengubah atau menghapus data akun kapan pun melalui
+                  halaman profil (kecuali data yang harus disimpan untuk
+                  keperluan transaksi).
+                </li>
+
+                <li>
+                  Cookie &amp; pelacakan:
+                  <span className="font-semibold "></span> Aplikasi dapat
+                  menggunakan cookie atau teknologi serupa untuk keperluan
+                  login, keamanan, dan peningkatan pengalaman.
+                </li>
+
+                <li>
+                  <span className="font-semibold ">Perubahan kebijakan:</span>{" "}
+                  Kebijakan privasi dapat diperbarui dari waktu ke waktu dan
+                  perubahan akan diumumkan di dalam aplikasi.
+                </li>
+              </ul>
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
